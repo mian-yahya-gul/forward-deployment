@@ -10,7 +10,9 @@ const badgeVariants = cva(
       variant: {
         default: "border-border bg-surface text-foreground",
         outline: "border-border bg-transparent text-muted",
-        primary: "border-transparent bg-primary/10 text-primary",
+        // text-primary-hover rather than text-primary: the base primary color
+        // on a 10%-tint background falls just under WCAG AA 4.5:1 contrast.
+        primary: "border-transparent bg-primary/10 text-primary-hover",
       },
     },
     defaultVariants: {

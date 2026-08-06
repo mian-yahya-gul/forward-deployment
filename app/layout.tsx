@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { siteUrl } from "@/lib/data/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,10 +16,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const description =
+  "DeosAI Labs partners with organizations to design, deploy, and continuously improve production-grade AI systems that integrate into existing business operations.";
+
 export const metadata: Metadata = {
-  title: "DeosAI Labs — AI Forward Deployment Partner",
-  description:
-    "DeosAI Labs partners with organizations to design, deploy, and continuously improve production-grade AI systems that integrate into existing business operations.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "DeosAI Labs — AI Forward Deployment Partner",
+    template: "%s",
+  },
+  description,
+  openGraph: {
+    type: "website",
+    siteName: "DeosAI Labs",
+    title: "DeosAI Labs — AI Forward Deployment Partner",
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DeosAI Labs — AI Forward Deployment Partner",
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

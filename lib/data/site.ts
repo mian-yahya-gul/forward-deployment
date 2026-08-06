@@ -3,6 +3,9 @@
  * copy written to satisfy the brand voice guidelines in 01-brand-strategy.md
  * (the spec leaves these as literal <PLACEHOLDER> slots) — swap freely.
  */
+/** Placeholder production domain — swap once a real domain is registered. */
+export const siteUrl = "https://www.deosailabs.com";
+
 export const site = {
   name: "DeosAI Labs",
   positioning:
