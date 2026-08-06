@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Switches Tailwind's dark: variant from prefers-color-scheme to a toggleable .dark class (set by next-themes). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
   Design tokens — placeholder brand values.
   Swap the hex values below to apply real DeosAI Labs branding;
@@ -37,18 +40,21 @@
   --header-height: 76px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0b;
-    --surface: #131316;
-    --foreground: #f5f5f6;
-    --muted: #9a9da5;
-    --border: #232327;
+/*
+  Dark theme — charcoal canvas, near-black card surfaces, lime accent.
+  Applied via the .dark class (toggled by the ThemeToggle button / next-themes),
+  not prefers-color-scheme, so it's an explicit user choice rather than OS-only.
+*/
+.dark {
+  --background: #242424;
+  --surface: #141414;
+  --foreground: #f5f5f5;
+  --muted: #a3a3a3;
+  --border: #333333;
 
-    --primary: #4d78ff;
-    --primary-hover: #6b8fff;
-    --primary-foreground: #0a0a0b;
-  }
+  --primary: #c6ff4d;
+  --primary-hover: #aeea36;
+  --primary-foreground: #111111;
 }
 
 @theme inline {

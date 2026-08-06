@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { primaryNav, navCta } from "@/lib/data/nav";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +54,9 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+
             <Link
               href={navCta.href}
               className={cn(buttonVariants({ size: "sm" }), "hidden md:inline-flex")}
