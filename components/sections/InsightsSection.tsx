@@ -1,15 +1,18 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { InsightCard } from "@/components/shared/InsightCard";
 import { buttonVariants } from "@/components/ui/button";
-import { featuredInsight, insightCards, insightsIntro } from "@/lib/data/insights";
+import { articles, insightsIntro } from "@/lib/data/insights";
 import { cn } from "@/lib/utils";
 
 export function InsightsSection() {
+  const featuredInsight = articles.find((article) => article.featured) ?? articles[0];
+  const insightCards = articles.filter((article) => article.slug !== featuredInsight.slug).slice(0, 3);
+
   return (
     <section className="border-t border-border py-20 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-6">
@@ -44,23 +47,8 @@ export function InsightsSection() {
 
         <ul className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {insightCards.map((insight, index) => (
-            <ScrollReveal as="li" key={insight.title} delay={(index % 3) * 80}>
-              <Link href={insight.href} className="block h-full">
-                <Card className="h-full">
-                  <Badge>{insight.category}</Badge>
-                  <h3 className="mt-4 text-base font-semibold text-foreground underline-offset-4 group-hover:underline">
-                    {insight.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{insight.summary}</p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <p className="text-xs font-medium text-muted">{insight.readingTime}</p>
-                    <ArrowRight
-                      className="size-3.5 text-primary opacity-0 transition-opacity duration-[var(--duration-fast)] group-hover:opacity-100"
-                      aria-hidden
-                    />
-                  </div>
-                </Card>
-              </Link>
+            <ScrollReveal as="li" key={insight.slug} delay={(index % 3) * 80}>
+              <InsightCard insight={insight} />
             </ScrollReveal>
           ))}
         </ul>

@@ -5,11 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { StoryCard } from "@/components/shared/StoryCard";
 import { buttonVariants } from "@/components/ui/button";
-import { featuredStory, storiesIntro, storyCards } from "@/lib/data/stories";
+import { stories, storiesIntro } from "@/lib/data/stories";
 import { cn } from "@/lib/utils";
 
 export function TransformationStoriesSection() {
+  const featuredStory = stories.find((story) => story.featured) ?? stories[0];
+  const storyCards = stories.filter((story) => story.slug !== featuredStory.slug).slice(0, 3);
+
   return (
     <section className="border-t border-border bg-surface py-20 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-6">
@@ -72,19 +76,7 @@ export function TransformationStoriesSection() {
         <ul className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {storyCards.map((story, index) => (
             <ScrollReveal as="li" key={story.title} delay={(index % 3) * 80}>
-              <Link href={story.href} className="block h-full">
-                <Card className="h-full">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Badge>{story.industry}</Badge>
-                    {story.illustrative && <Badge variant="outline">Illustrative</Badge>}
-                  </div>
-                  <h3 className="mt-4 text-base font-semibold text-foreground">{story.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {story.challengeSummary}
-                  </p>
-                  <p className="mt-3 text-sm font-medium text-primary">{story.outcome}</p>
-                </Card>
-              </Link>
+              <StoryCard story={story} />
             </ScrollReveal>
           ))}
         </ul>

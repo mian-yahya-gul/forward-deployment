@@ -9,7 +9,10 @@ import { methodologyIntro, methodologyPhases, methodologyPrinciples } from "@/li
 
 export function MethodologySection() {
   return (
-    <section className="border-t border-border bg-surface py-20 sm:py-28">
+    <section
+      id="methodology"
+      className="scroll-mt-[var(--header-height)] border-t border-border bg-surface py-20 sm:py-28"
+    >
       <div className="mx-auto max-w-[1280px] px-6">
         <SectionHeading
           eyebrow={methodologyIntro.eyebrow}
