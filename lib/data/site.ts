@@ -3,8 +3,8 @@
  * copy written to satisfy the brand voice guidelines in 01-brand-strategy.md
  * (the spec leaves these as literal <PLACEHOLDER> slots) — swap freely.
  */
-/** Placeholder production domain — swap once a real domain is registered. */
-export const siteUrl = "https://www.deosailabs.com";
+/** Live Vercel deployment — swap to a custom domain here if one gets attached later. */
+export const siteUrl = "https://forward-deployment.vercel.app";
 
 export const site = {
   name: "DeosAI Labs",
