@@ -31,7 +31,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={mounted ? `Switch to ${isDark ? "light" : "dark"} theme` : "Toggle theme"}
       className={cn(
-        "flex size-9 items-center justify-center rounded-full border border-border text-foreground transition-colors duration-[var(--duration-fast)] hover:border-primary/40 hover:text-primary",
+        "flex size-11 items-center justify-center rounded-full border border-border text-foreground transition-colors duration-[var(--duration-fast)] hover:border-primary/40 hover:text-primary",
         className,
       )}
     >

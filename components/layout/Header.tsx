@@ -66,7 +66,7 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
-              className="flex size-10 items-center justify-center text-foreground md:hidden"
+              className="flex size-11 items-center justify-center text-foreground md:hidden"
             >
               <Menu className="size-6" aria-hidden />
             </button>
