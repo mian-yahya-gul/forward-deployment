@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
+import { Logo } from "@/components/shared/Logo";
 import {
   footerCompany,
   footerCompanyColumn,
@@ -40,11 +41,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-[1280px] px-6 py-16 sm:py-20">
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-2 lg:grid-cols-6 lg:gap-8">
           <div className="col-span-2">
-            <Link href="/" className="text-lg font-semibold tracking-tight text-foreground">
-              DeosAI Labs
-            </Link>
+            <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               {footerCompany.description}
             </p>

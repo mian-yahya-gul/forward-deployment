@@ -4,7 +4,10 @@ import {
   GraduationCap,
   Landmark,
   LayoutGrid,
+  Plane,
   Route,
+  Scale,
+  Sprout,
   type LucideIcon,
 } from "lucide-react";
 
@@ -24,6 +27,8 @@ export interface Industry {
   slug: string;
   challenge: string;
   outcome: string;
+  /** Whether this shows on the homepage's curated grid; all industries appear on /industries regardless. */
+  featured: boolean;
   overview: string;
   operationalEnvironment: string;
   challenges: IndustryChallenge[];
@@ -58,6 +63,7 @@ export const industries: Industry[] = [
     slug: "healthcare",
     challenge: "Improve access to clinical knowledge and streamline administrative workflows.",
     outcome: "More time for patient care.",
+    featured: true,
     overview:
       "Healthcare organizations operate under constant pressure to deliver high-quality care while managing administrative complexity, regulatory requirements, and constrained staff time. Clinical and administrative teams often work with disconnected systems, and the people closest to patients are frequently the ones most burdened by paperwork.",
     operationalEnvironment:
@@ -139,6 +145,7 @@ export const industries: Industry[] = [
     slug: "education",
     challenge: "Reduce administrative overhead so staff and faculty can focus on students.",
     outcome: "More time for teaching and student support.",
+    featured: true,
     overview:
       "Educational institutions balance teaching and student support with a growing administrative load — admissions, scheduling, compliance, and reporting all compete for the same limited staff time. Faculty and administrative teams often rely on manual processes that were never designed for the current scale of the institution.",
     operationalEnvironment:
@@ -211,6 +218,7 @@ export const industries: Industry[] = [
     slug: "retail-ecommerce",
     challenge: "Unify fragmented customer, inventory, and operations data.",
     outcome: "Faster, more consistent customer experience.",
+    featured: true,
     overview:
       "Retail and e-commerce organizations operate across multiple channels — in-store, online, marketplace — with customer, inventory, and operational data that often lives in separate systems. Meeting rising customer expectations for speed and consistency requires those systems to work together, which is harder than it sounds.",
     operationalEnvironment:
@@ -280,6 +288,7 @@ export const industries: Industry[] = [
     slug: "manufacturing",
     challenge: "Improve visibility across production, quality, and supply workflows.",
     outcome: "Fewer disruptions and more predictable output.",
+    featured: true,
     overview:
       "Manufacturing organizations run complex operations spanning production, quality, supply chain, and maintenance — each generating data that's rarely connected to the others. Disruptions often surface late, after they've already affected output or delivery.",
     operationalEnvironment:
@@ -348,6 +357,7 @@ export const industries: Industry[] = [
     slug: "logistics-supply-chain",
     challenge: "Coordinate fragmented planning, routing, and inventory systems.",
     outcome: "Faster, more reliable delivery performance.",
+    featured: true,
     overview:
       "Logistics and supply chain organizations coordinate planning, routing, and inventory across a network of partners, systems, and constantly shifting conditions. Fragmented visibility across that network makes it hard to plan reliably or respond quickly when conditions change.",
     operationalEnvironment:
@@ -414,6 +424,7 @@ export const industries: Industry[] = [
     slug: "financial-services",
     challenge: "Streamline compliance-heavy processes without sacrificing accuracy.",
     outcome: "Faster turnaround with stronger controls.",
+    featured: true,
     overview:
       "Financial services organizations operate under significant regulatory and compliance obligations while managing document-heavy, approval-driven processes. Balancing speed and accuracy is a constant tension, especially as customer expectations for fast service increase.",
     operationalEnvironment:
@@ -472,6 +483,210 @@ export const industries: Industry[] = [
       {
         question: "How is data security handled?",
         answer: "Access controls and security review are standard parts of any integration involving sensitive financial or customer data.",
+      },
+    ],
+  },
+  {
+    icon: Scale,
+    name: "Government",
+    slug: "government",
+    challenge: "Deliver consistent public services while managing complex regulatory and procedural requirements.",
+    outcome: "Faster case resolution and more consistent citizen service.",
+    featured: false,
+    overview:
+      "Government agencies balance public accountability with operational complexity — multiple departments, layered approval processes, and strict procedural requirements all shape how work gets done. Meeting rising public expectations for speed and transparency requires those processes to work better together, not just more technology.",
+    operationalEnvironment:
+      "Caseworkers and administrative staff manage requests through multi-step approval chains that often span several departments and systems. Records and case history frequently live in a mix of legacy systems and paper-based processes, making a complete picture of a case or request hard to assemble quickly.",
+    challenges: [
+      {
+        title: "Fragmented case and records systems",
+        description: "Case information is often split across legacy systems and departments, making a complete record hard to assemble.",
+      },
+      {
+        title: "Multi-step approval and procedural requirements",
+        description: "Requests move through layered approval chains that can be slow to trace and coordinate.",
+      },
+      {
+        title: "Inconsistent service delivery",
+        description: "The same type of request can be handled differently depending on the office or caseworker.",
+      },
+      {
+        title: "Public transparency and accountability pressure",
+        description: "Agencies must document and justify decisions in ways that are auditable and defensible.",
+      },
+    ],
+    aiOpportunities: [
+      "Knowledge assistants for policy and procedure",
+      "Case status and workflow visibility",
+      "Document intake and processing support",
+      "Citizen-facing self-service support",
+    ],
+    businessOutcomes: [
+      "Faster case resolution",
+      "More consistent service delivery",
+      "Reduced administrative backlog",
+      "Improved auditability of decisions",
+    ],
+    systems: [
+      "Case management systems",
+      "Records management systems",
+      "Document management systems",
+      "Citizen service portals",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-strategy-discovery"],
+    faqs: [
+      {
+        question: "How does this handle public records and transparency requirements?",
+        answer:
+          "Workflows are designed around your existing records and disclosure requirements, with auditability built in rather than treated as an afterthought.",
+      },
+      {
+        question: "Can this work across multiple departments or agencies?",
+        answer: "Yes — we scope integration to the specific systems and departments involved, and can expand from there.",
+      },
+      {
+        question: "Does this replace caseworker decision-making?",
+        answer:
+          "No — it's designed to support caseworkers with faster access to information and process visibility, with decisions remaining with your staff.",
+      },
+      {
+        question: "How do you handle sensitive citizen data?",
+        answer: "Access controls and governance are designed around your existing data handling and privacy requirements from the start.",
+      },
+    ],
+  },
+  {
+    icon: Sprout,
+    name: "Agriculture",
+    slug: "agriculture",
+    challenge: "Improve visibility across field operations, equipment, and supply chains that span a growing season.",
+    outcome: "More predictable yields and fewer operational surprises.",
+    featured: false,
+    overview:
+      "Agricultural operations run on tight seasonal windows where timing, weather, and logistics all have to align. Farms and agribusinesses coordinate field operations, equipment, labor, and supply chains across a season, often with limited visibility into what's happening until a report arrives after the fact.",
+    operationalEnvironment:
+      "Field teams, equipment operators, and logistics coordinators work across a mix of on-the-ground observation, equipment data, and manual reporting. Decisions about planting, harvesting, and resource allocation often depend on information that's collected in the field but takes time to reach the people planning around it.",
+    challenges: [
+      {
+        title: "Limited real-time visibility into field operations",
+        description: "Decisions often rely on information that's delayed by the time it's reported and reviewed.",
+      },
+      {
+        title: "Disconnected equipment and operational data",
+        description: "Equipment, weather, and yield data frequently live in separate systems that don't inform each other.",
+      },
+      {
+        title: "Seasonal workforce coordination",
+        description: "Coordinating seasonal labor and equipment scheduling is largely manual and time-sensitive.",
+      },
+      {
+        title: "Supply chain and logistics unpredictability",
+        description: "Weather and yield variability make planning transportation and storage difficult in advance.",
+      },
+    ],
+    aiOpportunities: [
+      "Operational dashboards for field and equipment data",
+      "Yield and resource forecasting support",
+      "Logistics and supply chain coordination",
+      "Knowledge assistants for agronomic and operational procedures",
+    ],
+    businessOutcomes: [
+      "More predictable yields",
+      "Reduced equipment downtime",
+      "Better resource allocation across a season",
+      "Improved supply chain coordination",
+    ],
+    systems: [
+      "Farm management systems",
+      "Equipment telematics platforms",
+      "Inventory and storage systems",
+      "Supply chain and logistics platforms",
+    ],
+    relatedServiceSlugs: ["intelligent-business-workflows", "ai-platform-integration", "continuous-optimization"],
+    faqs: [
+      {
+        question: "Do we need new sensors or equipment first?",
+        answer: "Not necessarily — we start with the data your existing equipment and systems already generate before recommending new instrumentation.",
+      },
+      {
+        question: "Can this account for weather and seasonal variability?",
+        answer: "Yes — forecasting and planning support are designed around the seasonal, variable nature of agricultural operations.",
+      },
+      {
+        question: "Does this work for operations across multiple sites or fields?",
+        answer: "Yes — the architecture is designed to extend across multiple locations as it's proven on one.",
+      },
+      {
+        question: "How is success measured?",
+        answer: "Through operational metrics relevant to your operation — yield predictability, equipment uptime, and resource efficiency.",
+      },
+    ],
+  },
+  {
+    icon: Plane,
+    name: "Aviation",
+    slug: "aviation",
+    challenge: "Coordinate maintenance, scheduling, and compliance documentation without disrupting safety-critical operations.",
+    outcome: "Faster turnaround with stronger compliance records.",
+    featured: false,
+    overview:
+      "Aviation operations run under strict safety and regulatory requirements while coordinating maintenance, crew, and scheduling across tight operational windows. Every process has to hold up to rigorous documentation standards, which makes manual coordination both essential and difficult to scale.",
+    operationalEnvironment:
+      "Maintenance, scheduling, and operations teams coordinate across systems that track aircraft status, crew availability, and compliance documentation. Safety and regulatory requirements mean every step needs to be recorded and auditable, often adding administrative work on top of already time-sensitive operations.",
+    challenges: [
+      {
+        title: "Manual compliance and maintenance documentation",
+        description: "Safety-critical documentation is often recorded manually, creating administrative load and room for error.",
+      },
+      {
+        title: "Fragmented scheduling and crew coordination",
+        description: "Aircraft, crew, and maintenance schedules often live in separate systems that are hard to coordinate.",
+      },
+      {
+        title: "Delayed visibility into maintenance status",
+        description: "Maintenance status isn't always visible to scheduling and operations teams in real time.",
+      },
+      {
+        title: "High cost of operational disruption",
+        description: "Any delay in coordination can cascade into significant schedule and cost impact.",
+      },
+    ],
+    aiOpportunities: [
+      "Maintenance and compliance documentation support",
+      "Scheduling and crew coordination visibility",
+      "Knowledge assistants for regulatory and operational procedures",
+      "Operational reporting and audit trails",
+    ],
+    businessOutcomes: [
+      "Faster turnaround times",
+      "Stronger compliance and audit readiness",
+      "Reduced administrative burden",
+      "Improved scheduling coordination",
+    ],
+    systems: [
+      "Maintenance tracking systems",
+      "Crew scheduling platforms",
+      "Compliance and safety management systems",
+      "Flight operations systems",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "How does this handle safety-critical compliance requirements?",
+        answer:
+          "Workflows are designed around your existing regulatory and safety requirements, with auditability and human review built in from the start.",
+      },
+      {
+        question: "Can this integrate with existing maintenance and scheduling systems?",
+        answer: "Yes — integration with existing operational systems is scoped as part of the engagement.",
+      },
+      {
+        question: "Does this replace maintenance or safety sign-off?",
+        answer: "No — it's designed to support documentation and coordination, with safety-critical decisions remaining with qualified personnel.",
+      },
+      {
+        question: "How long does implementation typically take?",
+        answer: "It depends on scope, but most engagements start with a single well-defined workflow to prove value before expanding further.",
       },
     ],
   },

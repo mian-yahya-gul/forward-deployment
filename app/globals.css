@@ -52,8 +52,9 @@
   --muted: #a3a3a3;
   --border: #333333;
 
-  --primary: #c6ff4d;
-  --primary-hover: #aeea36;
+  /* Sampled directly from the reference image's accent color (average of its brightest green pixels). */
+  --primary: #89fd7c;
+  --primary-hover: #6fe362;
   --primary-foreground: #111111;
 }
 

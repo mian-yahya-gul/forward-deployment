@@ -71,6 +71,9 @@ export const services: Service[] = [
       "manufacturing",
       "logistics-supply-chain",
       "financial-services",
+      "government",
+      "agriculture",
+      "aviation",
     ],
     faqs: [
       {
@@ -114,7 +117,15 @@ export const services: Service[] = [
       "Pilot workflow deployment",
       "Operational dashboards",
     ],
-    relatedIndustrySlugs: ["manufacturing", "logistics-supply-chain", "retail-ecommerce", "financial-services"],
+    relatedIndustrySlugs: [
+      "manufacturing",
+      "logistics-supply-chain",
+      "retail-ecommerce",
+      "financial-services",
+      "government",
+      "agriculture",
+      "aviation",
+    ],
     faqs: [
       {
         question: "Will this replace our existing tools?",
@@ -158,7 +169,7 @@ export const services: Service[] = [
       "Pilot deployment with a defined team",
       "Usage and adoption reporting",
     ],
-    relatedIndustrySlugs: ["healthcare", "education", "financial-services"],
+    relatedIndustrySlugs: ["healthcare", "education", "financial-services", "government", "aviation"],
     faqs: [
       {
         question: "How do you handle sensitive or confidential content?",
@@ -244,7 +255,7 @@ export const services: Service[] = [
       "Security and access review",
       "Deployment and monitoring setup",
     ],
-    relatedIndustrySlugs: ["manufacturing", "logistics-supply-chain", "financial-services"],
+    relatedIndustrySlugs: ["manufacturing", "logistics-supply-chain", "financial-services", "agriculture", "aviation"],
     faqs: [
       {
         question: "Do you work with legacy or on-premise systems?",
@@ -287,7 +298,7 @@ export const services: Service[] = [
       "Feedback collection process",
       "Improvement roadmap",
     ],
-    relatedIndustrySlugs: ["healthcare", "education", "manufacturing", "retail-ecommerce"],
+    relatedIndustrySlugs: ["healthcare", "education", "manufacturing", "retail-ecommerce", "agriculture"],
     faqs: [
       {
         question: "Is this a separate engagement or part of every deployment?",

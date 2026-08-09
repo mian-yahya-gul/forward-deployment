@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { Logo } from "@/components/shared/Logo";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { primaryNav, navCta } from "@/lib/data/nav";
 import { cn } from "@/lib/utils";
@@ -32,12 +33,7 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between px-6">
-          <Link
-            href="/"
-            className="text-lg font-semibold tracking-tight text-foreground"
-          >
-            DeosAI Labs
-          </Link>
+          <Logo />
 
           <nav
             aria-label="Primary"
