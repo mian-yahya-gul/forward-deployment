@@ -12,13 +12,14 @@
 */
 :root {
   --background: #ffffff;
-  --surface: #f7f7f8;
-  --foreground: #0a0a0b;
-  --muted: #5b5f66;
-  --border: #e5e5e7;
+  --surface: #f7f6f4;
+  --foreground: #17161a;
+  --muted: #6b6a6f;
+  --border: #e7e5e2;
 
-  --primary: #2f5eff;
-  --primary-hover: #1e46e0;
+  /* Sampled from the reference image's accent ring/dot — vivid orange. */
+  --primary: #ff5a1f;
+  --primary-hover: #e04a14;
   --primary-foreground: #ffffff;
 
   --success: #16a34a;
@@ -46,16 +47,17 @@
   not prefers-color-scheme, so it's an explicit user choice rather than OS-only.
 */
 .dark {
-  --background: #242424;
-  --surface: #141414;
-  --foreground: #f5f5f5;
-  --muted: #a3a3a3;
-  --border: #333333;
+  /* Warm charcoal-slate canvas, matching the reference image's product-page background. */
+  --background: #2a2c31;
+  --surface: #1e2024;
+  --foreground: #f5f1ea;
+  --muted: #a3a1a8;
+  --border: #3a3c42;
 
-  /* Sampled directly from the reference image's accent color (average of its brightest green pixels). */
-  --primary: #89fd7c;
-  --primary-hover: #6fe362;
-  --primary-foreground: #111111;
+  /* Sampled directly from the reference image's accent ring/dot (vivid orange). */
+  --primary: #ff5a1f;
+  --primary-hover: #ff7440;
+  --primary-foreground: #ffffff;
 }
 
 @theme inline {
