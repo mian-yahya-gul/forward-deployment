@@ -28,7 +28,7 @@ export function MethodologySection() {
               content: (
                 <div className="lg:mx-auto lg:max-w-[220px]">
                   <p className="text-sm leading-relaxed text-muted">{phase.objective}</p>
-                  <p className="mt-3 text-sm font-medium text-primary">{phase.outcome}</p>
+                  <p className="mt-3 text-sm font-medium text-primary dark:text-foreground">{phase.outcome}</p>
                 </div>
               ),
             }))}
