@@ -47,9 +47,8 @@ export const footerLegalColumn: FooterLink[] = [
 ];
 
 export const footerSocial: { label: string; href: string }[] = [
-  { label: "LinkedIn", href: "#" },
-  { label: "GitHub", href: "#" },
-  { label: "YouTube", href: "#" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/deosai-lab/" },
+  { label: "YouTube", href: "https://www.youtube.com/@deosailabs" },
 ];
 
 export const footerContact = {
