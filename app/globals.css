@@ -41,7 +41,7 @@
 }
 
 /*
-  Dark theme — charcoal canvas, near-black card surfaces, lime accent.
+  Dark theme — charcoal canvas, near-black card surfaces, same blue accent as light theme.
   Applied via the .dark class (toggled by the ThemeToggle button / next-themes),
   not prefers-color-scheme, so it's an explicit user choice rather than OS-only.
 */
@@ -52,10 +52,9 @@
   --muted: #a3a3a3;
   --border: #333333;
 
-  /* Sampled directly from the reference image's accent color (average of its brightest green pixels). */
-  --primary: #89fd7c;
-  --primary-hover: #6fe362;
-  --primary-foreground: #111111;
+  --primary: #2f5eff;
+  --primary-hover: #4d76ff;
+  --primary-foreground: #ffffff;
 }
 
 @theme inline {
