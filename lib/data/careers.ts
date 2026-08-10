@@ -120,7 +120,7 @@ export const openPositionsEmptyState = {
     "We don't have any roles open at the moment, but we're always glad to hear from people who care about this work. Send a general application and we'll reach out when something fits.",
   cta: {
     label: "Send a General Application",
-    href: "mailto:hello@deosailabs.com?subject=General%20Application&body=Tell%20us%20a%20bit%20about%20yourself%2C%20what%20you're%20interested%20in%2C%20and%20attach%20your%20resume%20or%20portfolio%20before%20sending.",
+    href: "mailto:kakakhel176@gmail.com?subject=General%20Application&body=Tell%20us%20a%20bit%20about%20yourself%2C%20what%20you're%20interested%20in%2C%20and%20attach%20your%20resume%20or%20portfolio%20before%20sending.",
   },
 };
 

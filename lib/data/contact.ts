@@ -21,14 +21,14 @@ export const contactPathways: ContactPathway[] = [
     title: "Discovery Call",
     description: "Talk through your operational challenges and see if we're a fit — no pressure, no obligation.",
     actionLabel: "Book a Discovery Call",
-    href: "mailto:hello@deosailabs.com?subject=Discovery%20Call%20Request",
+    href: "mailto:kakakhel176@gmail.com?subject=Discovery%20Call%20Request",
   },
   {
     icon: Mail,
     title: "General Inquiry",
     description: "Have a question that doesn't need a call yet? Send us a note directly.",
     actionLabel: "Email Us",
-    href: "mailto:hello@deosailabs.com?subject=General%20Inquiry",
+    href: "mailto:kakakhel176@gmail.com?subject=General%20Inquiry",
   },
   {
     icon: Briefcase,
@@ -39,4 +39,4 @@ export const contactPathways: ContactPathway[] = [
   },
 ];
 
-export const contactEmail = "hello@deosailabs.com";
+export const contactEmail = "kakakhel176@gmail.com";

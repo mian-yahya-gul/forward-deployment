@@ -43,6 +43,6 @@ export const partnersEmptyState = {
     "We're a young company and are still building this network deliberately. If you think there's a fit, we'd like to hear from you.",
   cta: {
     label: "Get in Touch",
-    href: "mailto:hello@deosailabs.com?subject=Partnership%20Inquiry",
+    href: "mailto:kakakhel176@gmail.com?subject=Partnership%20Inquiry",
   },
 };

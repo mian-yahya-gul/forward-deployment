@@ -51,7 +51,7 @@ export const privacyPolicy: LegalPage = {
     {
       heading: "Contact",
       paragraphs: [
-        "Questions about this policy can be sent to hello@deosailabs.com.",
+        "Questions about this policy can be sent to kakakhel176@gmail.com.",
       ],
     },
   ],
@@ -97,7 +97,7 @@ export const termsOfUse: LegalPage = {
     },
     {
       heading: "Contact",
-      paragraphs: ["Questions about these terms can be sent to hello@deosailabs.com."],
+      paragraphs: ["Questions about these terms can be sent to kakakhel176@gmail.com."],
     },
   ],
 };
@@ -134,7 +134,7 @@ export const accessibilityStatement: LegalPage = {
     {
       heading: "Contact",
       paragraphs: [
-        "Report accessibility issues to hello@deosailabs.com and we'll work to address them.",
+        "Report accessibility issues to kakakhel176@gmail.com and we'll work to address them.",
       ],
     },
   ],
