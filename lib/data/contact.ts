@@ -39,7 +39,4 @@ export const contactPathways: ContactPathway[] = [
   },
 ];
 
-export const contactFormNote =
-  "Submitting this form opens your email client with your message pre-filled, addressed to our team.";
-
 export const contactEmail = "hello@deosailabs.com";

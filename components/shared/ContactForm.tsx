@@ -6,36 +6,60 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { contactEmail, contactFormNote } from "@/lib/data/contact";
+import { contactEmail } from "@/lib/data/contact";
 
-/**
- * There's no backend or CMS behind this site yet, so submitting hands off
- * to the visitor's email client with the message pre-filled rather than
- * silently pretending a server received it — contactFormNote says this
- * explicitly in the UI.
- */
+type Status = "idle" | "submitting" | "success" | "error";
+
 export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = data.get("name")?.toString().trim() ?? "";
-    const email = data.get("email")?.toString().trim() ?? "";
-    const company = data.get("company")?.toString().trim() ?? "";
-    const message = data.get("message")?.toString().trim() ?? "";
+    setStatus("submitting");
+    setErrorMessage("");
 
-    const subject = `New inquiry from ${name || "the DeosAI Labs website"}`;
-    const body = [company && `Company: ${company}`, email && `Email: ${email}`, "", message]
-      .filter(Boolean)
-      .join("\n");
+    const form = event.currentTarget;
+    const data = new FormData(form);
 
-    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          company: data.get("company"),
+          message: data.get("message"),
+          website: data.get("website"), // honeypot
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Something went wrong. Please try again.");
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" noValidate={false}>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Honeypot: hidden from real visitors, but bots that auto-fill every field trip it. */}
+      <div
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", width: 0, height: 0, overflow: "hidden" }}
+      >
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
           <Label htmlFor="name">
@@ -67,13 +91,18 @@ export function ContactForm() {
       </div>
 
       <div>
-        <Button type="submit" size="lg">
-          Send Message
+        <Button type="submit" size="lg" disabled={status === "submitting"}>
+          {status === "submitting" ? "Sending…" : "Send Message"}
         </Button>
-        <p className="mt-3 text-xs text-muted">{contactFormNote}</p>
-        {submitted && (
-          <p className="mt-2 text-xs font-medium text-primary" role="status">
-            Opening your email client now — if nothing happens, email us directly at {contactEmail}.
+
+        {status === "success" && (
+          <p className="mt-3 text-sm font-medium text-primary" role="status">
+            Thanks — your message has been sent. We&apos;ll get back to you soon.
+          </p>
+        )}
+        {status === "error" && (
+          <p className="mt-3 text-sm font-medium text-danger" role="alert">
+            {errorMessage} You can also email us directly at {contactEmail}.
           </p>
         )}
       </div>
