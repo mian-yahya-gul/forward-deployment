@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { CoverArt } from "@/components/shared/CoverArt";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { StoryCard } from "@/components/shared/StoryCard";
@@ -32,43 +33,46 @@ export function TransformationStoriesSection() {
         </div>
 
         <ScrollReveal>
-          <Card className="mt-12 grid grid-cols-1 gap-8 bg-background p-8 lg:grid-cols-2 lg:p-10">
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="primary">{featuredStory.industry}</Badge>
-                {featuredStory.illustrative && (
-                  <Badge variant="outline">Illustrative Scenario</Badge>
-                )}
-              </div>
-              <h3 className="mt-4 text-2xl font-semibold text-foreground">
-                {featuredStory.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{featuredStory.context}</p>
-            </div>
-            <div className="space-y-4">
+          <Card className="mt-12 overflow-hidden bg-background p-0">
+            <CoverArt seed={featuredStory.slug} className="aspect-[21/6] border-b border-border" />
+            <div className="grid grid-cols-1 gap-8 p-8 lg:grid-cols-2 lg:p-10">
               <div>
-                <p className="text-xs font-semibold tracking-wide text-muted uppercase">
-                  Challenge
-                </p>
-                <p className="mt-1 text-sm leading-relaxed text-foreground/90">
-                  {featuredStory.challenge}
-                </p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="primary">{featuredStory.industry}</Badge>
+                  {featuredStory.illustrative && (
+                    <Badge variant="outline">Illustrative Scenario</Badge>
+                  )}
+                </div>
+                <h3 className="mt-4 text-2xl font-semibold text-foreground">
+                  {featuredStory.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{featuredStory.context}</p>
               </div>
-              <div>
-                <p className="text-xs font-semibold tracking-wide text-muted uppercase">
-                  Outcome
-                </p>
-                <p className="mt-1 text-sm leading-relaxed text-foreground/90">
-                  {featuredStory.outcome}
-                </p>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-xs font-semibold tracking-wide text-muted uppercase">
+                    Challenge
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground/90">
+                    {featuredStory.challenge}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold tracking-wide text-muted uppercase">
+                    Outcome
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-foreground/90">
+                    {featuredStory.outcome}
+                  </p>
+                </div>
+                <Link
+                  href={featuredStory.href}
+                  className="inline-flex items-center gap-1 text-sm font-medium text-primary"
+                >
+                  Read the full story
+                  <ArrowRight className="size-3.5" aria-hidden />
+                </Link>
               </div>
-              <Link
-                href={featuredStory.href}
-                className="inline-flex items-center gap-1 text-sm font-medium text-primary"
-              >
-                Read the full story
-                <ArrowRight className="size-3.5" aria-hidden />
-              </Link>
             </div>
           </Card>
         </ScrollReveal>

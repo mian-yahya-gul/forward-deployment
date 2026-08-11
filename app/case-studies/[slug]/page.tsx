@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { CoverArt } from "@/components/shared/CoverArt";
 import { CTASection } from "@/components/shared/CTASection";
 import { PageHero } from "@/components/shared/PageHero";
 import { PrevNextNav } from "@/components/shared/PrevNextNav";
@@ -60,7 +61,11 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         secondaryCta={{ label: "Explore All Stories", href: "/case-studies" }}
       />
 
-      <section className="border-b border-border bg-surface py-6">
+      <div className="mx-auto max-w-[1280px] px-6">
+        <CoverArt seed={story.slug} className="aspect-[21/8] rounded-[var(--radius-lg)] border border-border" />
+      </div>
+
+      <section className="mt-16 border-b border-border bg-surface py-6">
         <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-3 px-6">
           <Link href={`/industries/${story.industrySlug}`}>
             <Badge variant="primary">{story.industry}</Badge>

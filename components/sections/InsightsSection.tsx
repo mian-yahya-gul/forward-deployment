@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { CoverArt } from "@/components/shared/CoverArt";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { InsightCard } from "@/components/shared/InsightCard";
@@ -32,15 +33,18 @@ export function InsightsSection() {
 
         <ScrollReveal>
           <Link href={featuredInsight.href} className="mt-12 block">
-            <Card className="bg-surface p-8 lg:p-10">
-              <Badge variant="primary">{featuredInsight.category}</Badge>
-              <h3 className="mt-4 max-w-2xl text-2xl font-semibold text-foreground">
-                {featuredInsight.title}
-              </h3>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-                {featuredInsight.summary}
-              </p>
-              <p className="mt-4 text-xs font-medium text-muted">{featuredInsight.readingTime}</p>
+            <Card className="grid grid-cols-1 overflow-hidden bg-surface p-0 lg:grid-cols-2">
+              <CoverArt seed={featuredInsight.slug} className="aspect-[16/9] lg:aspect-auto" />
+              <div className="p-8 lg:p-10">
+                <Badge variant="primary">{featuredInsight.category}</Badge>
+                <h3 className="mt-4 max-w-2xl text-2xl font-semibold text-foreground">
+                  {featuredInsight.title}
+                </h3>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+                  {featuredInsight.summary}
+                </p>
+                <p className="mt-4 text-xs font-medium text-muted">{featuredInsight.readingTime}</p>
+              </div>
             </Card>
           </Link>
         </ScrollReveal>
