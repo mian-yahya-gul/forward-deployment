@@ -17,10 +17,30 @@ export const footerServicesColumn: FooterLink[] = services.map((service) => ({
   href: `/services/${service.slug}`,
 }));
 
-export const footerIndustriesColumn: FooterLink[] = industries.map((industry) => ({
-  label: industry.name,
-  href: `/industries/${industry.slug}`,
-}));
+/**
+ * Pinned to the original industry lineup rather than mapping every entry in
+ * `industries`, so the footer's column length — and its layout — stays fixed
+ * as more industries are added to the /industries page. Not intended to grow.
+ */
+const footerIndustrySlugs = [
+  "healthcare",
+  "education",
+  "retail-ecommerce",
+  "manufacturing",
+  "logistics-supply-chain",
+  "financial-services",
+  "government",
+  "agriculture",
+  "aviation",
+];
+
+export const footerIndustriesColumn: FooterLink[] = footerIndustrySlugs
+  .map((slug) => industries.find((industry) => industry.slug === slug))
+  .filter((industry): industry is (typeof industries)[number] => industry !== undefined)
+  .map((industry) => ({
+    label: industry.name,
+    href: `/industries/${industry.slug}`,
+  }));
 
 export const footerKnowledgeColumn: FooterLink[] = [
   { label: "Insights", href: "/insights" },

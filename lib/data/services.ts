@@ -74,6 +74,14 @@ export const services: Service[] = [
       "government",
       "agriculture",
       "aviation",
+      "insurance",
+      "legal-services",
+      "real-estate",
+      "energy-utilities",
+      "hospitality-travel",
+      "life-sciences-pharmaceuticals",
+      "construction-engineering",
+      "oil-gas",
     ],
     faqs: [
       {
@@ -125,6 +133,12 @@ export const services: Service[] = [
       "government",
       "agriculture",
       "aviation",
+      "insurance",
+      "real-estate",
+      "hospitality-travel",
+      "construction-engineering",
+      "energy-utilities",
+      "oil-gas",
     ],
     faqs: [
       {
@@ -169,7 +183,17 @@ export const services: Service[] = [
       "Pilot deployment with a defined team",
       "Usage and adoption reporting",
     ],
-    relatedIndustrySlugs: ["healthcare", "education", "financial-services", "government", "aviation"],
+    relatedIndustrySlugs: [
+      "healthcare",
+      "education",
+      "financial-services",
+      "government",
+      "aviation",
+      "legal-services",
+      "life-sciences-pharmaceuticals",
+      "insurance",
+      "construction-engineering",
+    ],
     faqs: [
       {
         question: "How do you handle sensitive or confidential content?",
@@ -212,7 +236,15 @@ export const services: Service[] = [
       "Pilot rollout with a defined user group",
       "Adoption and feedback reporting",
     ],
-    relatedIndustrySlugs: ["healthcare", "retail-ecommerce", "financial-services"],
+    relatedIndustrySlugs: [
+      "healthcare",
+      "retail-ecommerce",
+      "financial-services",
+      "legal-services",
+      "hospitality-travel",
+      "real-estate",
+      "life-sciences-pharmaceuticals",
+    ],
     faqs: [
       {
         question: "Is this meant to replace employees?",
@@ -255,7 +287,18 @@ export const services: Service[] = [
       "Security and access review",
       "Deployment and monitoring setup",
     ],
-    relatedIndustrySlugs: ["manufacturing", "logistics-supply-chain", "financial-services", "agriculture", "aviation"],
+    relatedIndustrySlugs: [
+      "manufacturing",
+      "logistics-supply-chain",
+      "financial-services",
+      "agriculture",
+      "aviation",
+      "energy-utilities",
+      "oil-gas",
+      "insurance",
+      "real-estate",
+      "construction-engineering",
+    ],
     faqs: [
       {
         question: "Do you work with legacy or on-premise systems?",
@@ -298,7 +341,15 @@ export const services: Service[] = [
       "Feedback collection process",
       "Improvement roadmap",
     ],
-    relatedIndustrySlugs: ["healthcare", "education", "manufacturing", "retail-ecommerce", "agriculture"],
+    relatedIndustrySlugs: [
+      "healthcare",
+      "education",
+      "manufacturing",
+      "retail-ecommerce",
+      "agriculture",
+      "energy-utilities",
+      "oil-gas",
+    ],
     faqs: [
       {
         question: "Is this a separate engagement or part of every deployment?",

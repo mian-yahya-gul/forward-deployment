@@ -1,13 +1,21 @@
 import {
   Activity,
+  Building2,
   Factory,
+  Fuel,
+  Gavel,
   GraduationCap,
+  HardHat,
+  Hotel,
   Landmark,
   LayoutGrid,
+  FlaskConical,
   Plane,
   Route,
   Scale,
   Sprout,
+  Umbrella,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 
@@ -687,6 +695,544 @@ export const industries: Industry[] = [
       {
         question: "How long does implementation typically take?",
         answer: "It depends on scope, but most engagements start with a single well-defined workflow to prove value before expanding further.",
+      },
+    ],
+  },
+  {
+    icon: Umbrella,
+    name: "Insurance",
+    slug: "insurance",
+    challenge: "Speed up claims and underwriting without sacrificing accuracy or compliance.",
+    outcome: "Faster claims resolution with stronger audit trails.",
+    featured: false,
+    overview:
+      "Insurance carriers and brokers manage high volumes of claims, underwriting, and policy documentation under strict regulatory scrutiny. Balancing fast, competitive service with rigorous accuracy and compliance is a constant operational tension.",
+    operationalEnvironment:
+      "Claims adjusters, underwriters, and compliance teams review large volumes of documents and case files across policy administration, claims, and document management systems that don't always share data cleanly. Decisions often require cross-referencing policy terms, historical claims, and regulatory guidance under time pressure.",
+    challenges: [
+      {
+        title: "Manual, document-heavy claims review",
+        description: "Claims processing often relies on manual document review, creating bottlenecks and inconsistent turnaround times.",
+      },
+      {
+        title: "Underwriting decisions across fragmented data",
+        description: "Underwriters piece together risk profiles from systems that don't always share a common view of the policyholder.",
+      },
+      {
+        title: "Regulatory and compliance complexity",
+        description: "Requirements demand consistent, auditable decisions that are difficult to maintain manually at scale.",
+      },
+      {
+        title: "Fraud detection under volume pressure",
+        description: "Reviewing every claim for anomalies manually doesn't scale with claim volume.",
+      },
+    ],
+    aiOpportunities: [
+      "Claims document review and intelligence",
+      "Underwriting decision support",
+      "Fraud pattern detection support",
+      "Policyholder knowledge assistants",
+      "Compliance-aware workflow automation",
+    ],
+    businessOutcomes: [
+      "Faster claims resolution",
+      "More consistent underwriting decisions",
+      "Reduced manual review effort",
+      "Stronger audit trails",
+    ],
+    systems: [
+      "Policy administration systems",
+      "Claims management systems",
+      "Document management systems",
+      "CRM platforms",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "Does this replace adjuster or underwriter judgment?",
+        answer: "No — it's designed to accelerate document review and flag what needs attention, with final decisions remaining with your team.",
+      },
+      {
+        question: "How does this handle regulatory requirements?",
+        answer: "Workflows are designed around your existing compliance requirements, with auditability and human review built in from the start.",
+      },
+      {
+        question: "Can this integrate with our policy administration system?",
+        answer: "Yes — integration with existing core systems is scoped as part of the engagement.",
+      },
+      {
+        question: "How is claims fraud handled?",
+        answer: "The system flags anomalies for review rather than making autonomous fraud determinations, keeping a person in the loop.",
+      },
+    ],
+  },
+  {
+    icon: Gavel,
+    name: "Legal Services",
+    slug: "legal-services",
+    challenge: "Reduce time spent searching precedent and documents so legal teams can focus on judgment-intensive work.",
+    outcome: "Faster research and review with a documented trail.",
+    featured: false,
+    overview:
+      "Legal teams — in-house counsel, law firms, and compliance departments — spend significant time reviewing contracts, researching precedent, and tracking obligations across matters. That work is essential, but the manual search and review process doesn't scale with caseload.",
+    operationalEnvironment:
+      "Attorneys, paralegals, and compliance staff work across contract repositories, case management systems, and research databases that often require manual cross-referencing. Finding a relevant clause, precedent, or obligation frequently means searching multiple systems or relying on institutional memory.",
+    challenges: [
+      {
+        title: "Manual contract and document review",
+        description: "Reviewing contracts and legal documents for relevant clauses and risk is time-consuming and hard to scale.",
+      },
+      {
+        title: "Fragmented matter and document history",
+        description: "Case files, correspondence, and precedent often live in separate systems, making a complete picture hard to assemble.",
+      },
+      {
+        title: "Inconsistent obligation tracking",
+        description: "Deadlines and contractual obligations tracked manually create risk of missed dates or terms.",
+      },
+      {
+        title: "Rising caseload without proportional headcount",
+        description: "Legal teams are expected to handle more matters without a corresponding increase in staff.",
+      },
+    ],
+    aiOpportunities: [
+      "Contract review and clause intelligence",
+      "Legal research assistants",
+      "Obligation and deadline tracking",
+      "Matter knowledge management",
+      "Document intake automation",
+    ],
+    businessOutcomes: [
+      "Faster research and review",
+      "Reduced risk of missed obligations",
+      "More consistent contract review",
+      "A documented, auditable trail",
+    ],
+    systems: [
+      "Contract lifecycle management systems",
+      "Case/matter management systems",
+      "Document management systems",
+      "Legal research platforms",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "ai-assistants-copilots", "intelligent-business-workflows"],
+    faqs: [
+      {
+        question: "Does this provide legal advice?",
+        answer: "No — it surfaces relevant information and flags items for review; legal judgment and advice remain with qualified attorneys.",
+      },
+      {
+        question: "How is confidentiality and privilege protected?",
+        answer: "Access controls and governance are designed around your existing confidentiality and privilege requirements from the start.",
+      },
+      {
+        question: "Can this integrate with our contract or matter management system?",
+        answer: "Yes — integration is scoped around your existing systems as part of the engagement.",
+      },
+      {
+        question: "How accurate is contract clause extraction?",
+        answer: "Extraction is grounded in your source documents with references, and flagged for attorney review rather than treated as final.",
+      },
+    ],
+  },
+  {
+    icon: Building2,
+    name: "Real Estate & Property Management",
+    slug: "real-estate",
+    challenge: "Bring leasing, maintenance, and portfolio data into one place.",
+    outcome: "Faster response times and clearer portfolio visibility.",
+    featured: false,
+    overview:
+      "Real estate and property management organizations coordinate leasing, maintenance, and tenant communication across a portfolio of properties, often through a mix of spreadsheets, email, and disconnected systems. Getting a clear, current view of the portfolio is harder than it should be.",
+    operationalEnvironment:
+      "Leasing agents, property managers, and maintenance teams handle inquiries, work orders, and reporting across property management software, email, and manual logs that don't always stay in sync. Portfolio-level decisions often rely on reports that are already out of date by the time they're reviewed.",
+    challenges: [
+      {
+        title: "Fragmented leasing and maintenance data",
+        description: "Leasing, maintenance, and tenant data often live in separate systems or spreadsheets, complicating a full portfolio view.",
+      },
+      {
+        title: "Slow tenant and prospect response times",
+        description: "Inquiries and maintenance requests can sit unanswered while staff work through manual processes.",
+      },
+      {
+        title: "Inconsistent maintenance tracking",
+        description: "Work orders tracked manually make it hard to see status or prioritize across properties.",
+      },
+      {
+        title: "Limited real-time portfolio visibility",
+        description: "Owners and managers often rely on periodic reports rather than a current view of occupancy and operations.",
+      },
+    ],
+    aiOpportunities: [
+      "Tenant and prospect communication assistants",
+      "Maintenance request triage and tracking",
+      "Portfolio operations dashboards",
+      "Lease document intelligence",
+    ],
+    businessOutcomes: [
+      "Faster response times",
+      "Clearer portfolio visibility",
+      "Reduced manual coordination",
+      "More consistent tenant experience",
+    ],
+    systems: [
+      "Property management systems",
+      "Lease management platforms",
+      "Maintenance/work order systems",
+      "CRM platforms",
+    ],
+    relatedServiceSlugs: ["intelligent-business-workflows", "ai-assistants-copilots", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "Can this work across a portfolio with multiple properties?",
+        answer: "Yes — the architecture is designed to extend across properties once proven on one.",
+      },
+      {
+        question: "Does this replace our property management software?",
+        answer: "Usually not — we typically integrate with the systems you already use rather than replacing them outright.",
+      },
+      {
+        question: "How are maintenance requests routed?",
+        answer: "Requests are triaged and routed with relevant context attached, with a person handling exceptions and final decisions.",
+      },
+      {
+        question: "How quickly can we see results?",
+        answer: "We usually start with one property or workflow to demonstrate value before expanding scope.",
+      },
+    ],
+  },
+  {
+    icon: Zap,
+    name: "Energy & Utilities",
+    slug: "energy-utilities",
+    challenge: "Improve visibility across grid, asset, and field operations while managing compliance reporting.",
+    outcome: "Fewer disruptions and more predictable asset performance.",
+    featured: false,
+    overview:
+      "Energy and utility providers manage critical infrastructure — generation, distribution, and field operations — under close regulatory oversight. Asset and operational data often lives across legacy systems, making it hard to get a current, unified view of grid or asset health.",
+    operationalEnvironment:
+      "Field crews, operations centers, and compliance teams work with SCADA systems, asset management platforms, and manual reporting that don't always connect. Issues in the field may not reach planning or leadership until a scheduled report surfaces them.",
+    challenges: [
+      {
+        title: "Disconnected grid and asset data",
+        description: "SCADA, asset management, and field reporting systems often don't share data, complicating a full operational view.",
+      },
+      {
+        title: "Delayed visibility into field conditions",
+        description: "Field issues can take time to reach operations and planning teams, delaying response.",
+      },
+      {
+        title: "Manual compliance and reporting overhead",
+        description: "Regulatory reporting often relies on manual data collection that's time-consuming and error-prone.",
+      },
+      {
+        title: "Reactive rather than predictive maintenance",
+        description: "Asset maintenance is frequently scheduled on fixed intervals rather than actual condition data.",
+      },
+    ],
+    aiOpportunities: [
+      "Real-time operational dashboards",
+      "Predictive maintenance support",
+      "Compliance reporting automation",
+      "Knowledge assistants for field and operations teams",
+    ],
+    businessOutcomes: [
+      "Fewer operational disruptions",
+      "More predictable asset performance",
+      "Reduced manual reporting effort",
+      "Faster field issue response",
+    ],
+    systems: [
+      "SCADA systems",
+      "Asset management platforms",
+      "Field service management systems",
+      "Compliance and reporting systems",
+    ],
+    relatedServiceSlugs: ["intelligent-business-workflows", "ai-platform-integration", "continuous-optimization"],
+    faqs: [
+      {
+        question: "Does this require new sensors or SCADA upgrades?",
+        answer: "Not necessarily — we start with the data your existing systems already generate before recommending new instrumentation.",
+      },
+      {
+        question: "Can this integrate with legacy grid or asset systems?",
+        answer: "Yes — integration work is scoped around your actual system landscape, including systems that aren't cloud-native.",
+      },
+      {
+        question: "How does this handle regulatory reporting requirements?",
+        answer: "Reporting workflows are designed around your existing compliance requirements, with auditability built in.",
+      },
+      {
+        question: "Can this scale across multiple facilities or service territories?",
+        answer: "Yes — we typically start with one facility or territory and extend the same architecture once it's proven.",
+      },
+    ],
+  },
+  {
+    icon: Hotel,
+    name: "Hospitality & Travel",
+    slug: "hospitality-travel",
+    challenge: "Deliver consistent guest service across properties and channels.",
+    outcome: "Faster guest response with more consistent service.",
+    featured: false,
+    overview:
+      "Hospitality and travel organizations manage reservations, guest service, and operations across properties and channels, often through a mix of booking platforms, property systems, and manual coordination. Guest expectations for fast, consistent service keep rising, while staff juggle multiple systems to meet them.",
+    operationalEnvironment:
+      "Front-desk, reservations, and operations staff work across property management systems, booking channels, and guest communication tools that don't always share a common view. Guest requests and operational issues often require manual coordination across departments or properties.",
+    challenges: [
+      {
+        title: "Fragmented guest and reservation data",
+        description: "Guest history and reservations often live across separate booking channels and property systems.",
+      },
+      {
+        title: "Inconsistent guest service across channels",
+        description: "Response quality and speed vary depending on the channel and staff member handling a request.",
+      },
+      {
+        title: "Manual operational coordination",
+        description: "Housekeeping, maintenance, and front-desk coordination frequently relies on manual handoffs.",
+      },
+      {
+        title: "Limited visibility across multiple properties",
+        description: "Multi-property operators often lack a current, unified view of occupancy and operations.",
+      },
+    ],
+    aiOpportunities: [
+      "Guest service and concierge assistants",
+      "Reservation and booking support",
+      "Operational coordination across departments",
+      "Multi-property operations dashboards",
+    ],
+    businessOutcomes: [
+      "Faster guest response times",
+      "More consistent service across channels and properties",
+      "Reduced manual coordination",
+      "Better operational visibility",
+    ],
+    systems: [
+      "Property management systems",
+      "Booking and reservation platforms",
+      "Guest messaging systems",
+      "CRM platforms",
+    ],
+    relatedServiceSlugs: ["ai-assistants-copilots", "intelligent-business-workflows", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "Can this work across multiple properties or brands?",
+        answer: "Yes — the architecture is designed to extend across properties once proven on one.",
+      },
+      {
+        question: "Does this replace front-desk or guest service staff?",
+        answer: "No — it's designed to support staff with faster access to information and coordination, with guest relationships remaining with your team.",
+      },
+      {
+        question: "Can this integrate with our booking channels?",
+        answer: "Yes — integration is scoped around the specific channels and systems you use.",
+      },
+      {
+        question: "How quickly can we see results?",
+        answer: "We usually start with one property or workflow to demonstrate value before expanding scope.",
+      },
+    ],
+  },
+  {
+    icon: FlaskConical,
+    name: "Life Sciences & Pharmaceuticals",
+    slug: "life-sciences-pharmaceuticals",
+    challenge: "Manage research, trial, and regulatory documentation without slowing down critical timelines.",
+    outcome: "Faster access to trial and regulatory information with stronger compliance.",
+    featured: false,
+    overview:
+      "Life sciences and pharmaceutical organizations manage research, clinical trial, and regulatory documentation under strict compliance requirements and tight timelines. Institutional knowledge is often scattered across research teams, systems, and years of trial history.",
+    operationalEnvironment:
+      "Research, clinical operations, and regulatory affairs teams work across trial management systems, document repositories, and quality systems that often don't share data cleanly. Finding accurate answers about trial protocols, regulatory submissions, or historical research frequently depends on who happens to be available.",
+    challenges: [
+      {
+        title: "Fragmented research and trial data",
+        description: "Research findings, trial data, and regulatory documentation often live in separate systems.",
+      },
+      {
+        title: "Manual regulatory documentation review",
+        description: "Preparing and reviewing regulatory submissions relies on time-consuming manual document review.",
+      },
+      {
+        title: "Institutional knowledge concentrated in specialists",
+        description: "Deep research and regulatory knowledge often depends on a small number of experienced staff being available.",
+      },
+      {
+        title: "Compliance and audit-readiness pressure",
+        description: "Requirements demand consistent, auditable documentation that's difficult to maintain manually at scale.",
+      },
+    ],
+    aiOpportunities: [
+      "Research and trial knowledge assistants",
+      "Regulatory document intelligence",
+      "Compliance and audit-trail support",
+      "Cross-team research search and retrieval",
+    ],
+    businessOutcomes: [
+      "Faster access to trial and regulatory information",
+      "Reduced manual documentation effort",
+      "Stronger compliance and audit readiness",
+      "Less dependency on individual specialists",
+    ],
+    systems: [
+      "Clinical trial management systems",
+      "Regulatory information management systems",
+      "Document management systems",
+      "Quality management systems",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "ai-assistants-copilots", "intelligent-business-workflows"],
+    faqs: [
+      {
+        question: "How does this handle regulated data and documentation?",
+        answer: "Access controls and governance are designed around your existing regulatory requirements from the start, with auditability built in.",
+      },
+      {
+        question: "Does this replace scientific or regulatory judgment?",
+        answer: "No — it's designed to surface relevant information and accelerate documentation, with scientific and regulatory decisions remaining with your team.",
+      },
+      {
+        question: "Can this integrate with our trial management or QMS systems?",
+        answer: "Yes — integration is scoped around your existing systems as part of the engagement.",
+      },
+      {
+        question: "How do you keep answers grounded in verified research?",
+        answer: "Answers are grounded in your source documents with references, so your team can verify rather than just trust.",
+      },
+    ],
+  },
+  {
+    icon: HardHat,
+    name: "Construction & Engineering",
+    slug: "construction-engineering",
+    challenge: "Coordinate project, safety, and subcontractor information across sites.",
+    outcome: "Fewer delays and clearer visibility across projects.",
+    featured: false,
+    overview:
+      "Construction and engineering firms coordinate project schedules, safety compliance, and subcontractor work across multiple sites, often through a mix of spreadsheets, paper forms, and disconnected project management tools. Getting a current, accurate view of a project is harder than it should be.",
+    operationalEnvironment:
+      "Project managers, site supervisors, and safety officers coordinate schedules, inspections, and subcontractor work across systems and paper-based processes that don't always stay in sync. Issues on site often surface late, after they've already affected timelines or budgets.",
+    challenges: [
+      {
+        title: "Fragmented project and site data",
+        description: "Schedules, budgets, and site reports often live across separate tools and paper records.",
+      },
+      {
+        title: "Manual safety and compliance documentation",
+        description: "Safety inspections and compliance records are frequently tracked manually, creating administrative load and audit risk.",
+      },
+      {
+        title: "Delayed visibility into site issues",
+        description: "Problems on site can take time to reach project managers and leadership, delaying response.",
+      },
+      {
+        title: "Subcontractor coordination overhead",
+        description: "Coordinating schedules and requirements across multiple subcontractors is largely manual.",
+      },
+    ],
+    aiOpportunities: [
+      "Project and site knowledge assistants",
+      "Safety and compliance documentation support",
+      "Site issue tracking and visibility",
+      "Subcontractor coordination workflows",
+    ],
+    businessOutcomes: [
+      "Fewer project delays",
+      "Clearer visibility across projects and sites",
+      "Reduced administrative burden",
+      "Stronger safety and compliance documentation",
+    ],
+    systems: [
+      "Project management platforms",
+      "Safety and compliance management systems",
+      "Document management systems",
+      "Scheduling systems",
+    ],
+    relatedServiceSlugs: ["intelligent-business-workflows", "enterprise-knowledge-systems", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "Can this work across multiple active job sites?",
+        answer: "Yes — the architecture is designed to extend across sites once proven on one.",
+      },
+      {
+        question: "Does this replace site safety inspections?",
+        answer: "No — it's designed to support documentation and visibility, with safety decisions remaining with qualified personnel.",
+      },
+      {
+        question: "Can this integrate with our existing project management tools?",
+        answer: "Yes — integration is scoped around your existing systems as part of the engagement.",
+      },
+      {
+        question: "How is subcontractor data handled?",
+        answer: "Access and governance controls are designed around your existing subcontractor agreements and data-sharing requirements.",
+      },
+    ],
+  },
+  {
+    icon: Fuel,
+    name: "Oil & Gas",
+    slug: "oil-gas",
+    challenge: "Improve visibility across field operations, assets, and compliance in remote, high-risk environments.",
+    outcome: "Fewer operational surprises and stronger safety and compliance records.",
+    featured: false,
+    overview:
+      "Oil and gas operators run complex field, refining, and logistics operations, often across remote sites, under strict safety and regulatory oversight. Operational and asset data frequently lives across legacy systems and manual field reporting, making a current, unified view hard to assemble.",
+    operationalEnvironment:
+      "Field crews, operations centers, and HSE (health, safety, environment) teams coordinate across SCADA systems, asset management platforms, and manual field logs that don't always share data. Safety and regulatory requirements mean every step needs to be recorded and auditable, often in remote or high-risk conditions.",
+    challenges: [
+      {
+        title: "Disconnected field and asset data",
+        description: "Field reporting, SCADA, and asset management systems often don't share data, complicating a full operational view.",
+      },
+      {
+        title: "Manual safety and compliance documentation",
+        description: "Safety-critical documentation is often recorded manually in the field, creating administrative load and room for error.",
+      },
+      {
+        title: "Delayed visibility into operational issues",
+        description: "Problems at remote sites can take time to reach operations centers and leadership.",
+      },
+      {
+        title: "Reactive rather than predictive maintenance",
+        description: "Asset maintenance is frequently scheduled on fixed intervals rather than actual condition data.",
+      },
+    ],
+    aiOpportunities: [
+      "Real-time field and asset dashboards",
+      "Predictive maintenance support",
+      "Safety and compliance documentation automation",
+      "Knowledge assistants for field and HSE procedures",
+    ],
+    businessOutcomes: [
+      "Fewer operational disruptions",
+      "Stronger safety and compliance records",
+      "Reduced manual documentation effort",
+      "More predictable asset performance",
+    ],
+    systems: [
+      "SCADA systems",
+      "Asset management platforms",
+      "HSE and compliance management systems",
+      "Field reporting systems",
+    ],
+    relatedServiceSlugs: ["intelligent-business-workflows", "ai-platform-integration", "continuous-optimization"],
+    faqs: [
+      {
+        question: "Does this require new field sensors or hardware?",
+        answer: "Not necessarily — we start with the data your existing systems already generate before recommending new instrumentation.",
+      },
+      {
+        question: "How does this handle safety-critical compliance requirements?",
+        answer: "Workflows are designed around your existing regulatory and safety requirements, with auditability and human review built in from the start.",
+      },
+      {
+        question: "Can this integrate with legacy SCADA or asset systems?",
+        answer: "Yes — integration work is scoped around your actual system landscape, including systems that aren't cloud-native.",
+      },
+      {
+        question: "Can this scale across multiple sites or facilities?",
+        answer: "Yes — we typically start with a single site and extend the same architecture once it's proven.",
       },
     ],
   },
