@@ -114,28 +114,37 @@ function DotCluster({ pick }: { pick: Pick }) {
   );
 }
 
-/** A minimal bar-chart / dashboard-style mockup. */
-function BarWash({ pick }: { pick: Pick }) {
-  const bars = Array.from({ length: 7 }, (_, i) => ({
-    x: 40 + i * 46,
-    height: pick(i, 30, 150),
-  }));
+/** Overlapping, slightly rotated panels — an abstract stack of systems/documents. */
+function LayeredPanels({ pick }: { pick: Pick }) {
+  const panels = Array.from({ length: 4 }, (_, i) => {
+    const w = pick(i * 4, 90, 170);
+    const h = pick(i * 4 + 1, 60, 110);
+    const x = pick(i * 4 + 2, 40, 400 - w - 40);
+    const y = pick(i * 4 + 3, 30, 240 - h - 30);
+    const rotation = pick(i * 4 + 3.5, -8, 8);
+    return { x, y, w, h, rotation };
+  });
 
   return (
     <>
-      <line x1="30" y1="210" x2="380" y2="210" stroke="var(--border)" strokeWidth="1" />
-      {bars.map((b, i) => (
-        <rect
-          key={i}
-          x={b.x}
-          y={210 - b.height}
-          width="26"
-          height={b.height}
-          rx="3"
-          fill="var(--primary)"
-          opacity={0.35 + (i % 3) * 0.2}
-        />
-      ))}
+      {panels.map((p, i) => {
+        const isLast = i === panels.length - 1;
+        return (
+          <rect
+            key={i}
+            x={p.x}
+            y={p.y}
+            width={p.w}
+            height={p.h}
+            rx="12"
+            fill={isLast ? "var(--primary)" : "var(--background)"}
+            stroke={isLast ? "none" : "var(--border)"}
+            strokeWidth="1.5"
+            opacity={isLast ? 0.9 : 1}
+            transform={`rotate(${p.rotation} ${p.x + p.w / 2} ${p.y + p.h / 2})`}
+          />
+        );
+      })}
     </>
   );
 }
@@ -156,7 +165,7 @@ export function CoverArt({ seed, className }: CoverArtProps) {
         {variant === 0 && <FlowNodes pick={pick} />}
         {variant === 1 && <ConcentricArcs pick={pick} />}
         {variant === 2 && <DotCluster pick={pick} />}
-        {variant === 3 && <BarWash pick={pick} />}
+        {variant === 3 && <LayeredPanels pick={pick} />}
       </svg>
     </div>
   );
