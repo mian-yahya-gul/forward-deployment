@@ -114,45 +114,12 @@ function DotCluster({ pick }: { pick: Pick }) {
   );
 }
 
-/** Overlapping, slightly rotated panels — an abstract stack of systems/documents. */
-function LayeredPanels({ pick }: { pick: Pick }) {
-  const panels = Array.from({ length: 4 }, (_, i) => {
-    const w = pick(i * 4, 90, 170);
-    const h = pick(i * 4 + 1, 60, 110);
-    const x = pick(i * 4 + 2, 40, 400 - w - 40);
-    const y = pick(i * 4 + 3, 30, 240 - h - 30);
-    const rotation = pick(i * 4 + 3.5, -8, 8);
-    return { x, y, w, h, rotation };
-  });
-
-  return (
-    <>
-      {panels.map((p, i) => {
-        const isLast = i === panels.length - 1;
-        return (
-          <rect
-            key={i}
-            x={p.x}
-            y={p.y}
-            width={p.w}
-            height={p.h}
-            rx="12"
-            fill={isLast ? "var(--primary)" : "var(--background)"}
-            stroke={isLast ? "none" : "var(--border)"}
-            strokeWidth="1.5"
-            opacity={isLast ? 0.9 : 1}
-            transform={`rotate(${p.rotation} ${p.x + p.w / 2} ${p.y + p.h / 2})`}
-          />
-        );
-      })}
-    </>
-  );
-}
-
+// A fourth pattern is being picked (see the CoverArt candidates artifact) to replace
+// the retired bar-chart and layered-panels variants — until then this cycles 3 ways.
 export function CoverArt({ seed, className }: CoverArtProps) {
   const h = hashSeed(seed);
   const pick = makePick(h);
-  const variant = h % 4;
+  const variant = h % 3;
 
   return (
     <div className={cn("relative overflow-hidden bg-surface", className)}>
@@ -165,7 +132,6 @@ export function CoverArt({ seed, className }: CoverArtProps) {
         {variant === 0 && <FlowNodes pick={pick} />}
         {variant === 1 && <ConcentricArcs pick={pick} />}
         {variant === 2 && <DotCluster pick={pick} />}
-        {variant === 3 && <LayeredPanels pick={pick} />}
       </svg>
     </div>
   );
