@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
-import { CoverArt } from "@/components/shared/CoverArt";
 import { CTASection } from "@/components/shared/CTASection";
 import { IndustryCard } from "@/components/shared/IndustryCard";
 import { InsightCard } from "@/components/shared/InsightCard";
@@ -79,11 +78,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         description={article.summary}
       />
 
-      <div className="mx-auto max-w-[1280px] px-6">
-        <CoverArt seed={article.slug} className="aspect-[21/8] rounded-[var(--radius-lg)] border border-border" />
-      </div>
-
-      <section className="mt-16 border-b border-border bg-surface py-6">
+      <section className="border-b border-border bg-surface py-6">
         <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-3 px-6 text-sm text-muted">
           <Badge variant="primary">{article.category}</Badge>
           <span>{article.author}</span>
