@@ -1,6 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useRef } from "react";
+
+import { playbookIntro } from "@/lib/data/playbook";
 
 // Resting pose: the cover sits at a slight natural tilt even before hover,
 // matching the reference's "photographed at an angle" presentation.
@@ -16,7 +19,7 @@ const HOVER_RANGE = 16;
  * re-render on every pointer event.
  */
 export function PlaybookCover() {
-  const wrapRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLAnchorElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const applyTransform = useCallback((rotateX: number, rotateY: number, scale: number) => {
@@ -26,7 +29,7 @@ export function PlaybookCover() {
   }, []);
 
   const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
       const wrap = wrapRef.current;
       const card = cardRef.current;
       if (!wrap || !card) return;
@@ -64,11 +67,13 @@ export function PlaybookCover() {
         aria-hidden
       />
 
-      <div
+      <Link
         ref={wrapRef}
+        href={playbookIntro.readingHref}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group [perspective:1400px]"
+        className="group block [perspective:1400px]"
+        aria-label={`Start reading — ${playbookIntro.title}`}
       >
         <div
           ref={cardRef}
@@ -157,7 +162,7 @@ export function PlaybookCover() {
             </p>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
