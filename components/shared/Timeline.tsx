@@ -12,13 +12,15 @@ export interface TimelineItem {
 interface TimelineProps {
   items: TimelineItem[];
   className?: string;
+  /** Chase-pulses the step circles left to right on a loop when true. */
+  animated?: boolean;
 }
 
 /**
  * Horizontal stage timeline on desktop, vertical on tablet/mobile.
  * Backs both the Methodology (5 phases) and Process (5 stages) sections.
  */
-export function Timeline({ items, className }: TimelineProps) {
+export function Timeline({ items, className, animated = false }: TimelineProps) {
   return (
     <div className={cn("relative", className)}>
       {/* Connector line spanning circle centers — desktop only. */}
@@ -35,7 +37,13 @@ export function Timeline({ items, className }: TimelineProps) {
             className="relative flex gap-4 lg:flex-col lg:items-center lg:gap-0 lg:text-center"
           >
             <div className="flex flex-col items-center lg:w-full">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary">
+              <div
+                className={cn(
+                  "flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary",
+                  animated && "timeline-pulse",
+                )}
+                style={animated ? { animationDelay: `${index * 0.5}s` } : undefined}
+              >
                 {item.number}
               </div>
               {index < items.length - 1 && (

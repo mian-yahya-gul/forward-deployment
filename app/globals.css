@@ -133,4 +133,38 @@
       transition: none;
     }
   }
+
+  /*
+    Left-to-right "chase" pulse for Timeline's step circles (used by
+    Methodology and Process). Each circle runs the same 3s cycle, offset via
+    an inline animation-delay per index, so they light up in sequence and
+    then pause before looping.
+  */
+  @keyframes timeline-pulse {
+    0%,
+    83%,
+    100% {
+      transform: scale(1);
+      background: var(--background);
+      border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+      color: var(--primary);
+    }
+    3%,
+    13% {
+      transform: scale(1.1);
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+  }
+
+  .timeline-pulse {
+    animation: timeline-pulse 3s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-pulse {
+      animation: none;
+    }
+  }
 }

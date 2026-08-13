@@ -18,6 +18,7 @@ export function ProcessSection() {
 
         <div className="mt-16">
           <Timeline
+            animated
             items={processStages.map((stage) => ({
               number: stage.number,
               title: stage.title,

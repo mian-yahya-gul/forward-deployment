@@ -22,6 +22,7 @@ export function MethodologySection() {
 
         <div className="mt-16">
           <Timeline
+            animated
             items={methodologyPhases.map((phase) => ({
               number: phase.number,
               title: phase.title,
