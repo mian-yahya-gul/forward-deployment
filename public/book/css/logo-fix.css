@@ -1,0 +1,6 @@
+/* Match the book's navbar logo size to the main site's own wordmark
+   (Logo.tsx renders at text-lg = 1.125rem); Docusaurus's default
+   .navbar__logo{height:2rem} reads noticeably larger by comparison. */
+.navbar__logo {
+  height: 1.35rem !important;
+}
