@@ -46,7 +46,7 @@ export const footerKnowledgeColumn: FooterLink[] = [
   { label: "Insights", href: "/insights" },
   { label: "Research", href: "/insights" },
   { label: "Implementation Guides", href: "/insights" },
-  { label: "Playbooks", href: "/insights" },
+  { label: "Playbooks", href: "/playbook" },
   { label: "Industry Reports", href: "/insights" },
   { label: "Technical Notes", href: "/insights" },
 ];
