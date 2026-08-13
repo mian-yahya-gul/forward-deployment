@@ -49,3 +49,26 @@ export function useInView<T extends HTMLElement>(threshold = 0.2) {
 
   return { ref, inView };
 }
+
+/**
+ * Whether a 3D ring carousel should render (vs. its static grid fallback):
+ * desktop width only, and never when the OS asks for reduced motion. Starts
+ * `false` so server/client markup matches on first paint — no flash of
+ * absolutely-positioned ring items before JS decides.
+ */
+export function useCarouselMode(breakpoint = 1024) {
+  const [showCarousel, setShowCarousel] = useState(false);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    const mq = window.matchMedia(`(min-width: ${breakpoint}px)`);
+    setShowCarousel(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setShowCarousel(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, [breakpoint]);
+
+  return showCarousel;
+}

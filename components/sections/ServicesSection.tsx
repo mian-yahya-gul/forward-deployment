@@ -1,10 +1,9 @@
 import Link from "next/link";
 
-import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ServiceCard } from "@/components/shared/ServiceCard";
+import { ServicesDisplay } from "@/components/shared/ServiceCarousel";
 import { buttonVariants } from "@/components/ui/button";
-import { services, servicesIntro } from "@/lib/data/services";
+import { servicesIntro } from "@/lib/data/services";
 import { cn } from "@/lib/utils";
 
 export function ServicesSection() {
@@ -25,13 +24,9 @@ export function ServicesSection() {
           </Link>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <ScrollReveal as="li" key={service.slug} delay={(index % 3) * 80}>
-              <ServiceCard service={service} />
-            </ScrollReveal>
-          ))}
-        </ul>
+        <div className="mt-12">
+          <ServicesDisplay />
+        </div>
       </div>
     </section>
   );
