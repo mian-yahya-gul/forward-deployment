@@ -3,7 +3,6 @@ import { Hero } from "@/components/sections/Hero";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { InsightsSection } from "@/components/sections/InsightsSection";
 import { MethodologySection } from "@/components/sections/MethodologySection";
-import { PlaybookSection } from "@/components/sections/PlaybookSection";
 import { ProblemSection } from "@/components/sections/ProblemSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
@@ -22,7 +21,6 @@ export default function Home() {
       <TransformationStoriesSection />
       <InsightsSection />
       <TestimonialsSection />
-      <PlaybookSection />
       <FinalCTASection />
     </>
   );
