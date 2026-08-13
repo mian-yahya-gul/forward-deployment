@@ -47,12 +47,7 @@ export function PlaybookHeroSection() {
 
           <ScrollReveal delay={320}>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href={playbookIntro.primaryCta.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={buttonVariants({ size: "lg" })}
-              >
+              <Link href={playbookIntro.primaryCta.href} className={buttonVariants({ size: "lg" })}>
                 {playbookIntro.primaryCta.label}
                 <ArrowRight className="size-4" aria-hidden />
               </Link>
