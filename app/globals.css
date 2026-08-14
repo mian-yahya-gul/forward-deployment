@@ -167,4 +167,25 @@
       animation: none;
     }
   }
+
+  /* Gentle idle bob for IndustryScatterField's floating cards. */
+  @keyframes card-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .card-float {
+    animation: card-float 5s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-float {
+      animation: none;
+    }
+  }
 }

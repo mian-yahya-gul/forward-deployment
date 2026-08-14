@@ -1,15 +1,12 @@
 import Link from "next/link";
 
-import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { IndustryCard } from "@/components/shared/IndustryCard";
+import { IndustryScatterField } from "@/components/shared/IndustryScatterField";
 import { buttonVariants } from "@/components/ui/button";
-import { industries, industriesIntro } from "@/lib/data/industries";
+import { industriesIntro } from "@/lib/data/industries";
 import { cn } from "@/lib/utils";
 
 export function IndustriesSection() {
-  const featuredIndustries = industries.filter((industry) => industry.featured);
-
   return (
     <section className="border-t border-border bg-surface py-20 sm:py-28">
       <div className="mx-auto max-w-[1280px] px-6">
@@ -27,13 +24,9 @@ export function IndustriesSection() {
           </Link>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredIndustries.map((industry, index) => (
-            <ScrollReveal as="li" key={industry.slug} delay={(index % 3) * 80}>
-              <IndustryCard industry={industry} />
-            </ScrollReveal>
-          ))}
-        </ul>
+        <div className="mt-12">
+          <IndustryScatterField />
+        </div>
       </div>
     </section>
   );
