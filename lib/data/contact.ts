@@ -13,6 +13,7 @@ export interface ContactPathway {
   description: string;
   actionLabel: string;
   href: string;
+  analyticsEvent: string;
 }
 
 export const contactPathways: ContactPathway[] = [
@@ -22,6 +23,7 @@ export const contactPathways: ContactPathway[] = [
     description: "Talk through your operational challenges and see if we're a fit — no pressure, no obligation.",
     actionLabel: "Book a Discovery Call",
     href: "mailto:kakakhel176@gmail.com?subject=Discovery%20Call%20Request",
+    analyticsEvent: "discovery_call_click",
   },
   {
     icon: Mail,
@@ -29,6 +31,7 @@ export const contactPathways: ContactPathway[] = [
     description: "Have a question that doesn't need a call yet? Send us a note directly.",
     actionLabel: "Email Us",
     href: "mailto:kakakhel176@gmail.com?subject=General%20Inquiry",
+    analyticsEvent: "general_inquiry_click",
   },
   {
     icon: Briefcase,
@@ -36,6 +39,7 @@ export const contactPathways: ContactPathway[] = [
     description: "Interested in joining the team? See what roles are currently open.",
     actionLabel: "View Open Roles",
     href: "/careers",
+    analyticsEvent: "careers_pathway_click",
   },
 ];
 

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
+import { track } from "@vercel/analytics";
 
 import { buttonVariants } from "@/components/ui/button";
 import { MobileNav } from "@/components/layout/MobileNav";
@@ -55,6 +56,7 @@ export function Header() {
 
             <Link
               href={navCta.href}
+              onClick={() => track("discovery_call_click", { source: "header" })}
               className={cn(buttonVariants({ size: "sm" }), "hidden md:inline-flex")}
             >
               {navCta.label}

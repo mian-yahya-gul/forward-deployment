@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Card } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { PageHero } from "@/components/shared/PageHero";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { TrackedLink } from "@/components/shared/TrackedLink";
 import { contactHero, contactPathways } from "@/lib/data/contact";
 
 export const metadata: Metadata = {
@@ -35,12 +35,13 @@ export default function ContactPage() {
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
                     {pathway.description}
                   </p>
-                  <Link
+                  <TrackedLink
                     href={pathway.href}
+                    event={pathway.analyticsEvent}
                     className="mt-4 inline-flex items-center text-sm font-medium text-primary"
                   >
                     {pathway.actionLabel}
-                  </Link>
+                  </TrackedLink>
                 </Card>
               </ScrollReveal>
             ))}

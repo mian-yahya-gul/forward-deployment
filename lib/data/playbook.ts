@@ -43,6 +43,9 @@ export const playbookParts: PlaybookPart[] = [
       "Government",
       "Agriculture",
       "Aviation",
+      "Airline & Ticketing",
+      "Oil & Gas",
+      "Professional Services",
     ],
   },
   {

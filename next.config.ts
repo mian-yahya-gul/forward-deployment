@@ -1,6 +1,24 @@
 import type { NextConfig } from "next";
 
+/**
+ * Baseline security headers for a marketing site with no user sessions,
+ * no first-party iframes, and no third-party embeds. Deliberately not a
+ * full CSP: this site's script/style surface (Next's own chunks, inline
+ * styles from Tailwind/CSS-in-JS-free components) hasn't been audited
+ * page-by-page for a directive list that wouldn't risk breaking something —
+ * see the production launch checklist for that as a tracked follow-up.
+ */
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
 const nextConfig: NextConfig = {
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
   /**
    * The Forward Deployment Playbook is a static Docusaurus export sitting in
    * public/book/ (each page is its own <slug>/index.html, extension-less

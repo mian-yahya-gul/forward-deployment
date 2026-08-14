@@ -64,6 +64,9 @@ export function useCarouselMode(breakpoint = 1024) {
     if (reduced) return;
 
     const mq = window.matchMedia(`(min-width: ${breakpoint}px)`);
+    // Deliberate: this is the SSR-safe upgrade-after-mount read described
+    // above, not a state derived from props/state that belongs in render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setShowCarousel(mq.matches);
     const handler = (e: MediaQueryListEvent) => setShowCarousel(e.matches);
     mq.addEventListener("change", handler);

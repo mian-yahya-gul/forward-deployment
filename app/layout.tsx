@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -40,6 +41,23 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "DeosAI Labs",
+    url: siteUrl,
+    description,
+    sameAs: ["https://www.linkedin.com/company/deosai-lab/", "https://www.youtube.com/@deosailabs"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "DeosAI Labs",
+    url: siteUrl,
+  },
+];
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -48,6 +66,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <a
             href="#main-content"
@@ -61,6 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

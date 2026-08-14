@@ -19,7 +19,32 @@ const staticRoutes = [
   "/privacy",
   "/terms",
   "/accessibility",
+  "/playbook",
 ];
+
+/**
+ * The Forward Deployment Playbook (public/book/) is a static Docusaurus
+ * export, not a Next.js route — its pages don't exist as files under app/,
+ * so they can't be discovered by generateStaticParams the way every other
+ * sitemap section here is. Kept as an explicit slug list mirroring the
+ * directories in public/book/{foundations,industries,next-steps}/.
+ */
+const bookFoundationSlugs = ["workflows-not-tools", "forward-deployment-model", "how-to-use-this-book"];
+const bookIndustrySlugs = [
+  "healthcare",
+  "education",
+  "retail-ecommerce",
+  "manufacturing",
+  "logistics-supply-chain",
+  "financial-services",
+  "government",
+  "agriculture",
+  "aviation",
+  "airline-ticketing",
+  "oil-gas",
+  "professional-services",
+];
+const bookNextStepsSlugs = ["choosing-your-starting-workflow", "working-with-deosai-labs"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
@@ -47,5 +72,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(article.publishedDate),
   }));
 
-  return [...staticEntries, ...serviceEntries, ...industryEntries, ...storyEntries, ...articleEntries];
+  const bookEntries: MetadataRoute.Sitemap = [
+    { url: `${siteUrl}/book/preface`, lastModified: new Date() },
+    ...bookFoundationSlugs.map((slug) => ({ url: `${siteUrl}/book/foundations/${slug}`, lastModified: new Date() })),
+    ...bookIndustrySlugs.map((slug) => ({ url: `${siteUrl}/book/industries/${slug}`, lastModified: new Date() })),
+    ...bookNextStepsSlugs.map((slug) => ({ url: `${siteUrl}/book/next-steps/${slug}`, lastModified: new Date() })),
+  ];
+
+  return [
+    ...staticEntries,
+    ...serviceEntries,
+    ...industryEntries,
+    ...storyEntries,
+    ...articleEntries,
+    ...bookEntries,
+  ];
 }
