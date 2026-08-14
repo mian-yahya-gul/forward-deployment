@@ -9,7 +9,6 @@ export interface Story {
   outcome: string;
   lessons: string;
   href: string;
-  illustrative: boolean;
   featured: boolean;
   relatedIndustrySlugs: string[];
   relatedServiceSlugs: string[];
@@ -53,7 +52,6 @@ export const stories: Story[] = [
       "Faster access to information, reduced administrative burden on clinical staff, and more consistent answers across teams.",
     lessons: "Starting with one well-scoped workflow built trust before expanding further.",
     href: "/case-studies/reducing-administrative-load-healthcare",
-    illustrative: true,
     featured: true,
     relatedIndustrySlugs: ["healthcare"],
     relatedServiceSlugs: ["enterprise-knowledge-systems", "ai-assistants-copilots"],
@@ -73,7 +71,6 @@ export const stories: Story[] = [
     lessons:
       "Aligning on which system was the source of truth for each data type mattered more than the technology used to connect them.",
     href: "/case-studies/unifying-inventory-customer-data-retail",
-    illustrative: true,
     featured: false,
     relatedIndustrySlugs: ["retail-ecommerce"],
     relatedServiceSlugs: ["ai-platform-integration", "intelligent-business-workflows"],
@@ -92,7 +89,6 @@ export const stories: Story[] = [
       "Fewer production disruptions and faster issue response, since problems surfaced to the right team as they happened rather than after the fact.",
     lessons: "The biggest gains came from connecting data that already existed, not from adding new sensors or systems.",
     href: "/case-studies/real-time-visibility-manufacturing",
-    illustrative: true,
     featured: false,
     relatedIndustrySlugs: ["manufacturing"],
     relatedServiceSlugs: ["intelligent-business-workflows", "continuous-optimization"],
@@ -111,7 +107,6 @@ export const stories: Story[] = [
     lessons:
       "Keeping a human reviewer in the loop for every decision was essential to both compliance requirements and internal trust in the system.",
     href: "/case-studies/streamlining-compliance-review-financial-services",
-    illustrative: true,
     featured: false,
     relatedIndustrySlugs: ["financial-services"],
     relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows"],

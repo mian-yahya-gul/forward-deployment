@@ -1,6 +1,5 @@
 import { Quote } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import type { Testimonial } from "@/lib/data/testimonials";
 
@@ -11,13 +10,9 @@ interface TestimonialCardProps {
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
     <Card className="hover:-translate-y-0 hover:shadow-none">
-      <div className="flex items-start justify-between gap-3">
-        <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
-          <Quote className="size-4 text-primary-hover" aria-hidden />
-        </span>
-        <Badge variant="outline" className="shrink-0">
-        </Badge>
-      </div>
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+        <Quote className="size-4 text-primary-hover" aria-hidden />
+      </span>
       <p className="mt-5 text-sm leading-relaxed text-foreground/90">
         &ldquo;{testimonial.quote}&rdquo;
       </p>

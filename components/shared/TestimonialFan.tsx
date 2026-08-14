@@ -163,14 +163,9 @@ function StoryCard({
         background: `radial-gradient(130% 110% at ${x1} ${y1}, color-mix(in srgb, var(--primary) 85%, white 15%) 0%, transparent 55%), radial-gradient(120% 100% at ${x2} ${y2}, color-mix(in srgb, var(--primary) 70%, black 15%) 0%, transparent 60%), linear-gradient(160deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 55%, black 30%) 100%)`,
       }}
     >
-      <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-          Illustrative
-        </span>
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15">
-          <Quote className="size-4 text-white" aria-hidden />
-        </span>
-      </div>
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/15">
+        <Quote className="size-4 text-white" aria-hidden />
+      </span>
 
       <p className="mt-6 line-clamp-6 text-base leading-snug font-semibold text-white">
         &ldquo;{testimonial.quote}&rdquo;

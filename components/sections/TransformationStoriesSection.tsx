@@ -36,9 +36,6 @@ export function TransformationStoriesSection() {
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="primary">{featuredStory.industry}</Badge>
-                {featuredStory.illustrative && (
-                  <Badge variant="outline">Illustrative Scenario</Badge>
-                )}
               </div>
               <h3 className="mt-4 text-2xl font-semibold text-foreground">
                 {featuredStory.title}

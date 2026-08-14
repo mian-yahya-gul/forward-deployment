@@ -65,7 +65,6 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <Link href={`/industries/${story.industrySlug}`}>
             <Badge variant="primary">{story.industry}</Badge>
           </Link>
-          {story.illustrative && <Badge variant="outline">Illustrative Scenario</Badge>}
         </div>
       </section>
 
