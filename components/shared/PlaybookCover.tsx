@@ -67,9 +67,14 @@ export function PlaybookCover() {
         aria-hidden
       />
 
+      {/* prefetch=false: /book/* is a static export served via next.config.ts
+          rewrites, not a real Next.js route — Next's default Link prefetch
+          issues an RSC segment-tree request that 404s against a rewritten
+          static file, since there's no app-router page to prefetch from. */}
       <Link
         ref={wrapRef}
         href={playbookIntro.readingHref}
+        prefetch={false}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="group block [perspective:1400px]"

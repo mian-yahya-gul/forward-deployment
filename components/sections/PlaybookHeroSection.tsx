@@ -47,7 +47,15 @@ export function PlaybookHeroSection() {
 
           <ScrollReveal delay={320}>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={playbookIntro.primaryCta.href} className={buttonVariants({ size: "lg" })}>
+              {/* prefetch=false: /book/* is a static export served via next.config.ts
+                  rewrites, not a real Next.js route — Next's default Link prefetch
+                  issues an RSC segment-tree request that 404s against a rewritten
+                  static file, since there's no app-router page to prefetch from. */}
+              <Link
+                href={playbookIntro.primaryCta.href}
+                prefetch={false}
+                className={buttonVariants({ size: "lg" })}
+              >
                 {playbookIntro.primaryCta.label}
                 <ArrowRight className="size-4" aria-hidden />
               </Link>
