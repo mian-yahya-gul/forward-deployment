@@ -123,7 +123,10 @@ export function PlaybookCover() {
               className="flex items-center justify-between text-[9px] font-bold tracking-[0.2em] uppercase"
               style={{ color: "#f4f6fb" }}
             >
-              <span>DeosAI Labs</span>
+              <span>
+                Deos<span style={{ color: "#9db8f5" }}>Ai</span> Labs
+                <span style={{ color: "#9db8f5" }}>.</span>
+              </span>
               <span style={{ color: "#7c8bb3", fontWeight: 600 }}>Forward Deployed</span>
             </div>
             <div className="mt-2 h-px w-full" style={{ background: "rgba(255,255,255,0.14)" }} />
@@ -163,7 +166,7 @@ export function PlaybookCover() {
 
             <div className="mt-[5%] h-px w-full" style={{ background: "rgba(255,255,255,0.14)" }} />
             <p className="mt-[3%] text-[9px] font-semibold tracking-[0.16em]" style={{ color: "#5b6c92" }}>
-              BOOK.DEOSAILABS.COM
+              WWW.DEOSAILABS.COM
             </p>
           </div>
         </div>
