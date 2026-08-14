@@ -90,8 +90,6 @@ export const termsOfUse: LegalPage = {
   title: "Terms of Use",
   description: "The terms that govern use of this website.",
   lastUpdated: "2026-08-15",
-  draftNotice:
-    "The governing-law clause below still needs a specific jurisdiction filled in based on where DeosAI Labs is legally organized — that's a business detail we can't infer, not a placeholder we've forgotten to remove.",
   sections: [
     {
       heading: "Acceptance of terms",
@@ -144,7 +142,7 @@ export const termsOfUse: LegalPage = {
     {
       heading: "Governing law",
       paragraphs: [
-        "These terms are governed by the laws of [State/Country — to be filled in based on where DeosAI Labs is legally organized], without regard to its conflict-of-law principles.",
+        "These terms are governed by the laws of the State of Delaware, without regard to its conflict-of-law principles.",
       ],
     },
     {
