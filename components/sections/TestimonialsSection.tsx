@@ -1,7 +1,6 @@
-import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { TestimonialCard } from "@/components/shared/TestimonialCard";
-import { testimonials, testimonialsIntro } from "@/lib/data/testimonials";
+import { TestimonialFan } from "@/components/shared/TestimonialFan";
+import { testimonialsIntro } from "@/lib/data/testimonials";
 
 export function TestimonialsSection() {
   return (
@@ -13,18 +12,9 @@ export function TestimonialsSection() {
           description={testimonialsIntro.description}
         />
 
-        <ul className="mt-12 columns-1 gap-6 sm:columns-2 lg:columns-3">
-          {testimonials.map((testimonial, index) => (
-            <ScrollReveal
-              as="li"
-              key={testimonial.role + testimonial.industry}
-              delay={(index % 3) * 80}
-              className="mb-6 break-inside-avoid"
-            >
-              <TestimonialCard testimonial={testimonial} />
-            </ScrollReveal>
-          ))}
-        </ul>
+        <div className="mt-12">
+          <TestimonialFan />
+        </div>
       </div>
     </section>
   );

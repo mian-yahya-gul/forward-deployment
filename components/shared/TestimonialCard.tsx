@@ -16,7 +16,6 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
           <Quote className="size-4 text-primary-hover" aria-hidden />
         </span>
         <Badge variant="outline" className="shrink-0">
-          Illustrative
         </Badge>
       </div>
       <p className="mt-5 text-sm leading-relaxed text-foreground/90">
