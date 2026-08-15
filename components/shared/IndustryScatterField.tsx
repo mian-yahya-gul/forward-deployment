@@ -10,6 +10,10 @@ import { industries, type Industry } from "@/lib/data/industries";
 import { IndustryCard } from "@/components/shared/IndustryCard";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
+// Life Sciences & Pharmaceuticals still has its own /industries page and
+// listing entry — it's just left out of this homepage teaser.
+const homepageIndustries = industries.filter((industry) => industry.slug !== "life-sciences-pharmaceuticals");
+
 type Tier = "near" | "mid" | "far";
 
 interface Placement {
@@ -21,7 +25,7 @@ interface Placement {
 }
 
 // Hand-placed scatter positions (not randomized, so there's no
-// hydration/reflow surprise): a staggered 6/5/6 layout across three rows so
+// hydration/reflow surprise): a staggered 6/5/5 layout across three rows so
 // every industry gets its own spot with no overlap. Each row shares one top
 // offset so cards read as a clean row (the near card is the sole deliberate
 // exception, lifted slightly as the focal point) — per-card vertical jitter
@@ -43,13 +47,12 @@ const PLACEMENTS: Placement[] = [
   { top: "34%", left: "43%", tier: "near", duration: "6s", delay: "0s" },
   { top: ROW_TOP.row2, left: "62%", tier: "mid", duration: "4.9s", delay: "1.1s" },
   { top: ROW_TOP.row2, left: "81%", tier: "far", duration: "5.1s", delay: "0.4s" },
-  // Row 3 (6 cards)
-  { top: ROW_TOP.row3, left: "0%", tier: "far", duration: "5s", delay: "0.7s" },
-  { top: ROW_TOP.row3, left: "17%", tier: "mid", duration: "4.7s", delay: "1s" },
-  { top: ROW_TOP.row3, left: "34%", tier: "mid", duration: "5.5s", delay: "0.3s" },
-  { top: ROW_TOP.row3, left: "51%", tier: "far", duration: "4.9s", delay: "0.6s" },
-  { top: ROW_TOP.row3, left: "68%", tier: "far", duration: "5.2s", delay: "0.9s" },
-  { top: ROW_TOP.row3, left: "85%", tier: "far", duration: "4.6s", delay: "1.3s" },
+  // Row 3 (5 cards)
+  { top: ROW_TOP.row3, left: "5%", tier: "far", duration: "5s", delay: "0.7s" },
+  { top: ROW_TOP.row3, left: "24%", tier: "mid", duration: "4.7s", delay: "1s" },
+  { top: ROW_TOP.row3, left: "43%", tier: "mid", duration: "5.5s", delay: "0.3s" },
+  { top: ROW_TOP.row3, left: "62%", tier: "far", duration: "4.9s", delay: "0.6s" },
+  { top: ROW_TOP.row3, left: "81%", tier: "far", duration: "5.2s", delay: "0.9s" },
 ];
 
 const TIER_STYLE: Record<Tier, { scale: number; opacity: number }> = {
@@ -86,7 +89,7 @@ export function IndustryScatterField() {
             />
           </div>
           <div className="relative mx-auto h-[620px] w-full max-w-[1200px]">
-            {industries.map((industry, i) => (
+            {homepageIndustries.map((industry, i) => (
               <ScatterCard
                 key={industry.slug}
                 industry={industry}
@@ -105,7 +108,7 @@ export function IndustryScatterField() {
           showField && "lg:hidden",
         )}
       >
-        {industries.map((industry, index) => (
+        {homepageIndustries.map((industry, index) => (
           <ScrollReveal as="li" key={industry.slug} delay={(index % 3) * 80}>
             <IndustryCard industry={industry} />
           </ScrollReveal>
