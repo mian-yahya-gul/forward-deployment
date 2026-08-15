@@ -35,8 +35,6 @@ export interface Industry {
   slug: string;
   challenge: string;
   outcome: string;
-  /** Whether this shows on the homepage's curated grid; all industries appear on /industries regardless. */
-  featured: boolean;
   overview: string;
   operationalEnvironment: string;
   challenges: IndustryChallenge[];
@@ -71,7 +69,6 @@ export const industries: Industry[] = [
     slug: "healthcare",
     challenge: "Improve access to clinical knowledge and streamline administrative workflows.",
     outcome: "More time for patient care.",
-    featured: true,
     overview:
       "Healthcare organizations operate under constant pressure to deliver high-quality care while managing administrative complexity, regulatory requirements, and constrained staff time. Clinical and administrative teams often work with disconnected systems, and the people closest to patients are frequently the ones most burdened by paperwork.",
     operationalEnvironment:
@@ -153,7 +150,6 @@ export const industries: Industry[] = [
     slug: "education",
     challenge: "Reduce administrative overhead so staff and faculty can focus on students.",
     outcome: "More time for teaching and student support.",
-    featured: true,
     overview:
       "Educational institutions balance teaching and student support with a growing administrative load — admissions, scheduling, compliance, and reporting all compete for the same limited staff time. Faculty and administrative teams often rely on manual processes that were never designed for the current scale of the institution.",
     operationalEnvironment:
@@ -226,7 +222,6 @@ export const industries: Industry[] = [
     slug: "retail-ecommerce",
     challenge: "Unify fragmented customer, inventory, and operations data.",
     outcome: "Faster, more consistent customer experience.",
-    featured: true,
     overview:
       "Retail and e-commerce organizations operate across multiple channels — in-store, online, marketplace — with customer, inventory, and operational data that often lives in separate systems. Meeting rising customer expectations for speed and consistency requires those systems to work together, which is harder than it sounds.",
     operationalEnvironment:
@@ -296,7 +291,6 @@ export const industries: Industry[] = [
     slug: "manufacturing",
     challenge: "Improve visibility across production, quality, and supply workflows.",
     outcome: "Fewer disruptions and more predictable output.",
-    featured: true,
     overview:
       "Manufacturing organizations run complex operations spanning production, quality, supply chain, and maintenance — each generating data that's rarely connected to the others. Disruptions often surface late, after they've already affected output or delivery.",
     operationalEnvironment:
@@ -365,7 +359,6 @@ export const industries: Industry[] = [
     slug: "logistics-supply-chain",
     challenge: "Coordinate fragmented planning, routing, and inventory systems.",
     outcome: "Faster, more reliable delivery performance.",
-    featured: true,
     overview:
       "Logistics and supply chain organizations coordinate planning, routing, and inventory across a network of partners, systems, and constantly shifting conditions. Fragmented visibility across that network makes it hard to plan reliably or respond quickly when conditions change.",
     operationalEnvironment:
@@ -432,7 +425,6 @@ export const industries: Industry[] = [
     slug: "financial-services",
     challenge: "Streamline compliance-heavy processes without sacrificing accuracy.",
     outcome: "Faster turnaround with stronger controls.",
-    featured: true,
     overview:
       "Financial services organizations operate under significant regulatory and compliance obligations while managing document-heavy, approval-driven processes. Balancing speed and accuracy is a constant tension, especially as customer expectations for fast service increase.",
     operationalEnvironment:
@@ -500,7 +492,6 @@ export const industries: Industry[] = [
     slug: "government",
     challenge: "Deliver consistent public services while managing complex regulatory and procedural requirements.",
     outcome: "Faster case resolution and more consistent citizen service.",
-    featured: false,
     overview:
       "Government agencies balance public accountability with operational complexity — multiple departments, layered approval processes, and strict procedural requirements all shape how work gets done. Meeting rising public expectations for speed and transparency requires those processes to work better together, not just more technology.",
     operationalEnvironment:
@@ -569,7 +560,6 @@ export const industries: Industry[] = [
     slug: "agriculture",
     challenge: "Improve visibility across field operations, equipment, and supply chains that span a growing season.",
     outcome: "More predictable yields and fewer operational surprises.",
-    featured: false,
     overview:
       "Agricultural operations run on tight seasonal windows where timing, weather, and logistics all have to align. Farms and agribusinesses coordinate field operations, equipment, labor, and supply chains across a season, often with limited visibility into what's happening until a report arrives after the fact.",
     operationalEnvironment:
@@ -636,7 +626,6 @@ export const industries: Industry[] = [
     slug: "aviation",
     challenge: "Coordinate maintenance, scheduling, and compliance documentation without disrupting safety-critical operations.",
     outcome: "Faster turnaround with stronger compliance records.",
-    featured: false,
     overview:
       "Aviation operations run under strict safety and regulatory requirements while coordinating maintenance, crew, and scheduling across tight operational windows. Every process has to hold up to rigorous documentation standards, which makes manual coordination both essential and difficult to scale.",
     operationalEnvironment:
@@ -704,7 +693,6 @@ export const industries: Industry[] = [
     slug: "insurance",
     challenge: "Speed up claims and underwriting without sacrificing accuracy or compliance.",
     outcome: "Faster claims resolution with stronger audit trails.",
-    featured: false,
     overview:
       "Insurance carriers and brokers manage high volumes of claims, underwriting, and policy documentation under strict regulatory scrutiny. Balancing fast, competitive service with rigorous accuracy and compliance is a constant operational tension.",
     operationalEnvironment:
@@ -772,7 +760,6 @@ export const industries: Industry[] = [
     slug: "legal-services",
     challenge: "Reduce time spent searching precedent and documents so legal teams can focus on judgment-intensive work.",
     outcome: "Faster research and review with a documented trail.",
-    featured: false,
     overview:
       "Legal teams — in-house counsel, law firms, and compliance departments — spend significant time reviewing contracts, researching precedent, and tracking obligations across matters. That work is essential, but the manual search and review process doesn't scale with caseload.",
     operationalEnvironment:
@@ -840,7 +827,6 @@ export const industries: Industry[] = [
     slug: "real-estate",
     challenge: "Bring leasing, maintenance, and portfolio data into one place.",
     outcome: "Faster response times and clearer portfolio visibility.",
-    featured: false,
     overview:
       "Real estate and property management organizations coordinate leasing, maintenance, and tenant communication across a portfolio of properties, often through a mix of spreadsheets, email, and disconnected systems. Getting a clear, current view of the portfolio is harder than it should be.",
     operationalEnvironment:
@@ -907,7 +893,6 @@ export const industries: Industry[] = [
     slug: "energy-utilities",
     challenge: "Improve visibility across grid, asset, and field operations while managing compliance reporting.",
     outcome: "Fewer disruptions and more predictable asset performance.",
-    featured: false,
     overview:
       "Energy and utility providers manage critical infrastructure — generation, distribution, and field operations — under close regulatory oversight. Asset and operational data often lives across legacy systems, making it hard to get a current, unified view of grid or asset health.",
     operationalEnvironment:
@@ -974,7 +959,6 @@ export const industries: Industry[] = [
     slug: "hospitality-travel",
     challenge: "Deliver consistent guest service across properties and channels.",
     outcome: "Faster guest response with more consistent service.",
-    featured: false,
     overview:
       "Hospitality and travel organizations manage reservations, guest service, and operations across properties and channels, often through a mix of booking platforms, property systems, and manual coordination. Guest expectations for fast, consistent service keep rising, while staff juggle multiple systems to meet them.",
     operationalEnvironment:
@@ -1041,7 +1025,6 @@ export const industries: Industry[] = [
     slug: "life-sciences-pharmaceuticals",
     challenge: "Manage research, trial, and regulatory documentation without slowing down critical timelines.",
     outcome: "Faster access to trial and regulatory information with stronger compliance.",
-    featured: false,
     overview:
       "Life sciences and pharmaceutical organizations manage research, clinical trial, and regulatory documentation under strict compliance requirements and tight timelines. Institutional knowledge is often scattered across research teams, systems, and years of trial history.",
     operationalEnvironment:
@@ -1108,7 +1091,6 @@ export const industries: Industry[] = [
     slug: "construction-engineering",
     challenge: "Coordinate project, safety, and subcontractor information across sites.",
     outcome: "Fewer delays and clearer visibility across projects.",
-    featured: false,
     overview:
       "Construction and engineering firms coordinate project schedules, safety compliance, and subcontractor work across multiple sites, often through a mix of spreadsheets, paper forms, and disconnected project management tools. Getting a current, accurate view of a project is harder than it should be.",
     operationalEnvironment:
@@ -1175,7 +1157,6 @@ export const industries: Industry[] = [
     slug: "oil-gas",
     challenge: "Improve visibility across field operations, assets, and compliance in remote, high-risk environments.",
     outcome: "Fewer operational surprises and stronger safety and compliance records.",
-    featured: false,
     overview:
       "Oil and gas operators run complex field, refining, and logistics operations, often across remote sites, under strict safety and regulatory oversight. Operational and asset data frequently lives across legacy systems and manual field reporting, making a current, unified view hard to assemble.",
     operationalEnvironment:

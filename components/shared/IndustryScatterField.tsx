@@ -21,33 +21,52 @@ interface Placement {
 }
 
 // Hand-placed scatter positions (not randomized, so there's no
-// hydration/reflow surprise): one near card as the natural focal point,
-// two mid-depth, three far, each floating on its own bob cycle.
+// hydration/reflow surprise): a staggered 6/5/6 layout across three rows so
+// every industry gets its own spot with no overlap. Each row shares one top
+// offset so cards read as a clean row (the near card is the sole deliberate
+// exception, lifted slightly as the focal point) — per-card vertical jitter
+// looked like misalignment instead of a natural scatter. Depth still varies
+// via scale/opacity, and each card floats on its own bob cycle.
+const ROW_TOP = { row1: "4%", row2: "37%", row3: "71%" } as const;
+
 const PLACEMENTS: Placement[] = [
-  { top: "38%", left: "36%", tier: "near", duration: "6s", delay: "0s" },
-  { top: "8%", left: "12%", tier: "mid", duration: "5s", delay: "0.4s" },
-  { top: "14%", left: "68%", tier: "mid", duration: "5.5s", delay: "0.8s" },
-  { top: "66%", left: "8%", tier: "far", duration: "4.5s", delay: "1.2s" },
-  { top: "70%", left: "60%", tier: "far", duration: "5s", delay: "0.2s" },
-  { top: "4%", left: "44%", tier: "far", duration: "4.8s", delay: "0.6s" },
+  // Row 1 (6 cards)
+  { top: ROW_TOP.row1, left: "0%", tier: "far", duration: "4.8s", delay: "0s" },
+  { top: ROW_TOP.row1, left: "17%", tier: "far", duration: "5.2s", delay: "0.3s" },
+  { top: ROW_TOP.row1, left: "34%", tier: "mid", duration: "5s", delay: "0.6s" },
+  { top: ROW_TOP.row1, left: "51%", tier: "mid", duration: "4.6s", delay: "0.9s" },
+  { top: ROW_TOP.row1, left: "68%", tier: "far", duration: "5.4s", delay: "1.2s" },
+  { top: ROW_TOP.row1, left: "85%", tier: "far", duration: "5s", delay: "0.2s" },
+  // Row 2 (5 cards, staggered between row 1 and row 3 columns)
+  { top: ROW_TOP.row2, left: "5%", tier: "far", duration: "4.6s", delay: "0.5s" },
+  { top: ROW_TOP.row2, left: "24%", tier: "mid", duration: "5.3s", delay: "0.8s" },
+  { top: "34%", left: "43%", tier: "near", duration: "6s", delay: "0s" },
+  { top: ROW_TOP.row2, left: "62%", tier: "mid", duration: "4.9s", delay: "1.1s" },
+  { top: ROW_TOP.row2, left: "81%", tier: "far", duration: "5.1s", delay: "0.4s" },
+  // Row 3 (6 cards)
+  { top: ROW_TOP.row3, left: "0%", tier: "far", duration: "5s", delay: "0.7s" },
+  { top: ROW_TOP.row3, left: "17%", tier: "mid", duration: "4.7s", delay: "1s" },
+  { top: ROW_TOP.row3, left: "34%", tier: "mid", duration: "5.5s", delay: "0.3s" },
+  { top: ROW_TOP.row3, left: "51%", tier: "far", duration: "4.9s", delay: "0.6s" },
+  { top: ROW_TOP.row3, left: "68%", tier: "far", duration: "5.2s", delay: "0.9s" },
+  { top: ROW_TOP.row3, left: "85%", tier: "far", duration: "4.6s", delay: "1.3s" },
 ];
 
-const TIER_STYLE: Record<Tier, { scale: number; blur: string; opacity: number }> = {
-  near: { scale: 1.05, blur: "0px", opacity: 1 },
-  mid: { scale: 0.88, blur: "1px", opacity: 0.85 },
-  far: { scale: 0.72, blur: "2px", opacity: 0.65 },
+const TIER_STYLE: Record<Tier, { scale: number; opacity: number }> = {
+  near: { scale: 1.05, opacity: 1 },
+  mid: { scale: 0.94, opacity: 0.97 },
+  far: { scale: 0.86, opacity: 0.94 },
 };
 
 /**
  * A loosely scattered field of floating industry cards at varying depth
- * (scale/blur/opacity), each gently bobbing on its own cycle. Hovering a
- * card pulls it into full focus (sharp, scaled up, elevated) while every
- * other card blurs and dims further — a rack-focus effect driven entirely
- * by the visitor's cursor, no timer.
+ * (scale/opacity only — no blur, so every card stays legible), each gently
+ * bobbing on its own cycle. Hovering a card pulls it into full focus
+ * (scaled up, elevated) while every other card dims slightly — a rack-focus
+ * effect driven entirely by the visitor's cursor, no timer.
  */
 export function IndustryScatterField() {
   const showField = useCarouselMode();
-  const featured = industries.filter((industry) => industry.featured);
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
@@ -59,15 +78,15 @@ export function IndustryScatterField() {
             aria-hidden
           >
             <div
-              className="h-[300px] w-[700px] rounded-full blur-3xl"
+              className="h-[340px] w-[900px] rounded-full blur-3xl"
               style={{
                 background:
                   "radial-gradient(circle, color-mix(in srgb, var(--primary) 14%, transparent) 0%, transparent 70%)",
               }}
             />
           </div>
-          <div className="relative mx-auto h-[460px] w-full max-w-[1000px]">
-            {featured.map((industry, i) => (
+          <div className="relative mx-auto h-[620px] w-full max-w-[1200px]">
+            {industries.map((industry, i) => (
               <ScatterCard
                 key={industry.slug}
                 industry={industry}
@@ -86,7 +105,7 @@ export function IndustryScatterField() {
           showField && "lg:hidden",
         )}
       >
-        {featured.map((industry, index) => (
+        {industries.map((industry, index) => (
           <ScrollReveal as="li" key={industry.slug} delay={(index % 3) * 80}>
             <IndustryCard industry={industry} />
           </ScrollReveal>
@@ -111,9 +130,8 @@ function ScatterCard({
   const isDimmed = hovered !== null && !isFocused;
   const base = TIER_STYLE[placement.tier];
 
-  const scale = isFocused ? 1.15 : isDimmed ? base.scale * 0.92 : base.scale;
-  const blur = isFocused ? "0px" : isDimmed ? "3px" : base.blur;
-  const opacity = isFocused ? 1 : isDimmed ? base.opacity * 0.55 : base.opacity;
+  const scale = isFocused ? 1.12 : isDimmed ? base.scale * 0.95 : base.scale;
+  const opacity = isFocused ? 1 : isDimmed ? base.opacity * 0.7 : base.opacity;
 
   return (
     <div
@@ -134,14 +152,14 @@ function ScatterCard({
           onMouseLeave={() => onHover(null)}
           onFocus={() => onHover(industry.slug)}
           onBlur={() => onHover(null)}
-          className="block rounded-2xl border border-border bg-background/90 px-5 py-4 shadow-[0_16px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-[transform,filter,opacity] duration-300 ease-[var(--ease-out)]"
-          style={{ transform: `scale(${scale})`, filter: `blur(${blur})`, opacity }}
+          className="block w-44 rounded-2xl border border-border bg-background/90 px-4 py-3 shadow-[0_16px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-[transform,opacity] duration-300 ease-[var(--ease-out)]"
+          style={{ transform: `scale(${scale})`, opacity }}
         >
           <div className="flex items-center gap-3">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
               <industry.icon className="size-4 text-primary" aria-hidden />
             </span>
-            <span className="text-sm font-semibold whitespace-nowrap text-foreground">{industry.name}</span>
+            <span className="text-sm leading-tight font-semibold text-foreground">{industry.name}</span>
           </div>
 
           <div
@@ -149,7 +167,7 @@ function ScatterCard({
             style={{ gridTemplateRows: isFocused ? "1fr" : "0fr" }}
           >
             <div className="overflow-hidden">
-              <p className="mt-3 max-w-[220px] text-xs leading-relaxed text-muted">{industry.challenge}</p>
+              <p className="mt-3 text-xs leading-relaxed text-muted">{industry.challenge}</p>
               <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary">
                 Explore Industry
                 <ArrowRight className="size-3" aria-hidden />
