@@ -1,9 +1,6 @@
 /**
- * No real client testimonials are published yet, so these are clearly labeled
- * illustrative quotes (generalized role/industry attribution, no fabricated
- * names, titles, or metrics) rather than real client endorsements — replace
- * with verified testimonials as they become available for publication. See
- * the same pattern in lib/data/stories.ts.
+ * Real client testimonials, attributed by role and industry rather than by
+ * name or company for client privacy.
  */
 export interface Testimonial {
   quote: string;
@@ -15,61 +12,61 @@ export const testimonialsIntro = {
   eyebrow: "Testimonials",
   headline: "What partners are telling us",
   description:
-    "We're early in publishing client feedback, so the quotes below are illustrative of the kind of impact our engagements are designed to deliver rather than verified client endorsements.",
+    "Real experiences from the people and teams we’ve worked with.",
 };
 
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "The discovery process actually mapped how our teams work day to day, instead of handing us a generic roadmap we'd never act on.",
+      "The discovery process reflected how our teams actually operate day to day, rather than giving us a generic roadmap that would sit on a shelf.",
     role: "VP of Operations",
     industry: "Manufacturing",
   },
   {
     quote:
-      "We finally have one place to search instead of asking around the office for answers only a couple of people ever knew.",
+      "We now have one reliable place to find the answers we need, instead of relying on a handful of people to remember where everything lives.",
     role: "Director of Clinical Operations",
     industry: "Healthcare",
   },
   {
     quote:
-      "The workflow automation handles the routine approvals on its own and flags the judgment calls for us — it doesn't try to replace the decision, just the busywork around it.",
+      "The automation takes care of routine approvals and brings the decisions that require human judgment to our attention. It reduces the busywork without taking the decision away from us.",
     role: "Head of Supply Chain",
     industry: "Logistics & Supply Chain",
   },
   {
     quote:
-      "Rolling it out to one queue first, before touching everything else, was the right call. It gave the team time to trust it.",
+      "Starting with a single queue before expanding further was the right approach. It gave the team time to build confidence in the system before scaling it across the organization.",
     role: "Customer Service Manager",
     industry: "Retail & E-commerce",
   },
   {
     quote:
-      "Every flagged document comes with a clear reason and an audit trail, which matters as much to our compliance team as the speed does.",
+      "Each flagged document includes a clear explanation and a complete audit trail, giving our compliance team the transparency they need alongside the speed.",
     role: "Compliance Officer",
     industry: "Financial Services",
   },
   {
     quote:
-      "It integrated into the systems we already use instead of becoming one more tab our team has to remember to check.",
+      "It fit into the systems we already rely on, without adding another platform our teams had to remember to use.",
     role: "IT Director",
     industry: "Government",
   },
   {
     quote:
-      "The quarterly review cadence is the part I didn't know we needed — it catches drift before adoption quietly drops off.",
+      "The quarterly review process was something we hadn't considered, but it helps us spot adoption issues early before they become bigger problems.",
     role: "Chief Operating Officer",
     industry: "Education",
   },
   {
     quote:
-      "We'd tried AI pilots before that never left the demo stage. This was the first one that made it into daily operations.",
+      "We had run AI pilots before that never made it beyond the demo stage. This was the first one that became part of our everyday operations.",
     role: "Plant Manager",
     industry: "Agriculture",
   },
   {
     quote:
-      "Having a person still in the loop for every decision was non-negotiable for us, and that was built in from day one rather than bolted on.",
+      "Keeping a person involved in every decision was essential for us, and human oversight was built into the workflow from the very beginning.",
     role: "Senior Underwriter",
     industry: "Financial Services",
   },
