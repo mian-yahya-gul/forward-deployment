@@ -60,12 +60,6 @@ export const footerCompanyColumn: FooterLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const footerLegalColumn: FooterLink[] = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Terms of Use", href: "/terms" },
-  { label: "Accessibility Statement", href: "/accessibility" },
-];
-
 export const footerSocial: { label: string; href: string }[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/deosai-lab/" },
   { label: "YouTube", href: "https://www.youtube.com/@deosailabs" },

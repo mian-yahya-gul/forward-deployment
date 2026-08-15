@@ -8,7 +8,6 @@ import {
   footerContact,
   footerIndustriesColumn,
   footerKnowledgeColumn,
-  footerLegalColumn,
   footerServicesColumn,
   footerSocial,
   type FooterLink,
@@ -80,15 +79,6 @@ export function Footer() {
             © {year} DeosAI Labs. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {footerLegalColumn.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted transition-colors duration-[var(--duration-fast)] hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
             <a
               href={`mailto:${footerContact.email}`}
               className="text-sm text-muted transition-colors duration-[var(--duration-fast)] hover:text-foreground"
