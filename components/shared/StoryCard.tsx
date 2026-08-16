@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { cn, glowCardClass } from "@/lib/utils";
 import type { Story } from "@/lib/data/stories";
 
 interface StoryCardProps {
@@ -11,13 +12,14 @@ interface StoryCardProps {
 export function StoryCard({ story }: StoryCardProps) {
   return (
     <Link href={story.href} className="block h-full">
-      <Card className="h-full">
+      <Card className={cn("h-full", glowCardClass)}>
         <div className="flex flex-wrap items-center gap-2">
           <Badge>{story.industry}</Badge>
+          {story.clientName && <Badge variant="primary">{story.clientName}</Badge>}
         </div>
         <h3 className="mt-4 text-base font-semibold text-foreground">{story.title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted">{story.challenge}</p>
-        <p className="mt-3 text-sm font-medium text-primary">{story.outcome}</p>
+        <p className="mt-3 text-sm font-medium text-primary">{story.headlineMetric ?? story.outcome}</p>
       </Card>
     </Link>
   );

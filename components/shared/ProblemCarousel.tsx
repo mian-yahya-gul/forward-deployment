@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { ProblemAccordion } from "@/components/shared/ProblemAccordion";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { useCarouselMode } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { cn, glowCardClass } from "@/lib/utils";
 import { problems } from "@/lib/data/problems";
 
 /**
@@ -26,7 +26,7 @@ export function ProblemsDisplay() {
       >
         {problems.map((problem, index) => (
           <ScrollReveal as="li" key={problem.title} delay={(index % 3) * 80}>
-            <Card className="h-full">
+            <Card className={cn("h-full", glowCardClass)}>
               <problem.icon className="size-6 text-primary" aria-hidden />
               <h3 className="mt-4 text-base font-semibold text-foreground">{problem.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{problem.description}</p>

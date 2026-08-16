@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { RingCarousel } from "@/components/shared/RingCarousel";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { useCarouselMode } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { cn, glowCardClass } from "@/lib/utils";
 import { services, type Service } from "@/lib/data/services";
 
 /**
@@ -38,7 +38,7 @@ export function ServicesDisplay() {
         {services.map((service, index) => (
           <ScrollReveal as="li" key={service.slug} delay={(index % 3) * 80}>
             <Link href={`/services/${service.slug}`} className="block h-full">
-              <Card className="h-full">
+              <Card className={cn("h-full", glowCardClass)}>
                 <service.icon className="size-6 text-primary" aria-hidden />
                 <h3 className="mt-4 text-base font-semibold text-foreground">{service.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{service.purpose}</p>
@@ -68,7 +68,9 @@ function ServiceFace({ service, isFront }: { service: Service; isFront: boolean 
       <Card
         className={cn(
           "h-[300px]",
-          isFront && "border-primary/40 shadow-[0_20px_45px_-20px_rgba(0,0,0,0.35)]",
+          glowCardClass,
+          isFront &&
+            "border-primary/60 shadow-[0_0_0_2px_color-mix(in_srgb,var(--primary)_28%,transparent),0_0_32px_-2px_color-mix(in_srgb,var(--primary)_65%,transparent),0_20px_45px_-20px_rgba(0,0,0,0.35)]",
         )}
       >
         <service.icon className="size-6 text-primary" aria-hidden />

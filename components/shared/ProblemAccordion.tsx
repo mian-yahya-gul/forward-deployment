@@ -62,7 +62,10 @@ export function ProblemAccordion({ problems }: { problems: ProblemCardData[] }) 
             }}
             aria-expanded={isActive}
             className={cn(
-              "group relative min-w-0 overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface text-left transition-[flex-grow] duration-[var(--duration-slow)] ease-[var(--ease-out)]",
+              "group relative min-w-0 overflow-hidden rounded-[var(--radius-lg)] bg-surface text-left transition-[flex-grow,border-color,box-shadow] duration-[var(--duration-slow)] ease-[var(--ease-out)]",
+              isActive
+                ? "border border-primary/60 shadow-[0_0_0_2px_color-mix(in_srgb,var(--primary)_26%,transparent),0_0_28px_-2px_color-mix(in_srgb,var(--primary)_60%,transparent)]"
+                : "border border-primary/25 shadow-[0_0_0_1px_color-mix(in_srgb,var(--primary)_14%,transparent),0_0_14px_-4px_color-mix(in_srgb,var(--primary)_35%,transparent)]",
               isActive ? "flex-[3]" : "flex-[1]",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
             )}

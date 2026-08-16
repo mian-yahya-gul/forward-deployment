@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
+import { cn, glowCardClass } from "@/lib/utils";
 import type { Service } from "@/lib/data/services";
 
 interface ServiceCardProps {
@@ -11,7 +12,7 @@ interface ServiceCardProps {
 export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <Link href={`/services/${service.slug}`} className="block h-full">
-      <Card className="h-full">
+      <Card className={cn("h-full", glowCardClass)}>
         <service.icon className="size-6 text-primary" aria-hidden />
         <h3 className="mt-4 text-base font-semibold text-foreground">{service.title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted">{service.purpose}</p>

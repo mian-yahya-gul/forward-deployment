@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { InsightCard } from "@/components/shared/InsightCard";
 import { buttonVariants } from "@/components/ui/button";
 import { articles, insightsIntro } from "@/lib/data/insights";
-import { cn } from "@/lib/utils";
+import { cn, glowCardClass } from "@/lib/utils";
 
 export function InsightsSection() {
   const featuredInsight = articles.find((article) => article.featured) ?? articles[0];
@@ -32,7 +32,7 @@ export function InsightsSection() {
 
         <ScrollReveal>
           <Link href={featuredInsight.href} className="mt-12 block">
-            <Card className="bg-surface p-8 lg:p-10">
+            <Card className={cn("bg-surface p-8 lg:p-10", glowCardClass)}>
               <Badge variant="primary">{featuredInsight.category}</Badge>
               <h3 className="mt-4 max-w-2xl text-2xl font-semibold text-foreground">
                 {featuredInsight.title}
