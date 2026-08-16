@@ -144,17 +144,18 @@
     0%,
     83%,
     100% {
-      transform: scale(1);
-      background: var(--background);
-      border-color: color-mix(in srgb, var(--primary) 30%, transparent);
-      color: var(--primary);
+      border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+      box-shadow:
+        0 0 0 1px color-mix(in srgb, var(--primary) 18%, transparent),
+        0 0 14px -2px color-mix(in srgb, var(--primary) 40%, transparent);
     }
     3%,
     13% {
-      transform: scale(1.1);
-      background: var(--primary);
       border-color: var(--primary);
-      color: var(--primary-foreground);
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--primary) 28%, transparent),
+        0 0 26px -2px color-mix(in srgb, var(--primary) 70%, transparent),
+        0 0 42px -6px color-mix(in srgb, var(--primary) 45%, transparent);
     }
   }
 

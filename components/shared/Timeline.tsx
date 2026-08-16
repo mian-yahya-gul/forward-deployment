@@ -39,7 +39,7 @@ export function Timeline({ items, className, animated = false }: TimelineProps) 
             <div className="flex flex-col items-center lg:w-full">
               <div
                 className={cn(
-                  "flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary",
+                  "flex size-11 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-background text-sm font-semibold text-primary shadow-[0_0_0_1px_color-mix(in_srgb,var(--primary)_18%,transparent),0_0_14px_-2px_color-mix(in_srgb,var(--primary)_40%,transparent)]",
                   animated && "timeline-pulse",
                 )}
                 style={animated ? { animationDelay: `${index * 0.5}s` } : undefined}

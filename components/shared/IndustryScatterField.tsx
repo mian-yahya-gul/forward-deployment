@@ -155,8 +155,17 @@ function ScatterCard({
           onMouseLeave={() => onHover(null)}
           onFocus={() => onHover(industry.slug)}
           onBlur={() => onHover(null)}
-          className="block w-44 rounded-2xl border border-border bg-background/90 px-4 py-3 shadow-[0_16px_40px_-20px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-[transform,opacity] duration-300 ease-[var(--ease-out)]"
-          style={{ transform: `scale(${scale})`, opacity }}
+          className={cn(
+            "block w-44 rounded-2xl border bg-background/90 px-4 py-3 backdrop-blur-sm transition-[transform,opacity,box-shadow,border-color] duration-300 ease-[var(--ease-out)]",
+            isFocused ? "border-primary" : "border-primary/40",
+          )}
+          style={{
+            transform: `scale(${scale})`,
+            opacity,
+            boxShadow: isFocused
+              ? "0 16px 40px -20px rgba(0,0,0,0.35), 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent), 0 0 28px -4px color-mix(in srgb, var(--primary) 65%, transparent)"
+              : "0 16px 40px -20px rgba(0,0,0,0.35), 0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent), 0 0 16px -2px color-mix(in srgb, var(--primary) 45%, transparent), 0 0 32px -6px color-mix(in srgb, var(--primary) 30%, transparent)",
+          }}
         >
           <div className="flex items-center gap-3">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
