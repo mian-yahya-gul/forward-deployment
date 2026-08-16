@@ -1,3 +1,9 @@
+export interface StoryQuote {
+  text: string;
+  name: string;
+  title: string;
+}
+
 export interface Story {
   slug: string;
   industry: string;
@@ -12,6 +18,19 @@ export interface Story {
   featured: boolean;
   relatedIndustrySlugs: string[];
   relatedServiceSlugs: string[];
+  /**
+   * Fields below are for real, verified engagements only — see the case
+   * study intake template. Leave them unset on illustrative scenarios;
+   * every consumer treats them as optional and renders nothing without one.
+   */
+  /** Real client name, once they've confirmed they can be named. Omit to stay anonymized. */
+  clientName?: string;
+  /** The single standout number or result — "Cut prior-auth turnaround from 3 days to 4 hours." */
+  headlineMetric?: string;
+  /** A signed-off, attributed quote — not the anonymized entries in testimonials.ts. */
+  quote?: StoryQuote;
+  /** What stayed a human decision — DeosAI's governance differentiator, not a generic caveat. */
+  whatStaysHuman?: string;
 }
 
 export const storiesIntro = {
@@ -34,8 +53,10 @@ export const storiesLandingHero = {
 /**
  * No real client engagements are published yet, so these are clearly
  * labeled illustrative scenarios (generalized business context, no
- * fabricated metrics) rather than real named case studies — replace
- * with verified client stories as they become available for publication.
+ * fabricated metrics) rather than real named case studies. Replace with
+ * verified client stories as they become available — a real entry should
+ * also set clientName, headlineMetric, quote, and whatStaysHuman so it
+ * reads as evidence rather than another scenario.
  */
 export const stories: Story[] = [
   {

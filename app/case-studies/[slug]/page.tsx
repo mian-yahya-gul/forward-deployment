@@ -65,8 +65,19 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <Link href={`/industries/${story.industrySlug}`}>
             <Badge variant="primary">{story.industry}</Badge>
           </Link>
+          {story.clientName && <Badge>{story.clientName}</Badge>}
         </div>
       </section>
+
+      {story.headlineMetric && (
+        <section className="border-b border-border py-14">
+          <div className="mx-auto max-w-[1280px] px-6">
+            <p className="max-w-3xl text-2xl font-semibold text-balance text-primary sm:text-3xl">
+              {story.headlineMetric}
+            </p>
+          </div>
+        </section>
+      )}
 
       <section className="border-b border-border py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
@@ -85,6 +96,27 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <SectionHeading eyebrow="Outcome" title="What changed" description={story.outcome} />
         </div>
       </section>
+
+      {story.quote && (
+        <section className="border-b border-border bg-surface py-20 sm:py-28">
+          <div className="mx-auto max-w-[1280px] px-6">
+            <blockquote className="max-w-3xl border-l-2 border-primary pl-6 text-xl leading-relaxed text-balance text-foreground sm:text-2xl">
+              “{story.quote.text}”
+            </blockquote>
+            <p className="mt-4 pl-6 text-sm font-medium text-muted">
+              {story.quote.name}, {story.quote.title}
+            </p>
+          </div>
+        </section>
+      )}
+
+      {story.whatStaysHuman && (
+        <section className="border-b border-border py-20 sm:py-28">
+          <div className="mx-auto max-w-[1280px] px-6">
+            <SectionHeading eyebrow="Governance" title="What stayed human" description={story.whatStaysHuman} />
+          </div>
+        </section>
+      )}
 
       <section className="border-b border-border bg-surface py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
