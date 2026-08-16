@@ -1,6 +1,7 @@
 import { Quote } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
+import { cn, glowCardClass } from "@/lib/utils";
 import type { Testimonial } from "@/lib/data/testimonials";
 
 interface TestimonialCardProps {
@@ -9,7 +10,7 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <Card className="hover:-translate-y-0 hover:shadow-none">
+    <Card className={cn(glowCardClass, "hover:-translate-y-0 hover:shadow-none")}>
       <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
         <Quote className="size-4 text-primary-hover" aria-hidden />
       </span>

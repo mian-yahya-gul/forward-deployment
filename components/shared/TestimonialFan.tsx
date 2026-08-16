@@ -158,7 +158,7 @@ function StoryCard({
 
   return (
     <div
-      className="relative flex h-[400px] w-[240px] flex-col overflow-hidden rounded-[28px] border border-white/10 p-5 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.45)]"
+      className="relative flex h-[400px] w-[240px] flex-col overflow-hidden rounded-[28px] border border-white/10 p-5 shadow-[0_0_36px_-6px_color-mix(in_srgb,var(--primary)_55%,transparent),0_24px_60px_-24px_rgba(0,0,0,0.45)]"
       style={{
         background: `radial-gradient(130% 110% at ${x1} ${y1}, color-mix(in srgb, var(--primary) 85%, white 15%) 0%, transparent 55%), radial-gradient(120% 100% at ${x2} ${y2}, color-mix(in srgb, var(--primary) 70%, black 15%) 0%, transparent 60%), linear-gradient(160deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 55%, black 30%) 100%)`,
       }}
