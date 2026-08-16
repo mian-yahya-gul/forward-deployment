@@ -66,5 +66,5 @@ export const footerSocial: { label: string; href: string }[] = [
 ];
 
 export const footerContact = {
-  email: "kakakhel176@gmail.com",
+  email: "info@deosailabs.com",
 };
