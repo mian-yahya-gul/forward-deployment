@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
 import { useCarouselMode } from "@/lib/motion";
@@ -75,17 +75,11 @@ export function IndustryScatterField() {
   return (
     <>
       {showField && (
-        // Fixed 1200x620 canvas, designed for desktop. Scaled down as a unit
-        // to fit narrower viewports (see RingCarousel for the same
-        // `--scale` pattern) rather than hidden below lg.
-        <div
-          className="relative mx-auto w-full max-w-[1200px] origin-top"
-          style={{
-            "--scale": "min(1, calc((100vw - 48px) / 1200px))",
-            transform: "scale(var(--scale))",
-            height: "calc(620px * var(--scale))",
-          } as CSSProperties}
-        >
+        // Desktop only (lg+): fixed 1200x620 absolute scatter canvas. Below
+        // lg, the plain static grid further down is used instead — shrinking
+        // this down via CSS scale made the text illegibly small on phones,
+        // and a bespoke phone-width layout wasn't worth the added surface.
+        <div className="relative hidden lg:block">
           <div
             className="pointer-events-none absolute inset-x-0 -z-10 flex justify-center"
             aria-hidden
@@ -115,7 +109,7 @@ export function IndustryScatterField() {
       <ul
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-          showField && "hidden",
+          showField && "lg:hidden",
         )}
       >
         {homepageIndustries.map((industry, index) => (

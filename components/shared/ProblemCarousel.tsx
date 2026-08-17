@@ -17,11 +17,18 @@ export function ProblemsDisplay() {
 
   return (
     <>
-      {showAccordion && <ProblemAccordion problems={problems} />}
+      {showAccordion && (
+        // Desktop only (lg+): the hover-to-expand accordion. Below lg, the
+        // plain static grid further down is used instead — 6 panels sharing
+        // under ~400px of width made each collapsed strip too thin to read.
+        <div className="hidden lg:block">
+          <ProblemAccordion problems={problems} />
+        </div>
+      )}
       <ul
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-          showAccordion && "hidden",
+          showAccordion && "lg:hidden",
         )}
       >
         {problems.map((problem, index) => (

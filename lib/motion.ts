@@ -13,10 +13,21 @@ export const easing = {
   inOut: "cubic-bezier(0.65, 0, 0.35, 1)",
 } as const;
 
+const IN_VIEW_FAILSAFE_MS = 1200;
+
 /**
  * Fires once when the element first enters the viewport, then disconnects.
  * Backs the .reveal/.reveal-visible CSS pair in globals.css so scroll
  * reveals stay CSS-driven rather than JS-animated.
+ *
+ * Content wrapped in this stays invisible (.reveal's opacity: 0) until
+ * `inView` flips true, so a failsafe timer also forces it true after
+ * IN_VIEW_FAILSAFE_MS regardless of whether the observer ever fires —
+ * otherwise any edge case that prevents the observer from firing (an
+ * element already in the viewport before it attaches, an engine quirk,
+ * etc.) leaves content permanently hidden rather than just losing the
+ * fade-in. The failsafe is cleared as soon as the observer does its job
+ * normally, so it never visibly fires on a working browser.
  */
 export function useInView<T extends HTMLElement>(threshold = 0.2) {
   const ref = useRef<T | null>(null);
@@ -28,9 +39,14 @@ export function useInView<T extends HTMLElement>(threshold = 0.2) {
     const node = ref.current;
     if (!node) return;
 
+    const failsafe = setTimeout(() => setInView(true), IN_VIEW_FAILSAFE_MS);
+
     if (typeof IntersectionObserver === "undefined") {
       const raf = requestAnimationFrame(() => setInView(true));
-      return () => cancelAnimationFrame(raf);
+      return () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(failsafe);
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -38,13 +54,17 @@ export function useInView<T extends HTMLElement>(threshold = 0.2) {
         if (entry.isIntersecting) {
           setInView(true);
           observer.disconnect();
+          clearTimeout(failsafe);
         }
       },
       { threshold },
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(failsafe);
+    };
   }, [threshold]);
 
   return { ref, inView };
