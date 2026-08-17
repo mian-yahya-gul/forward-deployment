@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { X } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { primaryNav, navCta } from "@/lib/data/nav";
 import { cn } from "@/lib/utils";
 
@@ -41,6 +42,10 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
       )}
       style={{ paddingTop: "var(--header-height)" }}
     >
+      <div className="absolute top-0 left-4 flex h-[var(--header-height)] items-center">
+        <ThemeToggle />
+      </div>
+
       <button
         type="button"
         onClick={onClose}
