@@ -75,41 +75,72 @@ export function IndustryScatterField() {
   return (
     <>
       {showField && (
-        // Desktop only (lg+): fixed 1200x620 absolute scatter canvas. Below
-        // lg, the plain static grid further down is used instead — shrinking
-        // this down via CSS scale made the text illegibly small on phones,
-        // and a bespoke phone-width layout wasn't worth the added surface.
-        <div className="relative hidden lg:block">
-          <div
-            className="pointer-events-none absolute inset-x-0 -z-10 flex justify-center"
-            aria-hidden
-          >
+        <>
+          {/* Desktop only (lg+): fixed 1200x620 absolute scatter canvas. */}
+          <div className="relative hidden lg:block">
             <div
-              className="h-[340px] w-[900px] rounded-full blur-3xl"
-              style={{
-                background:
-                  "radial-gradient(circle, color-mix(in srgb, var(--primary) 14%, transparent) 0%, transparent 70%)",
-              }}
-            />
-          </div>
-          <div className="relative mx-auto h-[620px] w-full max-w-[1200px]">
-            {homepageIndustries.map((industry, i) => (
-              <ScatterCard
-                key={industry.slug}
-                industry={industry}
-                placement={PLACEMENTS[i]}
-                hovered={hovered}
-                onHover={setHovered}
+              className="pointer-events-none absolute inset-x-0 -z-10 flex justify-center"
+              aria-hidden
+            >
+              <div
+                className="h-[340px] w-[900px] rounded-full blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(circle, color-mix(in srgb, var(--primary) 14%, transparent) 0%, transparent 70%)",
+                }}
               />
+            </div>
+            <div className="relative mx-auto h-[620px] w-full max-w-[1200px]">
+              {homepageIndustries.map((industry, i) => (
+                <ScatterCard
+                  key={industry.slug}
+                  industry={industry}
+                  placement={PLACEMENTS[i]}
+                  hovered={hovered}
+                  onHover={setHovered}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/*
+            Below lg: the same glowing pill design, but laid out with normal
+            flex-wrap flow instead of absolute scatter positions — flow
+            layout can't overlap by construction, unlike hand-placed percent
+            coordinates that were tuned for a 1200px canvas. Each pill still
+            bobs on its own cycle; there's no hover state to drive a focus
+            effect on touch, so it's dropped rather than faked.
+          */}
+          <div className="flex flex-wrap justify-center gap-3 lg:hidden">
+            {homepageIndustries.map((industry, i) => (
+              <Link
+                key={industry.slug}
+                href={`/industries/${industry.slug}`}
+                className="card-float block rounded-2xl border border-primary/40 bg-background/90 px-4 py-3 backdrop-blur-sm"
+                style={{
+                  animationDuration: PLACEMENTS[i].duration,
+                  animationDelay: PLACEMENTS[i].delay,
+                  boxShadow:
+                    "0 16px 40px -20px rgba(0,0,0,0.35), 0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent), 0 0 16px -2px color-mix(in srgb, var(--primary) 45%, transparent), 0 0 32px -6px color-mix(in srgb, var(--primary) 30%, transparent)",
+                }}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <industry.icon className="size-4 text-primary" aria-hidden />
+                  </span>
+                  <span className="text-sm leading-tight font-semibold text-foreground">{industry.name}</span>
+                </div>
+              </Link>
             ))}
           </div>
-        </div>
+        </>
       )}
 
+      {/* Reduced motion only: the plain static grid, at any width. */}
       <ul
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-          showField && "lg:hidden",
+          showField && "hidden",
         )}
       >
         {homepageIndustries.map((industry, index) => (
