@@ -16,6 +16,12 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Dev-only: lets the dev server's JS/HMR assets load when the site is
+  // opened from this machine's LAN IP (e.g. testing on a phone on the same
+  // WiFi) instead of localhost — Next blocks cross-origin dev asset
+  // requests by default. Ignored in production builds. Update the IP here
+  // if this machine's local address changes.
+  allowedDevOrigins: ["192.168.18.17"],
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
