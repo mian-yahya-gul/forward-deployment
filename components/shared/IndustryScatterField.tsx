@@ -107,19 +107,19 @@ export function IndustryScatterField() {
             Below lg: the same glowing pill design, but laid out with normal
             flex-wrap flow instead of absolute scatter positions — flow
             layout can't overlap by construction, unlike hand-placed percent
-            coordinates that were tuned for a 1200px canvas. Each pill still
-            bobs on its own cycle; there's no hover state to drive a focus
-            effect on touch, so it's dropped rather than faked.
+            coordinates that were tuned for a 1200px canvas. No bob animation
+            or backdrop-blur here (unlike the desktop pills) — 16 elements
+            continuously animating plus backdrop-filter is a well-known
+            mobile scroll-jank combo, and neither was worth the cost once
+            the pills aren't floating on top of anything busy.
           */}
           <div className="flex flex-wrap justify-center gap-3 lg:hidden">
-            {homepageIndustries.map((industry, i) => (
+            {homepageIndustries.map((industry) => (
               <Link
                 key={industry.slug}
                 href={`/industries/${industry.slug}`}
-                className="card-float block rounded-2xl border border-primary/40 bg-background/90 px-4 py-3 backdrop-blur-sm"
+                className="block rounded-2xl border border-primary/40 bg-background/95 px-4 py-3"
                 style={{
-                  animationDuration: PLACEMENTS[i].duration,
-                  animationDelay: PLACEMENTS[i].delay,
                   boxShadow:
                     "0 16px 40px -20px rgba(0,0,0,0.35), 0 0 0 1px color-mix(in srgb, var(--primary) 20%, transparent), 0 0 16px -2px color-mix(in srgb, var(--primary) 45%, transparent), 0 0 32px -6px color-mix(in srgb, var(--primary) 30%, transparent)",
                 }}
