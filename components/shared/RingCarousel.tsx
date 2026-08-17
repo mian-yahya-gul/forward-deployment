@@ -77,7 +77,7 @@ export function RingCarousel<T>({
       <div
         className="relative mx-auto w-full max-w-[1000px] origin-top"
         style={{
-          "--scale": "min(1, calc((100vw - 48px) / 1000))",
+          "--scale": "min(1, calc((100vw - 48px) / 1000px))",
           transform: "scale(var(--scale))",
           height: "calc(320px * var(--scale))",
           perspective: "1600px",

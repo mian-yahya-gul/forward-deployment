@@ -78,7 +78,7 @@ export function TestimonialFan() {
           <div
             className="relative mx-auto w-full max-w-[1100px] origin-top"
             style={{
-              "--scale": "min(1, calc((100vw - 48px) / 1100))",
+              "--scale": "min(1, calc((100vw - 48px) / 1100px))",
               transform: "scale(var(--scale))",
               height: "calc(440px * var(--scale))",
             } as CSSProperties}

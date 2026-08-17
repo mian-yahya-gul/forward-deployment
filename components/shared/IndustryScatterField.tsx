@@ -81,7 +81,7 @@ export function IndustryScatterField() {
         <div
           className="relative mx-auto w-full max-w-[1200px] origin-top"
           style={{
-            "--scale": "min(1, calc((100vw - 48px) / 1200))",
+            "--scale": "min(1, calc((100vw - 48px) / 1200px))",
             transform: "scale(var(--scale))",
             height: "calc(620px * var(--scale))",
           } as CSSProperties}
