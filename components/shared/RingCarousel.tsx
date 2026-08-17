@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -64,10 +64,24 @@ export function RingCarousel<T>({
   }
 
   return (
-    <div className="hidden lg:block">
+    <div>
+      {/*
+        Fixed 1000x320 3D stage, designed for desktop. Rather than hiding it
+        below lg (the old behavior), scale the whole stage down to fit
+        narrower viewports via a CSS custom property — `--scale` stays 1
+        (a no-op) at 1000px+ and shrinks proportionally below that, with the
+        wrapper's own height following it so the page doesn't reserve empty
+        space. The dot nav below is intentionally outside this wrapper so
+        it never shrinks below a tappable size.
+      */}
       <div
-        className="relative mx-auto h-[320px] w-full max-w-[1000px]"
-        style={{ perspective: "1600px" }}
+        className="relative mx-auto w-full max-w-[1000px] origin-top"
+        style={{
+          "--scale": "min(1, calc((100vw - 48px) / 1000))",
+          transform: "scale(var(--scale))",
+          height: "calc(320px * var(--scale))",
+          perspective: "1600px",
+        } as CSSProperties}
         onMouseEnter={pause}
         onMouseLeave={resume}
         onFocus={pause}

@@ -60,6 +60,12 @@ export function ProblemAccordion({ problems }: { problems: ProblemCardData[] }) 
               pause();
               setActiveIndex(index);
             }}
+            onClick={() => {
+              // Touch has no hover to pause on — tapping jumps here and
+              // restarts the cadence instead, so it doesn't get stuck paused.
+              setActiveIndex(index);
+              startTimer();
+            }}
             aria-expanded={isActive}
             className={cn(
               "group relative min-w-0 overflow-hidden rounded-[var(--radius-lg)] bg-surface text-left transition-[flex-grow,border-color,box-shadow] duration-[var(--duration-slow)] ease-[var(--ease-out)]",

@@ -51,27 +51,25 @@ export function useInView<T extends HTMLElement>(threshold = 0.2) {
 }
 
 /**
- * Whether a 3D ring carousel should render (vs. its static grid fallback):
- * desktop width only, and never when the OS asks for reduced motion. Starts
- * `false` so server/client markup matches on first paint — no flash of
- * absolutely-positioned ring items before JS decides.
+ * Whether an animated display (3D ring carousel, scatter field, timeline
+ * chase, etc.) should render, vs. its static grid fallback: any viewport
+ * width, but never when the OS asks for reduced motion. Starts `false` so
+ * server/client markup matches on first paint — no flash of
+ * absolutely-positioned items before JS decides. Fixed-size desktop layouts
+ * that use this hook are expected to scale themselves down to fit narrow
+ * viewports (see the `--scale` custom-property pattern in RingCarousel,
+ * IndustryScatterField, and TestimonialFan) rather than being gated out.
  */
-export function useCarouselMode(breakpoint = 1024) {
+export function useCarouselMode() {
   const [showCarousel, setShowCarousel] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-
-    const mq = window.matchMedia(`(min-width: ${breakpoint}px)`);
     // Deliberate: this is the SSR-safe upgrade-after-mount read described
     // above, not a state derived from props/state that belongs in render.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setShowCarousel(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setShowCarousel(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, [breakpoint]);
+    setShowCarousel(!reduced);
+  }, []);
 
   return showCarousel;
 }

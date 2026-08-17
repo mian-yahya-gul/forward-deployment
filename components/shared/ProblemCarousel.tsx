@@ -21,7 +21,7 @@ export function ProblemsDisplay() {
       <ul
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-          showAccordion && "lg:hidden",
+          showAccordion && "hidden",
         )}
       >
         {problems.map((problem, index) => (

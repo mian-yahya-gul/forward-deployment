@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { Quote } from "lucide-react";
 
 import { useCarouselMode } from "@/lib/motion";
@@ -68,9 +68,20 @@ export function TestimonialFan() {
   return (
     <>
       {showFan && (
-        <div className="hidden lg:block">
+        <div>
+          {/*
+            Fixed 1100x440 fan, designed for desktop. Scaled down as a unit
+            to fit narrower viewports (see RingCarousel for the same
+            `--scale` pattern) rather than hidden below lg. The dot nav
+            below stays outside this wrapper so it never shrinks.
+          */}
           <div
-            className="relative mx-auto h-[440px] w-full max-w-[1100px]"
+            className="relative mx-auto w-full max-w-[1100px] origin-top"
+            style={{
+              "--scale": "min(1, calc((100vw - 48px) / 1100))",
+              transform: "scale(var(--scale))",
+              height: "calc(440px * var(--scale))",
+            } as CSSProperties}
             onMouseEnter={pause}
             onMouseLeave={resume}
             onFocus={pause}
@@ -129,7 +140,7 @@ export function TestimonialFan() {
       <ul
         className={cn(
           "columns-1 gap-6 sm:columns-2 lg:columns-3",
-          showFan && "lg:hidden",
+          showFan && "hidden",
         )}
       >
         {testimonials.map((testimonial, index) => (

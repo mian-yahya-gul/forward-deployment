@@ -32,7 +32,7 @@ export function ServicesDisplay() {
       <ul
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-          showCarousel && "lg:hidden",
+          showCarousel && "hidden",
         )}
       >
         {services.map((service, index) => (
