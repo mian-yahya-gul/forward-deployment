@@ -66,20 +66,22 @@ export function RingCarousel<T>({
   return (
     <div>
       {/*
-        Fixed 1000x320 3D stage, designed for desktop. Rather than hiding it
-        below lg (the old behavior), scale the whole stage down to fit
-        narrower viewports via a CSS custom property — `--scale` stays 1
-        (a no-op) at 1000px+ and shrinks proportionally below that, with the
-        wrapper's own height following it so the page doesn't reserve empty
-        space. The dot nav below is intentionally outside this wrapper so
-        it never shrinks below a tappable size.
+        Fixed 1000px-wide 3D stage. The front-facing card is always
+        translate(-50%, -50%)-centered and never needs the stage's full
+        1000px width to render at full size — only the side/back cards
+        (positioned via rotateY + translateZ, in absolute pixels
+        independent of the container's own width) reach out that far. So
+        rather than scaling the whole stage down as a unit to fit a phone
+        screen (which shrank the front card and its text down to ~34% on a
+        ~390px phone — illegibly small), the stage stays full size and
+        overflow-x-hidden just crops whatever side cards spill past the
+        viewport edge. They're already faded to low opacity at that depth,
+        so the crop reads as intentional rather than as a glitch.
       */}
       <div
-        className="relative mx-auto w-full max-w-[1000px] origin-top"
+        className="relative mx-auto w-full max-w-[1000px] overflow-x-hidden"
         style={{
-          "--scale": "min(1, calc((100vw - 48px) / 1000px))",
-          transform: "scale(var(--scale))",
-          height: "calc(320px * var(--scale))",
+          height: "360px",
           perspective: "1600px",
         } as CSSProperties}
         onMouseEnter={pause}
