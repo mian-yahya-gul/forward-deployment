@@ -43,18 +43,26 @@ interface Placement {
 // via scale/opacity, and each card floats on its own bob cycle.
 const ROW_TOP = { row1: "4%", row2: "37%", row3: "71%" } as const;
 
+// Indices 0/1/2 are deliberately the emphasized slots — Healthcare,
+// Financial Services, and Insurance (see homepageIndustries' order in
+// industries.ts) land here after the reorder below, so they get this
+// layout's near/mid/mid visual weight instead of whichever industries
+// used to fill these specific hand-tuned positions.
 const PLACEMENTS: Placement[] = [
-  // Row 1 (6 cards)
-  { top: ROW_TOP.row1, left: "0%", tier: "far", duration: "4.8s", delay: "0s" },
-  { top: ROW_TOP.row1, left: "17%", tier: "far", duration: "5.2s", delay: "0.3s" },
+  // Row 1 (6 cards). The first entry keeps its near-tier coordinates from
+  // the swap above (visually row-2 height, at top:34%) rather than moving
+  // to row 1's own top offset — repositioning it would risk the overlap
+  // this layout was originally tuned to avoid.
+  { top: "34%", left: "43%", tier: "near", duration: "6s", delay: "0s" },
+  { top: ROW_TOP.row1, left: "17%", tier: "mid", duration: "5.2s", delay: "0.3s" },
   { top: ROW_TOP.row1, left: "34%", tier: "mid", duration: "5s", delay: "0.6s" },
-  { top: ROW_TOP.row1, left: "51%", tier: "mid", duration: "4.6s", delay: "0.9s" },
+  { top: ROW_TOP.row1, left: "51%", tier: "far", duration: "4.6s", delay: "0.9s" },
   { top: ROW_TOP.row1, left: "68%", tier: "far", duration: "5.4s", delay: "1.2s" },
   { top: ROW_TOP.row1, left: "85%", tier: "far", duration: "5s", delay: "0.2s" },
   // Row 2 (5 cards, staggered between row 1 and row 3 columns)
   { top: ROW_TOP.row2, left: "5%", tier: "far", duration: "4.6s", delay: "0.5s" },
   { top: ROW_TOP.row2, left: "24%", tier: "mid", duration: "5.3s", delay: "0.8s" },
-  { top: "34%", left: "43%", tier: "near", duration: "6s", delay: "0s" },
+  { top: ROW_TOP.row1, left: "0%", tier: "far", duration: "4.8s", delay: "0s" },
   { top: ROW_TOP.row2, left: "62%", tier: "mid", duration: "4.9s", delay: "1.1s" },
   { top: ROW_TOP.row2, left: "81%", tier: "far", duration: "5.1s", delay: "0.4s" },
   // Row 3 (5 cards)

@@ -147,6 +147,140 @@ export const industries: Industry[] = [
     ],
   },
   {
+    icon: Landmark,
+    name: "Financial Services",
+    slug: "financial-services",
+    challenge: "Streamline compliance-heavy processes without sacrificing accuracy.",
+    outcome: "Faster turnaround with stronger controls.",
+    overview:
+      "Financial services organizations operate under significant regulatory and compliance obligations while managing document-heavy, approval-driven processes. Balancing speed and accuracy is a constant tension, especially as customer expectations for fast service increase.",
+    operationalEnvironment:
+      "Operations and compliance teams manage document review, approvals, and reporting across systems that often require manual cross-referencing. Customer-facing teams need accurate answers quickly, while compliance teams need auditable, consistent processes.",
+    challenges: [
+      {
+        title: "Manual, document-heavy review processes",
+        description: "Compliance-heavy processes often rely on manual document review that creates bottlenecks ahead of approvals.",
+      },
+      {
+        title: "Regulatory and compliance complexity",
+        description: "Requirements demand consistent, auditable processes that are difficult to maintain manually at scale.",
+      },
+      {
+        title: "Fragmented customer and account data",
+        description: "Customer information often lives across multiple systems, slowing service and decision-making.",
+      },
+      {
+        title: "Slow approval and decision cycles",
+        description: "Multi-step approval processes create delays that affect both customers and internal teams.",
+      },
+    ],
+    aiOpportunities: [
+      "Document review and intelligence support",
+      "Compliance-aware workflow automation",
+      "Customer and account knowledge assistants",
+      "Operational reporting and audit trails",
+    ],
+    businessOutcomes: [
+      "Faster turnaround with stronger controls",
+      "Improved compliance consistency",
+      "Reduced manual review effort",
+      "Faster customer response times",
+    ],
+    systems: [
+      "Core banking or policy administration systems",
+      "Document management systems",
+      "CRM platforms",
+      "Compliance and risk management systems",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "How does this handle regulatory compliance requirements?",
+        answer:
+          "Workflows are designed around your existing compliance requirements, with auditability and human review built in rather than treated as an afterthought.",
+      },
+      {
+        question: "Can this integrate with our core banking or policy systems?",
+        answer: "Yes — integration with existing core systems is scoped as part of the engagement.",
+      },
+      {
+        question: "Does this replace human review in approvals?",
+        answer: "No — it's designed to accelerate document review and flag what needs attention, with final decisions remaining with your team.",
+      },
+      {
+        question: "How is data security handled?",
+        answer: "Access controls and security review are standard parts of any integration involving sensitive financial or customer data.",
+      },
+    ],
+  },
+  {
+    icon: Umbrella,
+    name: "Insurance",
+    slug: "insurance",
+    challenge: "Speed up claims and underwriting without sacrificing accuracy or compliance.",
+    outcome: "Faster claims resolution with stronger audit trails.",
+    overview:
+      "Insurance carriers and brokers manage high volumes of claims, underwriting, and policy documentation under strict regulatory scrutiny. Balancing fast, competitive service with rigorous accuracy and compliance is a constant operational tension.",
+    operationalEnvironment:
+      "Claims adjusters, underwriters, and compliance teams review large volumes of documents and case files across policy administration, claims, and document management systems that don't always share data cleanly. Decisions often require cross-referencing policy terms, historical claims, and regulatory guidance under time pressure.",
+    challenges: [
+      {
+        title: "Manual, document-heavy claims review",
+        description: "Claims processing often relies on manual document review, creating bottlenecks and inconsistent turnaround times.",
+      },
+      {
+        title: "Underwriting decisions across fragmented data",
+        description: "Underwriters piece together risk profiles from systems that don't always share a common view of the policyholder.",
+      },
+      {
+        title: "Regulatory and compliance complexity",
+        description: "Requirements demand consistent, auditable decisions that are difficult to maintain manually at scale.",
+      },
+      {
+        title: "Fraud detection under volume pressure",
+        description: "Reviewing every claim for anomalies manually doesn't scale with claim volume.",
+      },
+    ],
+    aiOpportunities: [
+      "Claims document review and intelligence",
+      "Underwriting decision support",
+      "Fraud pattern detection support",
+      "Policyholder knowledge assistants",
+      "Compliance-aware workflow automation",
+    ],
+    businessOutcomes: [
+      "Faster claims resolution",
+      "More consistent underwriting decisions",
+      "Reduced manual review effort",
+      "Stronger audit trails",
+    ],
+    systems: [
+      "Policy administration systems",
+      "Claims management systems",
+      "Document management systems",
+      "CRM platforms",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "Does this replace adjuster or underwriter judgment?",
+        answer: "No — it's designed to accelerate document review and flag what needs attention, with final decisions remaining with your team.",
+      },
+      {
+        question: "How does this handle regulatory requirements?",
+        answer: "Workflows are designed around your existing compliance requirements, with auditability and human review built in from the start.",
+      },
+      {
+        question: "Can this integrate with our policy administration system?",
+        answer: "Yes — integration with existing core systems is scoped as part of the engagement.",
+      },
+      {
+        question: "How is claims fraud handled?",
+        answer: "The system flags anomalies for review rather than making autonomous fraud determinations, keeping a person in the loop.",
+      },
+    ],
+  },
+  {
     icon: GraduationCap,
     name: "Education",
     slug: "education",
@@ -422,73 +556,6 @@ export const industries: Industry[] = [
     ],
   },
   {
-    icon: Landmark,
-    name: "Financial Services",
-    slug: "financial-services",
-    challenge: "Streamline compliance-heavy processes without sacrificing accuracy.",
-    outcome: "Faster turnaround with stronger controls.",
-    overview:
-      "Financial services organizations operate under significant regulatory and compliance obligations while managing document-heavy, approval-driven processes. Balancing speed and accuracy is a constant tension, especially as customer expectations for fast service increase.",
-    operationalEnvironment:
-      "Operations and compliance teams manage document review, approvals, and reporting across systems that often require manual cross-referencing. Customer-facing teams need accurate answers quickly, while compliance teams need auditable, consistent processes.",
-    challenges: [
-      {
-        title: "Manual, document-heavy review processes",
-        description: "Compliance-heavy processes often rely on manual document review that creates bottlenecks ahead of approvals.",
-      },
-      {
-        title: "Regulatory and compliance complexity",
-        description: "Requirements demand consistent, auditable processes that are difficult to maintain manually at scale.",
-      },
-      {
-        title: "Fragmented customer and account data",
-        description: "Customer information often lives across multiple systems, slowing service and decision-making.",
-      },
-      {
-        title: "Slow approval and decision cycles",
-        description: "Multi-step approval processes create delays that affect both customers and internal teams.",
-      },
-    ],
-    aiOpportunities: [
-      "Document review and intelligence support",
-      "Compliance-aware workflow automation",
-      "Customer and account knowledge assistants",
-      "Operational reporting and audit trails",
-    ],
-    businessOutcomes: [
-      "Faster turnaround with stronger controls",
-      "Improved compliance consistency",
-      "Reduced manual review effort",
-      "Faster customer response times",
-    ],
-    systems: [
-      "Core banking or policy administration systems",
-      "Document management systems",
-      "CRM platforms",
-      "Compliance and risk management systems",
-    ],
-    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-platform-integration"],
-    faqs: [
-      {
-        question: "How does this handle regulatory compliance requirements?",
-        answer:
-          "Workflows are designed around your existing compliance requirements, with auditability and human review built in rather than treated as an afterthought.",
-      },
-      {
-        question: "Can this integrate with our core banking or policy systems?",
-        answer: "Yes — integration with existing core systems is scoped as part of the engagement.",
-      },
-      {
-        question: "Does this replace human review in approvals?",
-        answer: "No — it's designed to accelerate document review and flag what needs attention, with final decisions remaining with your team.",
-      },
-      {
-        question: "How is data security handled?",
-        answer: "Access controls and security review are standard parts of any integration involving sensitive financial or customer data.",
-      },
-    ],
-  },
-  {
     icon: Scale,
     name: "Government",
     slug: "government",
@@ -753,73 +820,6 @@ export const industries: Industry[] = [
       {
         question: "How is regulatory compensation calculated?",
         answer: "Compensation obligations are calculated against your jurisdiction- and route-specific rules automatically, with every calculation logged for an auditable, consistent record.",
-      },
-    ],
-  },
-  {
-    icon: Umbrella,
-    name: "Insurance",
-    slug: "insurance",
-    challenge: "Speed up claims and underwriting without sacrificing accuracy or compliance.",
-    outcome: "Faster claims resolution with stronger audit trails.",
-    overview:
-      "Insurance carriers and brokers manage high volumes of claims, underwriting, and policy documentation under strict regulatory scrutiny. Balancing fast, competitive service with rigorous accuracy and compliance is a constant operational tension.",
-    operationalEnvironment:
-      "Claims adjusters, underwriters, and compliance teams review large volumes of documents and case files across policy administration, claims, and document management systems that don't always share data cleanly. Decisions often require cross-referencing policy terms, historical claims, and regulatory guidance under time pressure.",
-    challenges: [
-      {
-        title: "Manual, document-heavy claims review",
-        description: "Claims processing often relies on manual document review, creating bottlenecks and inconsistent turnaround times.",
-      },
-      {
-        title: "Underwriting decisions across fragmented data",
-        description: "Underwriters piece together risk profiles from systems that don't always share a common view of the policyholder.",
-      },
-      {
-        title: "Regulatory and compliance complexity",
-        description: "Requirements demand consistent, auditable decisions that are difficult to maintain manually at scale.",
-      },
-      {
-        title: "Fraud detection under volume pressure",
-        description: "Reviewing every claim for anomalies manually doesn't scale with claim volume.",
-      },
-    ],
-    aiOpportunities: [
-      "Claims document review and intelligence",
-      "Underwriting decision support",
-      "Fraud pattern detection support",
-      "Policyholder knowledge assistants",
-      "Compliance-aware workflow automation",
-    ],
-    businessOutcomes: [
-      "Faster claims resolution",
-      "More consistent underwriting decisions",
-      "Reduced manual review effort",
-      "Stronger audit trails",
-    ],
-    systems: [
-      "Policy administration systems",
-      "Claims management systems",
-      "Document management systems",
-      "CRM platforms",
-    ],
-    relatedServiceSlugs: ["enterprise-knowledge-systems", "intelligent-business-workflows", "ai-platform-integration"],
-    faqs: [
-      {
-        question: "Does this replace adjuster or underwriter judgment?",
-        answer: "No — it's designed to accelerate document review and flag what needs attention, with final decisions remaining with your team.",
-      },
-      {
-        question: "How does this handle regulatory requirements?",
-        answer: "Workflows are designed around your existing compliance requirements, with auditability and human review built in from the start.",
-      },
-      {
-        question: "Can this integrate with our policy administration system?",
-        answer: "Yes — integration with existing core systems is scoped as part of the engagement.",
-      },
-      {
-        question: "How is claims fraud handled?",
-        answer: "The system flags anomalies for review rather than making autonomous fraud determinations, keeping a person in the loop.",
       },
     ],
   },
