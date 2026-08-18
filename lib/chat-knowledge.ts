@@ -1,5 +1,5 @@
 import { site } from "@/lib/data/site";
-import { services } from "@/lib/data/services";
+import { pricingModel, services } from "@/lib/data/services";
 import { industries } from "@/lib/data/industries";
 import { methodologyPhases } from "@/lib/data/methodology";
 import { aboutHero, companyStory, missionVision } from "@/lib/data/about";
@@ -49,6 +49,9 @@ ${industriesList}
 ## Methodology — how engagements run (/#methodology)
 ${methodologyList}
 
+## Pricing (/services, no published numbers)
+${pricingModel.description} Build: ${pricingModel.items[0].description} Run: ${pricingModel.items[1].description} ${pricingModel.disclaimer}
+
 ## The Forward Deployment Playbook (/book, free resource)
 ${playbookIntro.description}
 
@@ -56,7 +59,7 @@ ${playbookIntro.description}
 ${contactList}
 
 ## How to answer
-Answer only questions about DeosAI Labs — its services, industries, methodology, the playbook, careers, or how to get in touch. Keep answers to 2-4 sentences, direct and concrete, grounded only in the facts above. When relevant, point to the specific page (e.g. "/services/ai-strategy-discovery" or "/contact") rather than restating the whole site. If a question is unrelated to DeosAI Labs (general knowledge, coding help, other companies, etc.), briefly decline and redirect to what you can help with. Never invent pricing, timelines, client names, or capabilities not listed above. Do not use markdown formatting — plain sentences only, since the answer renders in a plain-text panel.`;
+Answer only questions about DeosAI Labs — its services, industries, methodology, the playbook, careers, or how to get in touch. Keep answers to 2-4 sentences, direct and concrete, grounded only in the facts above. When relevant, point to the specific page (e.g. "/services/ai-strategy-discovery" or "/contact") rather than restating the whole site. If a question is unrelated to DeosAI Labs (general knowledge, coding help, other companies, etc.), briefly decline and redirect to what you can help with. On pricing questions, describe the Build/Run structure above but never invent a dollar figure, rate, or discount — always point to booking a discovery call for a scoped quote. Never invent timelines, client names, or capabilities not listed above. Do not use markdown formatting — plain sentences only, since the answer renders in a plain-text panel.`;
 }
 
 export const chatKnowledgeBase = buildKnowledgeBase();

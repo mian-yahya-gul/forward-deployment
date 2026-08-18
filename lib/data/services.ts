@@ -45,6 +45,35 @@ export const servicesLandingHero = {
   secondaryCta: { label: "View Industry Solutions", href: "/industries" },
 };
 
+/**
+ * The engagement shape, not a rate card — we scope every fee on a
+ * discovery call rather than publishing numbers that don't hold up across
+ * wildly different workflows and industries. Kept here rather than in
+ * methodology.ts since it's a pricing message, not a phase description.
+ */
+export const pricingModel = {
+  eyebrow: "How We Price",
+  headline: "A fixed fee to build, a fraction of a hire to run.",
+  description:
+    "Every engagement follows the same shape. A fixed fee covers Discover through Deploy for one workflow, so you know the cost before we start. Once your Digital FTE is live, Optimize runs on an ongoing monthly cost — priced like a fraction of what a full-time hire would cost, not an open-ended retainer.",
+  items: [
+    {
+      label: "Build",
+      title: "Discover → Prioritize → Design → Deploy",
+      description:
+        "A fixed project fee, scoped to one workflow after a discovery call. You get a number before committing to the build — not an hourly estimate that grows as we go.",
+    },
+    {
+      label: "Run",
+      title: "Optimize",
+      description:
+        "An ongoing monthly cost once your Digital FTE is live — priced as a fraction of what the equivalent full-time role would cost, not a fixed-scope retainer.",
+    },
+  ],
+  disclaimer: "Every figure is scoped to your workflow on a call — we don't quote off a rate card.",
+  cta: { label: "Book a Discovery Call for a Scoped Quote", href: "/contact" },
+};
+
 export const services: Service[] = [
   {
     icon: Compass,
