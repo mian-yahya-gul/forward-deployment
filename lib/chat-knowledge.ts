@@ -22,7 +22,7 @@ function buildKnowledgeBase(): string {
     .join("\n");
 
   const methodologyList = methodologyPhases
-    .map((p) => `${p.number}. ${p.title} — ${p.objective} (${p.outcome})`)
+    .map((p) => `${p.number}. ${p.title} (${p.duration}) — ${p.objective} (${p.outcome})`)
     .join("\n");
 
   const contactList = contactPathways
