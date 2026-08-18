@@ -2,6 +2,7 @@ import {
   Compass,
   Library,
   Plug,
+  ShieldCheck,
   TrendingUp,
   Users,
   Workflow,
@@ -319,6 +320,60 @@ export const services: Service[] = [
         question: "What if our systems change after integration?",
         answer:
           "Integrations are built to be maintainable, and we can support updates as your underlying systems evolve.",
+      },
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    title: "AI Governance & Evaluation",
+    slug: "ai-governance-evaluation",
+    purpose: "Give every AI system a named owner, a documented escalation path, and a way to prove it's still working as intended.",
+    outcomes: ["Evaluation scorecards", "Human escalation design", "Audit trails", "Production monitoring"],
+    businessChallenge:
+      "Once an AI system reaches production, most organizations have no structured way to know whether it's still making good decisions, who's accountable when it isn't, or what happens when it hits a case it shouldn't handle alone. Governance gets treated as a compliance checkbox added after launch, rather than a decision made when the system is designed.",
+    whyTraditionalFails:
+      "Bolting oversight onto a system that's already live usually means retrofitting audit logging and escalation paths onto an architecture that was never built to support them — and \"the AI decided\" becomes an answer nobody can actually stand behind when something goes wrong.",
+    howWeHelp:
+      "We design evaluation scorecards and escalation paths as part of the system itself, not an afterthought — a named owner on your team, a documented path for edge cases, and an audit trail that shows why a decision was made, so oversight is something you can point to rather than something you hope is happening.",
+    deliverables: [
+      "Evaluation scorecards",
+      "Escalation and audit-trail design",
+      "Governance framework documentation",
+      "Production monitoring dashboards",
+      "Named-owner accountability model",
+    ],
+    relatedIndustrySlugs: [
+      "healthcare",
+      "financial-services",
+      "government",
+      "insurance",
+      "legal-services",
+      "life-sciences-pharmaceuticals",
+      "aviation",
+      "energy-utilities",
+      "manufacturing",
+      "logistics-supply-chain",
+    ],
+    faqs: [
+      {
+        question: "Is this the same as a compliance sign-off?",
+        answer:
+          "No. Compliance confirms a system meets a specific regulatory requirement at a point in time. Governance is the ongoing structure — who owns a decision, how edge cases get escalated, how you can show why a system did what it did — that makes compliance sign-off possible in the first place, not a substitute for it.",
+      },
+      {
+        question: "Does adding governance slow down deployment?",
+        answer:
+          "Designing it in from the start is faster than retrofitting it later. Most delays come from bolting escalation paths and audit logging onto a system that was already built without them, not from designing them alongside the system itself.",
+      },
+      {
+        question: "What does human escalation actually look like day to day?",
+        answer:
+          "A defined threshold for when the system hands a decision to a person, a named owner who receives it, and a record of what was escalated and why — not a vague promise that a human is in the loop somewhere.",
+      },
+      {
+        question: "Can this be added to a system that's already in production?",
+        answer:
+          "Yes, though it takes more work than designing it in from day one. We start by mapping the system's current decision points and gaps, then add scorecards, escalation paths, and audit trails around what's already running.",
       },
     ],
   },
