@@ -101,7 +101,7 @@ export default function AboutPage() {
           <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((value, index) => (
               <ScrollReveal as="li" key={value.title} delay={(index % 3) * 80}>
-                <Card className="h-full">
+                <Card className={cn("h-full", glowCardClass)}>
                   <value.icon className="size-6 text-primary" aria-hidden />
                   <h3 className="mt-4 text-base font-semibold text-foreground">{value.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{value.description}</p>
