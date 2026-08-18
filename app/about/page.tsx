@@ -15,12 +15,13 @@ import {
   careersPreview,
   companyStory,
   culture,
+  leadership,
   missionVision,
   operatingPrinciples,
   values,
 } from "@/lib/data/about";
 import { site } from "@/lib/data/site";
-import { cn } from "@/lib/utils";
+import { cn, glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About — DeosAI Labs",
@@ -52,7 +53,33 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-surface py-20 sm:py-28">
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <SectionHeading eyebrow={leadership.eyebrow} title={leadership.title} />
+          <ScrollReveal className="mt-10">
+            <Card className={cn("max-w-3xl", glowCardClass)}>
+              <p className="text-lg font-semibold text-foreground">{leadership.person.name}</p>
+              <p className="mt-1 text-sm font-medium text-primary">{leadership.person.title}</p>
+              <div className="mt-4 space-y-4">
+                {leadership.person.bio.map((paragraph) => (
+                  <p key={paragraph} className="text-sm leading-relaxed text-muted">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {leadership.person.focusAreas.map((area) => (
+                  <li key={area}>
+                    <Badge>{area}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
             <ScrollReveal>

@@ -9,10 +9,10 @@ import {
 } from "lucide-react";
 
 /**
- * No real leadership bios, partnerships, or community contributions exist
- * yet, so those sections from 09-about-contact.md are intentionally left
- * out of the built page rather than filled with invented people or
- * affiliations — add them once there's real content to publish.
+ * No real partnerships or community contributions exist yet, so those
+ * sections from 09-about-contact.md are intentionally left out of the
+ * built page rather than filled with invented affiliations — add them
+ * once there's real content to publish. Leadership (below) is real.
  */
 export const aboutHero = {
   eyebrow: "About",
@@ -30,6 +30,29 @@ export const companyStory = {
     "Powerful AI models are now widely available, but access alone rarely changes how an organization operates. The hard part — understanding real workflows, earning trust with the people who do the work, and integrating new capability without disrupting what already works — gets skipped in most AI initiatives.",
     "DeosAI Labs was founded to focus specifically on that hard part. We call ourselves an AI Forward Deployment company because our work happens inside our clients' operations, not in a lab removed from them. Every engagement starts with understanding the business first.",
   ],
+};
+
+export const leadership = {
+  eyebrow: "Leadership",
+  title: "Who's behind DeosAI Labs",
+  person: {
+    name: "Mian Yahya",
+    title: "CEO & Forward Deployed Engineer",
+    bio: [
+      "Mian Yahya is a Forward Deployed Engineer focused on turning real-world business problems into practical, production-ready AI systems. His background spans software engineering, AI, machine learning, MLOps, and cloud computing — covering the full journey of an AI solution, from understanding the problem and designing the solution to building, integrating, deploying, and improving it in real-world environments.",
+      "At DeosAI Labs, he works at the intersection of AI and business operations, where the challenge isn't simply building a model — it's integrating intelligence into existing workflows, systems, and processes to create measurable value.",
+    ],
+    focusAreas: [
+      "AI/ML and Generative AI solutions",
+      "AI agents and RAG systems",
+      "Machine learning and computer vision",
+      "API and system integration",
+      "Model and application deployment",
+      "MLOps, Docker, Kubernetes, and cloud infrastructure",
+      "AWS and cloud-native technologies",
+      "Productionizing and maintaining AI systems",
+    ],
+  },
 };
 
 export const missionVision = {

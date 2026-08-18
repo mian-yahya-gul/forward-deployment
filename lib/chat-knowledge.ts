@@ -2,7 +2,7 @@ import { site } from "@/lib/data/site";
 import { pricingModel, services } from "@/lib/data/services";
 import { industries } from "@/lib/data/industries";
 import { methodologyPhases } from "@/lib/data/methodology";
-import { aboutHero, companyStory, missionVision } from "@/lib/data/about";
+import { aboutHero, companyStory, leadership, missionVision } from "@/lib/data/about";
 import { playbookIntro } from "@/lib/data/playbook";
 import { contactPathways } from "@/lib/data/contact";
 
@@ -39,6 +39,9 @@ ${aboutHero.description}
 ${companyStory.paragraphs.join(" ")}
 
 Mission: ${missionVision.mission.description}
+
+## Leadership (/about)
+${leadership.person.name}, ${leadership.person.title}. ${leadership.person.bio.join(" ")}
 
 ## Services (/services)
 ${servicesList}
