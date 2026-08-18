@@ -67,13 +67,6 @@ export default function AboutPage() {
                   </p>
                 ))}
               </div>
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {leadership.person.focusAreas.map((area) => (
-                  <li key={area}>
-                    <Badge>{area}</Badge>
-                  </li>
-                ))}
-              </ul>
             </Card>
           </ScrollReveal>
         </div>
