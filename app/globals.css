@@ -189,4 +189,29 @@
       animation: none;
     }
   }
+
+  /* Continuous left-to-right drift for the logo marquee's duplicated track. */
+  @keyframes logo-marquee {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  .logo-marquee-track {
+    animation: logo-marquee 28s linear infinite;
+  }
+
+  /* Pause the drift while a visitor's cursor is over the strip. */
+  .logo-marquee-viewport:hover .logo-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee-track {
+      animation: none;
+    }
+  }
 }

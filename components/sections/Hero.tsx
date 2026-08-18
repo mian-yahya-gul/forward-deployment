@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BadgeCheck } from "lucide-react";
 
 import { HeroChat } from "@/components/shared/HeroChat";
+import { LogoMarquee } from "@/components/shared/LogoMarquee";
 import { PlaybookCover } from "@/components/shared/PlaybookCover";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { buttonVariants } from "@/components/ui/button";
@@ -57,6 +58,10 @@ export function Hero() {
           <PlaybookCover />
         </ScrollReveal>
       </div>
+
+      <ScrollReveal delay={360} className="mt-16 sm:mt-20">
+        <LogoMarquee />
+      </ScrollReveal>
     </section>
   );
 }
