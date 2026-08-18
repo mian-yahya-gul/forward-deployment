@@ -22,23 +22,17 @@ export function ServicesDisplay() {
   return (
     <>
       {showCarousel && (
-        // Desktop only (lg+): the 3D ring carousel is a fixed 1000px-wide
-        // stage. Below lg it renders in the plain grid instead of being
-        // scaled down — shrinking it to fit a phone screen made cards and
-        // text illegibly small (a ~390px phone works out to ~34% scale).
-        <div className="hidden lg:block">
-          <RingCarousel
-            items={services}
-            getKey={(service) => service.slug}
-            getLabel={(service) => service.title}
-            renderCard={(service, isFront) => <ServiceFace service={service} isFront={isFront} />}
-          />
-        </div>
+        <RingCarousel
+          items={services}
+          getKey={(service) => service.slug}
+          getLabel={(service) => service.title}
+          renderCard={(service, isFront) => <ServiceFace service={service} isFront={isFront} />}
+        />
       )}
       <ul
         className={cn(
           "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-          showCarousel && "lg:hidden",
+          showCarousel && "hidden",
         )}
       >
         {services.map((service, index) => (
