@@ -40,6 +40,13 @@ const bookIndustrySlugs = [
   "airline-ticketing",
   "oil-gas",
   "professional-services",
+  "insurance",
+  "legal-services",
+  "real-estate",
+  "energy-utilities",
+  "hospitality-travel",
+  "life-sciences-pharmaceuticals",
+  "construction-engineering",
 ];
 const bookNextStepsSlugs = ["choosing-your-starting-workflow", "working-with-deosai-labs"];
 

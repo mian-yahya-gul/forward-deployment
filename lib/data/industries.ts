@@ -1,5 +1,6 @@
 import {
   Activity,
+  Briefcase,
   Building2,
   Factory,
   Fuel,
@@ -14,6 +15,7 @@ import {
   Route,
   Scale,
   Sprout,
+  Ticket,
   Umbrella,
   Zap,
   type LucideIcon,
@@ -688,6 +690,73 @@ export const industries: Industry[] = [
     ],
   },
   {
+    icon: Ticket,
+    name: "Airline & Ticketing",
+    slug: "airline-ticketing",
+    challenge: "Resolve high-volume, rules-based passenger transactions faster while keeping agents available for the cases that actually need one.",
+    outcome: "Faster resolution with consistent, auditable compliance.",
+    overview:
+      "Airline commercial operations run a fundamentally different business than aviation operations does — reservations, fares, loyalty, and passenger service — on a high-volume, rules-heavy, exception-driven workflow.",
+    operationalEnvironment:
+      "Reservations, contact center, and revenue management staff work across passenger service systems, GDS platforms, and loyalty systems that don't always share a common view of the same passenger. Irregular operations spike demand exactly when staff capacity is most constrained.",
+    challenges: [
+      {
+        title: "High-volume routine booking and fare requests",
+        description: "Reservation changes, seat requests, and fare questions consume significant contact-center capacity even though they follow a recognizable, repeatable pattern.",
+      },
+      {
+        title: "Irregular operations rebooking spikes",
+        description: "Weather or mechanical disruptions spike rebooking demand exactly when staff capacity is most constrained, and manual rebooking often prioritizes call order over passenger need.",
+      },
+      {
+        title: "Manual interline and codeshare reconciliation",
+        description: "Passenger and revenue data across partner airlines requires reconciliation across systems that don't share a single source of truth, with discrepancies often caught late.",
+      },
+      {
+        title: "Regulatory compensation calculation under pressure",
+        description: "Compensation obligations for delays, cancellations, and denied boarding vary by jurisdiction and route, and calculating them correctly is a detailed task usually done under time pressure.",
+      },
+    ],
+    aiOpportunities: [
+      "Automated rebooking during irregular operations",
+      "Fare rule auditing and revenue management support",
+      "Baggage claim and compensation processing",
+      "Loyalty program dispute resolution",
+      "Regulatory compensation calculation",
+    ],
+    businessOutcomes: [
+      "Faster passenger resolution times",
+      "More consistent regulatory compliance",
+      "Reduced contact-center backlog during disruptions",
+      "Fewer settlement discrepancies with partner airlines",
+    ],
+    systems: [
+      "Passenger Service Systems (PSS)",
+      "Departure Control Systems (DCS)",
+      "Global Distribution Systems (GDS)",
+      "Loyalty platforms",
+    ],
+    relatedServiceSlugs: ["intelligent-business-workflows", "ai-assistants-copilots", "ai-platform-integration"],
+    faqs: [
+      {
+        question: "Does this replace contact center agents?",
+        answer: "No — it's designed to resolve routine, rules-based transactions automatically so agents are available for passengers who genuinely need one, not to replace service staff.",
+      },
+      {
+        question: "How are irregular operations (IROPS) handled?",
+        answer: "Rebooking follows your existing prioritization policy — connection risk, fare class, status tier — and any disputed or sensitive case is routed to a person.",
+      },
+      {
+        question: "Can this integrate with our PSS or GDS?",
+        answer: "Yes — integration with your existing reservation, departure control, and revenue management systems is scoped as part of the engagement.",
+      },
+      {
+        question: "How is regulatory compensation calculated?",
+        answer: "Compensation obligations are calculated against your jurisdiction- and route-specific rules automatically, with every calculation logged for an auditable, consistent record.",
+      },
+    ],
+  },
+  {
     icon: Umbrella,
     name: "Insurance",
     slug: "insurance",
@@ -818,6 +887,73 @@ export const industries: Industry[] = [
       {
         question: "How accurate is contract clause extraction?",
         answer: "Extraction is grounded in your source documents with references, and flagged for attorney review rather than treated as final.",
+      },
+    ],
+  },
+  {
+    icon: Briefcase,
+    name: "Professional Services",
+    slug: "professional-services",
+    challenge: "Free up billable-adjacent time spent on document assembly and administration so professionals can focus on judgment work.",
+    outcome: "Faster turnaround with more time for billable analysis.",
+    overview:
+      "Professional services firms sell expert judgment by the hour, which means every hour spent on document assembly, research, or administrative coordination is an hour not spent on the judgment clients are actually paying for.",
+    operationalEnvironment:
+      "Associates, consultants, and practice staff work across practice management, document management, and time-and-billing systems that don't always share a common view of a matter or engagement. Institutional knowledge — precedent, past work product, staffing availability — often depends on remembering who worked on something similar.",
+    challenges: [
+      {
+        title: "Manual research and first-draft document preparation",
+        description: "Associates and consultants spend significant time on research synthesis and first-draft assembly that follows a recognizable structure but still starts from a blank page each time.",
+      },
+      {
+        title: "Slow engagement and matter setup",
+        description: "Opening a new client engagement involves coordinating conflict checks, engagement letters, and billing codes manually, delaying when billable work can start.",
+      },
+      {
+        title: "Unsearchable institutional knowledge",
+        description: "Finding a prior work product or subject-matter expert inside the firm often depends on remembering who worked on a similar matter, rather than being able to search for it.",
+      },
+      {
+        title: "Uneven staffing and contract review load",
+        description: "Matching staff to upcoming engagement needs and redlining routine contract clauses both remain manual, recurring drains on senior time.",
+      },
+    ],
+    aiOpportunities: [
+      "First-draft research and document assembly",
+      "Engagement setup and conflict-check automation",
+      "Contract review and redlining support",
+      "Firm-wide knowledge and precedent search",
+      "Staffing and resource allocation visibility",
+    ],
+    businessOutcomes: [
+      "Faster proposal and engagement turnaround",
+      "More billable time available for analysis",
+      "More consistent contract review",
+      "Better visibility into firm-wide staffing",
+    ],
+    systems: [
+      "Practice / matter management systems",
+      "Document management systems",
+      "Time and billing systems",
+      "Contract management / repository systems",
+    ],
+    relatedServiceSlugs: ["enterprise-knowledge-systems", "ai-assistants-copilots", "intelligent-business-workflows"],
+    faqs: [
+      {
+        question: "Does this replace attorney or consultant judgment?",
+        answer: "No — output is always a draft, synthesis, or administrative assembly for review; the analysis and advice a client relies on stay with the professional whose name and judgment are behind it.",
+      },
+      {
+        question: "How is client confidentiality protected?",
+        answer: "Access controls and governance are designed around your existing confidentiality, privilege, and ethical-wall requirements from the start.",
+      },
+      {
+        question: "Can this integrate with our practice or document management system?",
+        answer: "Yes — integration is scoped around your existing systems as part of the engagement.",
+      },
+      {
+        question: "How accurate is contract clause redlining?",
+        answer: "Redlining is grounded in your firm's own standard positions and flagged for professional review rather than treated as final.",
       },
     ],
   },

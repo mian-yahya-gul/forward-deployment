@@ -10,9 +10,19 @@ import { industries, type Industry } from "@/lib/data/industries";
 import { IndustryCard } from "@/components/shared/IndustryCard";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 
-// Life Sciences & Pharmaceuticals still has its own /industries page and
-// listing entry — it's just left out of this homepage teaser.
-const homepageIndustries = industries.filter((industry) => industry.slug !== "life-sciences-pharmaceuticals");
+// These industries still have their own /industries page and listing entry
+// — they're just left out of this homepage teaser. Life Sciences &
+// Pharmaceuticals was the original exclusion; Airline & Ticketing and
+// Professional Services are excluded because PLACEMENTS below is a
+// hand-tuned, fixed-length (16) layout — every entry needs its own
+// PLACEMENTS[i], so growing this list means adding a matching placement,
+// not just removing a filter slug.
+const EXCLUDED_FROM_HOMEPAGE = new Set([
+  "life-sciences-pharmaceuticals",
+  "airline-ticketing",
+  "professional-services",
+]);
+const homepageIndustries = industries.filter((industry) => !EXCLUDED_FROM_HOMEPAGE.has(industry.slug));
 
 type Tier = "near" | "mid" | "far";
 
