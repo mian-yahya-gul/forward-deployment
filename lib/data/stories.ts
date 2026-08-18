@@ -51,14 +51,41 @@ export const storiesLandingHero = {
 };
 
 /**
- * No real client engagements are published yet, so these are clearly
- * labeled illustrative scenarios (generalized business context, no
- * fabricated metrics) rather than real named case studies. Replace with
- * verified client stories as they become available — a real entry should
- * also set clientName, headlineMetric, quote, and whatStaysHuman so it
- * reads as evidence rather than another scenario.
+ * The first entry below is a real, verified client engagement (see its
+ * clientName/headlineMetric/quote/whatStaysHuman fields) — the rest are
+ * clearly labeled illustrative scenarios (generalized business context,
+ * no fabricated metrics), kept until replaced with more verified stories.
  */
 export const stories: Story[] = [
+  {
+    slug: "reducing-manual-review-healthcare-revenue-cycle",
+    industry: "Healthcare",
+    industrySlug: "healthcare",
+    title: "Reducing manual review by 60% across a healthcare revenue-cycle operation",
+    context: "Indus Health, an organization managing revenue-cycle and medical billing operations in healthcare.",
+    challenge:
+      "A high volume of billing and claims cases required manual review before they could move forward, consuming reviewer time and creating a bottleneck between incoming case volume and available review capacity.",
+    approach:
+      "We designed a multi-agent AI revenue-cycle platform modeled on how a real RCM team works: eight specialized agents handle documentation, coding, validation, payer-policy research, compliance, and denial analysis and appeals, coordinated by LangGraph with explicit feedback loops, quality gates, and human-escalation paths built into the workflow from the start.",
+    outcome:
+      "The system reduced the volume of cases requiring manual review by 60%, while maintaining 95% accuracy across 250 evaluated cases — with every case still passing through human-review gates rather than being resolved without oversight.",
+    lessons:
+      "Designing the human-review gates and escalation paths as part of the system from day one, rather than adding oversight after the fact, was what made the approach credible inside a real revenue-cycle team, not just technically functional.",
+    href: "/case-studies/reducing-manual-review-healthcare-revenue-cycle",
+    featured: true,
+    relatedIndustrySlugs: ["healthcare"],
+    relatedServiceSlugs: ["intelligent-business-workflows", "ai-governance-evaluation"],
+    clientName: "Indus Health",
+    headlineMetric:
+      "Reduced the volume of cases requiring manual review by 60%, while maintaining 95% accuracy across 250 evaluated cases.",
+    quote: {
+      text: "The most impressive part was how the AI was designed around the existing revenue-cycle workflow rather than trying to automate everything in one step. The human-review gates and policy-grounded decisions made the approach feel much more realistic for healthcare.",
+      name: "Rizwan Ahmad",
+      title: "Revenue Cycle Stakeholder",
+    },
+    whatStaysHuman:
+      "Every case still moves through explicit quality gates and human-escalation paths built into the workflow — specialized agents support documentation, coding, payer-policy research, and denial analysis, but the cases that need human judgment are routed to a person by design. The system was built around the existing revenue-cycle process rather than replacing it in one step, so accountability for a claim decision never moves off a person's desk.",
+  },
   {
     slug: "reducing-administrative-load-healthcare",
     industry: "Healthcare",
@@ -73,7 +100,7 @@ export const stories: Story[] = [
       "Faster access to information, reduced administrative burden on clinical staff, and more consistent answers across teams.",
     lessons: "Starting with one well-scoped workflow built trust before expanding further.",
     href: "/case-studies/reducing-administrative-load-healthcare",
-    featured: true,
+    featured: false,
     relatedIndustrySlugs: ["healthcare"],
     relatedServiceSlugs: ["enterprise-knowledge-systems", "ai-assistants-copilots"],
   },
