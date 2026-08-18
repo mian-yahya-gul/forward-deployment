@@ -5,15 +5,16 @@
 //    origin now that the book lives at /book on the same domain. Docusaurus
 //    treats any same-origin href as one of its own internal routes and
 //    mis-resolves it against the book's own baseUrl.
-// 2. Links to any Part Two — Industries chapter. All 12 of those pages are
-//    served script-less (see render_page in the build tooling): the 3 added
-//    after this book was built have no compiled route/chunk at all, and the
-//    9 expanded ones DO have a route, but its compiled MDX-to-JSX component
-//    still holds the old short content — hydrating either one replaces the
-//    correct page with either a client "Not Found" or stale content a
-//    moment after it loads. This script only runs on the 6 pages that still
-//    load Docusaurus's bundle (Preface, Foundations, Next Steps); the
-//    industry pages themselves have no JS to fight in the first place.
+// 2. Links to any Part Two — Industries chapter. All 19 of those pages are
+//    served script-less (see render_page in the build tooling): 10 of them
+//    (the original 3 plus 7 added later) have no compiled route/chunk at
+//    all, and the 9 expanded ones DO have a route, but its compiled
+//    MDX-to-JSX component still holds the old short content — hydrating
+//    either one replaces the correct page with either a client "Not Found"
+//    or stale content a moment after it loads. This script only runs on the
+//    6 pages that still load Docusaurus's bundle (Preface, Foundations,
+//    Next Steps); the industry pages themselves have no JS to fight in the
+//    first place.
 //
 // Originally these were matched via a data-real-nav attribute added to the
 // hand-authored HTML, but React's hydration re-renders the sidebar/pagination
@@ -40,6 +41,13 @@
     "/book/industries/airline-ticketing",
     "/book/industries/oil-gas",
     "/book/industries/professional-services",
+    "/book/industries/insurance",
+    "/book/industries/legal-services",
+    "/book/industries/real-estate",
+    "/book/industries/energy-utilities",
+    "/book/industries/hospitality-travel",
+    "/book/industries/life-sciences-pharmaceuticals",
+    "/book/industries/construction-engineering",
   ];
 
   document.addEventListener(
