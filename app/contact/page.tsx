@@ -8,6 +8,7 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { TrackedLink } from "@/components/shared/TrackedLink";
 import { contactHero, contactPathways } from "@/lib/data/contact";
+import { cn, glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact — DeosAI Labs",
@@ -29,7 +30,7 @@ export default function ContactPage() {
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {contactPathways.map((pathway, index) => (
               <ScrollReveal as="li" key={pathway.title} delay={index * 80}>
-                <Card className="flex h-full flex-col">
+                <Card className={cn("flex h-full flex-col", glowCardClass)}>
                   <pathway.icon className="size-6 text-primary" aria-hidden />
                   <h3 className="mt-4 text-base font-semibold text-foreground">{pathway.title}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">

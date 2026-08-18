@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
+import { cn, glowCardClass } from "@/lib/utils";
 import type { Industry } from "@/lib/data/industries";
 
 interface IndustryCardProps {
@@ -11,7 +12,7 @@ interface IndustryCardProps {
 export function IndustryCard({ industry }: IndustryCardProps) {
   return (
     <Link href={`/industries/${industry.slug}`} className="block h-full">
-      <Card className="h-full bg-background">
+      <Card className={cn("h-full bg-background", glowCardClass)}>
         <industry.icon className="size-6 text-primary" aria-hidden />
         <h3 className="mt-4 text-base font-semibold text-foreground">{industry.name}</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted">{industry.challenge}</p>

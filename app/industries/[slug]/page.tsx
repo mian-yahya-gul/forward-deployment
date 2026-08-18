@@ -17,6 +17,7 @@ import { StoryCard } from "@/components/shared/StoryCard";
 import { getIndustryBySlug, industries } from "@/lib/data/industries";
 import { services } from "@/lib/data/services";
 import { getRelatedInsights, getRelatedStories } from "@/lib/relatedContent";
+import { cn, glowCardClass } from "@/lib/utils";
 
 interface IndustryPageProps {
   params: Promise<{ slug: string }>;
@@ -89,7 +90,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
           <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {industry.challenges.map((challenge, index) => (
               <ScrollReveal as="li" key={challenge.title} delay={(index % 2) * 80}>
-                <Card className="h-full">
+                <Card className={cn("h-full", glowCardClass)}>
                   <h3 className="text-base font-semibold text-foreground">{challenge.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{challenge.description}</p>
                 </Card>
