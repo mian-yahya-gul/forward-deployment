@@ -88,6 +88,26 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Oversized brand watermark — purely decorative, so the accessible
+          "home" link stays with the Logo above rather than duplicating it
+          on a giant hidden-from-screen-readers block. */}
+      <div className="overflow-hidden border-t border-border" aria-hidden>
+        <p
+          className="mx-auto max-w-[1280px] px-6 leading-none font-black tracking-tight whitespace-nowrap select-none"
+          style={{
+            fontSize: "clamp(3.5rem, 14vw, 11rem)",
+            backgroundImage:
+              "linear-gradient(90deg, color-mix(in srgb, var(--muted) 25%, transparent) 0%, var(--foreground) 45%, color-mix(in srgb, var(--muted) 25%, transparent) 90%)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            color: "transparent",
+          }}
+        >
+          DeosAi Labs
+          <span style={{ WebkitTextFillColor: "var(--primary)", color: "var(--primary)" }}>.</span>
+        </p>
+      </div>
     </footer>
   );
 }
