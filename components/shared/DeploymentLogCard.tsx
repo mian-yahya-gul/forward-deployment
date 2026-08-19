@@ -32,8 +32,10 @@ interface LogLine {
 /**
  * A faux deployment-log illustration of the same five methodology phases
  * the Timeline below it lists in full — concrete stand-in for "production,
- * not a demo" rather than another icon-and-copy summary. Always dark
- * regardless of site theme, like a real terminal.
+ * not a demo" rather than another icon-and-copy summary. Built entirely
+ * from theme tokens (bg-background, text-foreground/muted/primary) rather
+ * than fixed dark-terminal colors, so it's a light terminal in light mode
+ * and a dark one in dark mode, like the rest of the site.
  *
  * Each line's icon/glyph appears immediately, then its text types in
  * character by character (like token streaming) before the next line
@@ -47,21 +49,21 @@ export function DeploymentLogCard() {
   const lines: LogLine[] = [
     ...completedPhases.map((phase) => ({
       key: phase.number,
-      prefix: <Check className="size-3.5 shrink-0 text-[#7a99e4]" aria-hidden />,
+      prefix: <Check className="size-3.5 shrink-0 text-primary" aria-hidden />,
       text: `${phase.title} — ${PHASE_TAGS[phase.title]}`,
-      textClass: "text-white/80",
+      textClass: "text-foreground/80",
     })),
     {
       key: "optimize",
-      prefix: <ArrowRight className="size-3.5 shrink-0 text-white/50" aria-hidden />,
+      prefix: <ArrowRight className="size-3.5 shrink-0 text-muted" aria-hidden />,
       text: `${optimize.title} — monitoring in production…`,
-      textClass: "text-white/80",
+      textClass: "text-foreground/80",
     },
     {
       key: "live",
-      prefix: <span className="status-blink size-1.5 shrink-0 rounded-full bg-[#5b7fdb]" />,
+      prefix: <span className="status-blink size-1.5 shrink-0 rounded-full bg-primary" />,
       text: "Live in production",
-      textClass: "text-white",
+      textClass: "text-foreground",
     },
   ];
 
@@ -103,12 +105,12 @@ export function DeploymentLogCard() {
 
   return (
     <div
-      className={cn("overflow-hidden rounded-[var(--radius-lg)] border bg-[#0b1220]", glowCardClass)}
+      className={cn("overflow-hidden rounded-[var(--radius-lg)] border bg-background", glowCardClass)}
       aria-hidden
     >
-      <div className="flex items-center gap-2 border-b border-white/10 px-5 py-3">
-        <span className="status-blink size-2 rounded-full bg-[#5b7fdb]" />
-        <span className="font-mono text-xs text-white/40">DeosAi Labs &middot; deployment process</span>
+      <div className="flex items-center gap-2 border-b border-border px-5 py-3">
+        <span className="status-blink size-2 rounded-full bg-primary" />
+        <span className="font-mono text-xs text-muted">DeosAi Labs &middot; deployment process</span>
       </div>
 
       <div className="space-y-2.5 px-5 py-5 font-mono text-sm">
@@ -123,7 +125,7 @@ export function DeploymentLogCard() {
               <span>
                 {line.text.slice(0, shown)}
                 {isActive && shown < line.text.length && (
-                  <span className="ml-px inline-block h-[1em] w-[2px] translate-y-[2px] bg-white/70 status-blink" />
+                  <span className="ml-px inline-block h-[1em] w-[2px] translate-y-[2px] bg-foreground/70 status-blink" />
                 )}
               </span>
             </p>
