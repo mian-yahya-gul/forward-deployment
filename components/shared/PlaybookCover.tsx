@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
+import { isPlaybookUnlocked, PlaybookGateModal } from "@/components/shared/PlaybookGateModal";
 import { playbookIntro } from "@/lib/data/playbook";
 
 // Resting pose: the cover sits at a slight natural tilt even before hover,
@@ -19,8 +19,9 @@ const HOVER_RANGE = 16;
  * re-render on every pointer event.
  */
 export function PlaybookCover() {
-  const wrapRef = useRef<HTMLAnchorElement>(null);
+  const wrapRef = useRef<HTMLButtonElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const [gateOpen, setGateOpen] = useState(false);
 
   const applyTransform = useCallback((rotateX: number, rotateY: number, scale: number) => {
     const card = cardRef.current;
@@ -29,7 +30,7 @@ export function PlaybookCover() {
   }, []);
 
   const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       const wrap = wrapRef.current;
       const card = cardRef.current;
       if (!wrap || !card) return;
@@ -54,6 +55,14 @@ export function PlaybookCover() {
     applyTransform(BASE_ROTATE_X, BASE_ROTATE_Y, 1);
   }, [applyTransform]);
 
+  const handleClick = useCallback(() => {
+    if (isPlaybookUnlocked()) {
+      window.location.href = playbookIntro.readingHref;
+    } else {
+      setGateOpen(true);
+    }
+  }, []);
+
   return (
     <div className="relative mx-auto w-full max-w-[380px] py-10">
       {/* Ambient glow behind the book. */}
@@ -67,17 +76,13 @@ export function PlaybookCover() {
         aria-hidden
       />
 
-      {/* prefetch=false: /book/* is a static export served via next.config.ts
-          rewrites, not a real Next.js route — Next's default Link prefetch
-          issues an RSC segment-tree request that 404s against a rewritten
-          static file, since there's no app-router page to prefetch from. */}
-      <Link
+      <button
+        type="button"
         ref={wrapRef}
-        href={playbookIntro.readingHref}
-        prefetch={false}
+        onClick={handleClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group block [perspective:1400px]"
+        className="group block w-full text-left [perspective:1400px]"
         aria-label={`Start reading — ${playbookIntro.title}`}
       >
         <div
@@ -170,7 +175,11 @@ export function PlaybookCover() {
             </p>
           </div>
         </div>
-      </Link>
+      </button>
+
+      {gateOpen && (
+        <PlaybookGateModal destination={playbookIntro.readingHref} onClose={() => setGateOpen(false)} />
+      )}
     </div>
   );
 }
