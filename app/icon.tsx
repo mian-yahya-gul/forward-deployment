@@ -15,9 +15,9 @@ export default function Icon() {
           justifyContent: "center",
           // Same brand blue as the "Ai" in the real logo wordmark.
           background: "#004AAD",
-          borderRadius: 7,
+          borderRadius: 5,
           color: "#FFFFFF",
-          fontSize: 17,
+          fontSize: 22,
           fontWeight: 700,
           fontFamily: "system-ui, sans-serif",
         }}
