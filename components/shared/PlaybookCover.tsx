@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
 
 import { isPlaybookUnlocked, PlaybookGateModal } from "@/components/shared/PlaybookGateModal";
@@ -124,15 +125,16 @@ export function PlaybookCover() {
           />
 
           <div className="relative flex h-full flex-col p-[6%]">
-            <div
-              className="flex items-center justify-between text-[9px] font-bold tracking-[0.2em] uppercase"
-              style={{ color: "#f4f6fb" }}
-            >
-              <span>
-                Deos<span style={{ color: "#9db8f5" }}>Ai</span> Labs
-                <span style={{ color: "#9db8f5" }}>.</span>
+            <div className="flex items-center justify-between">
+              {/* Dark variant regardless of site theme — the cover's own
+                  background is always this dark navy gradient. */}
+              <Image src="/logo/wordmark-dark.png" alt="DeosAI Labs" width={35} height={16} />
+              <span
+                className="text-[9px] font-bold tracking-[0.2em] uppercase"
+                style={{ color: "#7c8bb3" }}
+              >
+                Forward Deployed
               </span>
-              <span style={{ color: "#7c8bb3", fontWeight: 600 }}>Forward Deployed</span>
             </div>
             <div className="mt-2 h-px w-full" style={{ background: "rgba(255,255,255,0.14)" }} />
 
