@@ -4,7 +4,6 @@ import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { InsightsSection } from "@/components/sections/InsightsSection";
 import { MethodologySection } from "@/components/sections/MethodologySection";
 import { ProblemSection } from "@/components/sections/ProblemSection";
-import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { TransformationStoriesSection } from "@/components/sections/TransformationStoriesSection";
@@ -17,7 +16,6 @@ export default function Home() {
       <MethodologySection />
       <ServicesSection />
       <IndustriesSection />
-      <ProcessSection />
       <TransformationStoriesSection />
       <InsightsSection />
       <TestimonialsSection />
