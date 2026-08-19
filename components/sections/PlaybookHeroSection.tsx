@@ -9,7 +9,7 @@ import { isPlaybookUnlocked, PlaybookGateModal } from "@/components/shared/Playb
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { buttonVariants } from "@/components/ui/button";
 import { playbookIntro, playbookParts } from "@/lib/data/playbook";
-import { cn } from "@/lib/utils";
+import { cn, gradientHeadingClass } from "@/lib/utils";
 
 export function PlaybookHeroSection() {
   const chapterCount = playbookParts.reduce((sum, part) => sum + part.chapters.length, 0);
@@ -33,7 +33,12 @@ export function PlaybookHeroSection() {
           </ScrollReveal>
 
           <ScrollReveal delay={80}>
-            <h1 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
+            <h1
+              className={cn(
+                "mt-4 max-w-xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl",
+                gradientHeadingClass,
+              )}
+            >
               {playbookIntro.title}
             </h1>
           </ScrollReveal>

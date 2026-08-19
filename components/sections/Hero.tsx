@@ -7,7 +7,7 @@ import { PlaybookCover } from "@/components/shared/PlaybookCover";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/lib/data/site";
-import { cn } from "@/lib/utils";
+import { cn, gradientHeadingClass } from "@/lib/utils";
 
 export function Hero() {
   const { hero } = site;
@@ -24,7 +24,12 @@ export function Hero() {
           </ScrollReveal>
 
           <ScrollReveal delay={80}>
-            <h1 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
+            <h1
+              className={cn(
+                "mt-4 max-w-xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl",
+                gradientHeadingClass,
+              )}
+            >
               {hero.headline}
             </h1>
           </ScrollReveal>

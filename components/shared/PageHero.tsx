@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, gradientHeadingClass } from "@/lib/utils";
 
 interface CtaLink {
   label: string;
@@ -32,7 +32,12 @@ export function PageHero({
         {breadcrumbs && <div className="mb-8">{breadcrumbs}</div>}
 
         <p className="text-sm font-medium tracking-wide text-primary uppercase">{eyebrow}</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance text-foreground sm:text-5xl">
+        <h1
+          className={cn(
+            "mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl",
+            gradientHeadingClass,
+          )}
+        >
           {title}
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{description}</p>
