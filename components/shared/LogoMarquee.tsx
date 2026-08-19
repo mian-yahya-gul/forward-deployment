@@ -18,13 +18,15 @@
  * content's bounding box (the whitespace the original artwork left around
  * the mark trimmed off) since those two specifically still read small at
  * the shared height even with a matched aspect ratio — the other four keep
- * their original, uncropped canvas and ratio.
+ * their original, uncropped canvas and ratio. `scale` shrinks an individual
+ * entry's box below the shared height (Indus Health's cropped mark reads
+ * oversized next to the rest at full height).
  */
 const LOGO_HEIGHT = 44;
 const LOGOS = [
   { name: "Nexora Systems", src: "/logos/nexora-systems.png", ratio: 282 / 130 },
   { name: "Vantix Technologies", src: "/logos/vantix-technologies.png", ratio: 474 / 164 },
-  { name: "Indus Health", src: "/logos/indus-health.png", ratio: 416 / 112 },
+  { name: "Indus Health", src: "/logos/indus-health.png", ratio: 672 / 155, scale: 0.7 },
   { name: "Vantora Hypermarket", src: "/logos/vantora-hypermarket.png", ratio: 240 / 108 },
   { name: "Arclight Logistics", src: "/logos/arclight-logistics.png", ratio: 231 / 152 },
   { name: "Westfield Education System", src: "/logos/westfield-education.png", ratio: 412 / 114 },
@@ -36,24 +38,27 @@ export function LogoMarquee() {
   return (
     <div className="logo-marquee-viewport overflow-hidden" aria-hidden>
       <div className="logo-marquee-track flex w-max items-center gap-16">
-        {track.map((logo, index) => (
-          <span
-            key={`${logo.name}-${index}`}
-            className="shrink-0 bg-muted/70"
-            style={{
-              height: LOGO_HEIGHT,
-              width: Math.round(LOGO_HEIGHT * logo.ratio),
-              WebkitMaskImage: `url(${logo.src})`,
-              maskImage: `url(${logo.src})`,
-              WebkitMaskSize: "contain",
-              maskSize: "contain",
-              WebkitMaskRepeat: "no-repeat",
-              maskRepeat: "no-repeat",
-              WebkitMaskPosition: "center",
-              maskPosition: "center",
-            }}
-          />
-        ))}
+        {track.map((logo, index) => {
+          const height = LOGO_HEIGHT * (logo.scale ?? 1);
+          return (
+            <span
+              key={`${logo.name}-${index}`}
+              className="shrink-0 bg-muted/70"
+              style={{
+                height,
+                width: Math.round(height * logo.ratio),
+                WebkitMaskImage: `url(${logo.src})`,
+                maskImage: `url(${logo.src})`,
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
