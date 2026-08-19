@@ -214,4 +214,25 @@
       animation: none;
     }
   }
+
+  /* "Live" status-dot blink for DeploymentLogCard. */
+  @keyframes status-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.25;
+    }
+  }
+
+  .status-blink {
+    animation: status-blink 1.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-blink {
+      animation: none;
+    }
+  }
 }

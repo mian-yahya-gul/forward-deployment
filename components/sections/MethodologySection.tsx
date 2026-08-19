@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 
+import { DeploymentLogCard } from "@/components/shared/DeploymentLogCard";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Timeline } from "@/components/shared/Timeline";
@@ -14,11 +15,17 @@ export function MethodologySection() {
       className="scroll-mt-[var(--header-height)] border-t border-border bg-surface py-20 sm:py-28"
     >
       <div className="mx-auto max-w-[1280px] px-6">
-        <SectionHeading
-          eyebrow={methodologyIntro.eyebrow}
-          title={methodologyIntro.headline}
-          description={methodologyIntro.description}
-        />
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          <SectionHeading
+            eyebrow={methodologyIntro.eyebrow}
+            title={methodologyIntro.headline}
+            description={methodologyIntro.description}
+            className="max-w-none lg:col-span-6"
+          />
+          <ScrollReveal delay={120} className="lg:col-span-6">
+            <DeploymentLogCard />
+          </ScrollReveal>
+        </div>
 
         <div className="mt-16">
           <Timeline
