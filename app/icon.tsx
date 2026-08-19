@@ -13,15 +13,16 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#2F5EFF",
+          // Same brand blue as the "Ai" in the real logo wordmark.
+          background: "#004AAD",
           borderRadius: 7,
           color: "#FFFFFF",
-          fontSize: 20,
+          fontSize: 17,
           fontWeight: 700,
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        D
+        Ai
       </div>
     ),
     { ...size },
