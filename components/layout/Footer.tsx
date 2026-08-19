@@ -39,7 +39,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-[1280px] px-6 py-16 sm:py-20">
+      <div className="mx-auto max-w-[1280px] px-6 pt-16 pb-4 sm:pt-20">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-2 lg:grid-cols-6 lg:gap-8">
           <div className="col-span-2">
             <Logo />
@@ -92,9 +92,9 @@ export function Footer() {
       {/* Oversized brand watermark — purely decorative, so the accessible
           "home" link stays with the Logo above rather than duplicating it
           on a giant hidden-from-screen-readers block. */}
-      <div className="overflow-hidden border-t border-border" aria-hidden>
+      <div className="overflow-hidden" aria-hidden>
         <p
-          className="mx-auto max-w-[1280px] px-6 leading-none font-black tracking-tight whitespace-nowrap select-none"
+          className="-mt-4 mx-auto max-w-[1280px] px-6 leading-none font-extrabold tracking-tight whitespace-nowrap select-none sm:-mt-6"
           style={{
             fontSize: "clamp(3.5rem, 14vw, 11rem)",
             backgroundImage:
