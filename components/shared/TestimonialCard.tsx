@@ -18,8 +18,10 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
         &ldquo;{testimonial.quote}&rdquo;
       </p>
       <div className="mt-6 border-t border-border pt-4">
-        <p className="text-sm font-semibold text-foreground">{testimonial.role}</p>
-        <p className="text-sm text-muted">{testimonial.industry}</p>
+        <p className="text-sm font-semibold text-foreground">{testimonial.name}</p>
+        <p className="text-sm text-muted">
+          {testimonial.role} &middot; {testimonial.industry}
+        </p>
       </div>
     </Card>
   );

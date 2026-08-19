@@ -125,7 +125,7 @@ export function TestimonialFan() {
                 key={testimonial.role + testimonial.industry}
                 type="button"
                 onClick={() => goTo(i)}
-                aria-label={`Show testimonial from ${testimonial.role}`}
+                aria-label={`Show testimonial from ${testimonial.name}`}
                 aria-current={i === active}
                 className={cn(
                   "size-2.5 rounded-full transition-colors",
@@ -183,8 +183,10 @@ function StoryCard({
       </p>
 
       <div className="mt-auto border-t border-white/20 pt-4">
-        <p className="text-sm font-semibold text-white">{testimonial.role}</p>
-        <p className="text-sm text-white/70">{testimonial.industry}</p>
+        <p className="text-sm font-semibold text-white">{testimonial.name}</p>
+        <p className="text-sm text-white/70">
+          {testimonial.role} &middot; {testimonial.industry}
+        </p>
       </div>
     </div>
   );
