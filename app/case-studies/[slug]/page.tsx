@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -26,10 +27,11 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
   const story = getStoryBySlug(slug);
   if (!story) return {};
 
-  return {
+  return buildMetadata({
     title: `${story.title} — DeosAI Labs`,
     description: story.outcome,
-  };
+    path: `/case-studies/${story.slug}`,
+  });
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {

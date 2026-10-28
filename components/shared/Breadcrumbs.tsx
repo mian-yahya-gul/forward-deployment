@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/seo";
+
 export interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -13,6 +16,7 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb">
+      <JsonLd data={breadcrumbSchema(items)} />
       <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;

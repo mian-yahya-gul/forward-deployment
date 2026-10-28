@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { articleSchema, buildMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
@@ -29,10 +31,14 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const article = getArticleBySlug(slug);
   if (!article) return {};
 
-  return {
+  return buildMetadata({
     title: `${article.title} — DeosAI Labs`,
     description: article.summary,
-  };
+    path: `/insights/${article.slug}`,
+    type: "article",
+    publishedTime: article.publishedDate,
+    authors: [article.author],
+  });
 }
 
 function formatDate(dateString: string) {
@@ -63,6 +69,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <>
+      <JsonLd
+        data={articleSchema({
+          headline: article.title,
+          description: article.summary,
+          path: `/insights/${article.slug}`,
+          datePublished: article.publishedDate,
+          section: article.category,
+          wordCount: article.body.reduce((count, block) => count + block.text.split(/\s+/).length, 0),
+        })}
+      />
       <PageHero
         breadcrumbs={
           <Breadcrumbs

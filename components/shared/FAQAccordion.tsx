@@ -1,5 +1,8 @@
 import { Plus } from "lucide-react";
 
+import { JsonLd } from "@/components/seo/JsonLd";
+import { faqSchema } from "@/lib/seo";
+
 export interface FaqItem {
   question: string;
   answer: string;
@@ -12,6 +15,7 @@ interface FAQAccordionProps {
 export function FAQAccordion({ items }: FAQAccordionProps) {
   return (
     <div className="divide-y divide-border border-y border-border">
+      <JsonLd data={faqSchema(items)} />
       {items.map((item) => (
         <details key={item.question} className="group py-5">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-medium text-foreground marker:content-none">

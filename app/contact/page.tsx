@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { footerContact } from "@/lib/data/footer";
+import { ORGANIZATION_ID, absoluteUrl } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Card } from "@/components/ui/card";
@@ -10,14 +14,29 @@ import { TrackedLink } from "@/components/shared/TrackedLink";
 import { contactHero, contactPathways } from "@/lib/data/contact";
 import { cn, glowCardClass } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Contact — DeosAI Labs",
+export const metadata: Metadata = buildMetadata({
+  title: "Book a Discovery Call — DeosAI Labs",
   description: contactHero.description,
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "Contact DeosAI Labs",
+          url: absoluteUrl("/contact"),
+          about: { "@id": ORGANIZATION_ID },
+          mainEntity: {
+            "@type": "Organization",
+            "@id": ORGANIZATION_ID,
+            contactPoint: { "@type": "ContactPoint", contactType: "sales", email: footerContact.email },
+          },
+        }}
+      />
       <PageHero
         breadcrumbs={<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />}
         eyebrow={contactHero.eyebrow}

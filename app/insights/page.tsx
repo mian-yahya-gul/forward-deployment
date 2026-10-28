@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { CTASection } from "@/components/shared/CTASection";
@@ -8,10 +9,11 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { articles, insightsLandingHero } from "@/lib/data/insights";
 import { site } from "@/lib/data/site";
 
-export const metadata: Metadata = {
-  title: "Insights — DeosAI Labs",
+export const metadata: Metadata = buildMetadata({
+  title: "AI Deployment Insights — DeosAI Labs",
   description: insightsLandingHero.description,
-};
+  path: "/insights",
+});
 
 export default function InsightsPage() {
   return (

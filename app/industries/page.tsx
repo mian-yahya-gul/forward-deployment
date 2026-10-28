@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { itemListSchema } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { CTASection } from "@/components/shared/CTASection";
@@ -8,14 +11,18 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { industries, industriesLandingHero } from "@/lib/data/industries";
 import { site } from "@/lib/data/site";
 
-export const metadata: Metadata = {
-  title: "Industries — DeosAI Labs",
+export const metadata: Metadata = buildMetadata({
+  title: "AI Solutions by Industry — DeosAI Labs",
   description: industriesLandingHero.description,
-};
+  path: "/industries",
+});
 
 export default function IndustriesPage() {
   return (
     <>
+      <JsonLd
+        data={itemListSchema(industries.map((industry) => ({ name: industry.name, path: `/industries/${industry.slug}` })))}
+      />
       <PageHero
         breadcrumbs={<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Industries" }]} />}
         eyebrow={industriesLandingHero.eyebrow}

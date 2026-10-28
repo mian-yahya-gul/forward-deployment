@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 
@@ -32,10 +33,11 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
   const industry = getIndustryBySlug(slug);
   if (!industry) return {};
 
-  return {
-    title: `${industry.name} — DeosAI Labs`,
+  return buildMetadata({
+    title: `AI for ${industry.name} — DeosAI Labs`,
     description: industry.challenge,
-  };
+    path: `/industries/${industry.slug}`,
+  });
 }
 
 export default async function IndustryPage({ params }: IndustryPageProps) {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Check } from "lucide-react";
 
@@ -23,10 +24,11 @@ import {
 } from "@/lib/data/careers";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Careers — DeosAI Labs",
   description: careersHero.description,
-};
+  path: "/careers",
+});
 
 export default function CareersPage() {
   return (

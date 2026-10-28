@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
 
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -10,10 +11,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { partnerCategories, partnersEmptyState, partnersHero } from "@/lib/data/partners";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Partners — DeosAI Labs",
   description: partnersHero.description,
-};
+  path: "/partners",
+});
 
 export default function PartnersPage() {
   return (

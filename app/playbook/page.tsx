@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
 import { CTASection } from "@/components/shared/CTASection";
 import { PlaybookHeroSection } from "@/components/sections/PlaybookHeroSection";
@@ -6,10 +7,11 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { playbookIntro, playbookParts } from "@/lib/data/playbook";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: `${playbookIntro.title} — DeosAI Labs`,
   description: playbookIntro.description,
-};
+  path: "/playbook",
+});
 
 export default function PlaybookPage() {
   return (

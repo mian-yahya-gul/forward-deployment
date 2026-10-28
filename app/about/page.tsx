@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ORGANIZATION_ID, absoluteUrl } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Check } from "lucide-react";
 
@@ -23,14 +26,33 @@ import {
 import { site } from "@/lib/data/site";
 import { cn, glowCardClass } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "About — DeosAI Labs",
+export const metadata: Metadata = buildMetadata({
+  title: "About DeosAI Labs — An AI Forward Deployment Company",
   description: aboutHero.description,
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About DeosAI Labs",
+            url: absoluteUrl("/about"),
+            about: { "@id": ORGANIZATION_ID },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: leadership.person.name,
+            jobTitle: leadership.person.title,
+            worksFor: { "@id": ORGANIZATION_ID },
+          },
+        ]}
+      />
       <PageHero
         breadcrumbs={<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />}
         eyebrow={aboutHero.eyebrow}

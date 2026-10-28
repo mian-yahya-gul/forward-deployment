@@ -5,6 +5,13 @@
  */
 export const siteUrl = "https://www.deosailabs.com";
 
+/**
+ * Date the site's content last meaningfully changed (YYYY-MM-DD), used as <lastmod> in the
+ * sitemap. Bump it when you publish content changes. Using the build time instead would mark
+ * every page as "modified today" on every deploy, which makes search engines ignore lastmod.
+ */
+export const contentLastUpdated = "2026-08-25";
+
 export const site = {
   name: "DeosAI Labs",
   positioning:

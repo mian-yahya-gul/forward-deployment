@@ -5,7 +5,11 @@ import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { footerContact, footerSocial } from "@/lib/data/footer";
+import { services } from "@/lib/data/services";
 import { siteUrl } from "@/lib/data/site";
+import { ORGANIZATION_ID } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,8 +25,28 @@ const geistMono = Geist_Mono({
 const description =
   "DeosAI Labs partners with organizations to design, deploy, and continuously improve production-grade AI systems that integrate into existing business operations.";
 
+// Optional Search Console / Bing Webmaster verification tags. Set GOOGLE_SITE_VERIFICATION and
+// BING_SITE_VERIFICATION in the hosting environment; nothing is rendered when they are unset.
+const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+const bingVerification = process.env.BING_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: "DeosAI Labs",
+  robots: {
+    index: true,
+    follow: true,
+    // Allow full-length snippets and large previews (used by search and AI answer features).
+    googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 },
+  },
+  ...(googleVerification || bingVerification
+    ? {
+        verification: {
+          ...(googleVerification ? { google: googleVerification } : {}),
+          ...(bingVerification ? { other: { "msvalidate.01": bingVerification } } : {}),
+        },
+      }
+    : {}),
   title: {
     default: "DeosAI Labs — AI Forward Deployment Partner",
     template: "%s",
@@ -33,6 +57,8 @@ export const metadata: Metadata = {
     siteName: "DeosAI Labs",
     title: "DeosAI Labs — AI Forward Deployment Partner",
     description,
+    url: "/",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
@@ -41,20 +67,30 @@ export const metadata: Metadata = {
   },
 };
 
+// Sitewide entities. Every fact here already appears on the site (footer, services, about).
 const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": ORGANIZATION_ID,
     name: "DeosAI Labs",
+    alternateName: "DeosAi Labs",
     url: siteUrl,
+    logo: `${siteUrl}/logo/wordmark-light.png`,
+    email: footerContact.email,
     description,
-    sameAs: ["https://www.linkedin.com/company/deosai-lab/", "https://www.youtube.com/@deosailabs"],
+    slogan: "Production-grade AI, deployed inside how your business already runs.",
+    knowsAbout: services.map((service) => service.title),
+    sameAs: footerSocial.map((link) => link.href),
   },
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
     name: "DeosAI Labs",
     url: siteUrl,
+    inLanguage: "en",
+    publisher: { "@id": ORGANIZATION_ID },
   },
 ];
 
@@ -66,10 +102,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+        <JsonLd data={structuredData} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <a
             href="#main-content"

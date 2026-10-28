@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildMetadata, serviceSchema } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
@@ -32,10 +34,11 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const service = getServiceBySlug(slug);
   if (!service) return {};
 
-  return {
+  return buildMetadata({
     title: `${service.title} — DeosAI Labs`,
     description: service.purpose,
-  };
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {
@@ -51,6 +54,13 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
+      <JsonLd
+        data={serviceSchema({
+          name: service.title,
+          description: service.purpose,
+          path: `/services/${service.slug}`,
+        })}
+      />
       <PageHero
         breadcrumbs={
           <Breadcrumbs

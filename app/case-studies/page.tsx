@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { CTASection } from "@/components/shared/CTASection";
@@ -8,10 +9,11 @@ import { StoryCard } from "@/components/shared/StoryCard";
 import { site } from "@/lib/data/site";
 import { stories, storiesLandingHero } from "@/lib/data/stories";
 
-export const metadata: Metadata = {
-  title: "Client Success — DeosAI Labs",
+export const metadata: Metadata = buildMetadata({
+  title: "AI Deployment Case Studies — DeosAI Labs",
   description: storiesLandingHero.description,
-};
+  path: "/case-studies",
+});
 
 export default function CaseStudiesPage() {
   return (

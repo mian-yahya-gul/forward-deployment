@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { itemListSchema } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -14,14 +17,18 @@ import { pricingModel, services, servicesLandingHero } from "@/lib/data/services
 import { site } from "@/lib/data/site";
 import { glowCardClass } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  title: "Services — DeosAI Labs",
+export const metadata: Metadata = buildMetadata({
+  title: "AI Services for Enterprise Operations — DeosAI Labs",
   description: servicesLandingHero.description,
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={itemListSchema(services.map((service) => ({ name: service.title, path: `/services/${service.slug}` })))}
+      />
       <PageHero
         breadcrumbs={<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Services" }]} />}
         eyebrow={servicesLandingHero.eyebrow}

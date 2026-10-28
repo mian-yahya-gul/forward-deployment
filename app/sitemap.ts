@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { industries } from "@/lib/data/industries";
 import { articles } from "@/lib/data/insights";
 import { services } from "@/lib/data/services";
-import { siteUrl } from "@/lib/data/site";
+import { contentLastUpdated, siteUrl } from "@/lib/data/site";
 import { stories } from "@/lib/data/stories";
 
 const staticRoutes = [
@@ -51,24 +51,26 @@ const bookIndustrySlugs = [
 const bookNextStepsSlugs = ["choosing-your-starting-workflow", "working-with-deosai-labs"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date(contentLastUpdated);
+
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
     url: `${siteUrl}${path}`,
-    lastModified: new Date(),
+    lastModified,
   }));
 
   const serviceEntries: MetadataRoute.Sitemap = services.map((service) => ({
     url: `${siteUrl}/services/${service.slug}`,
-    lastModified: new Date(),
+    lastModified,
   }));
 
   const industryEntries: MetadataRoute.Sitemap = industries.map((industry) => ({
     url: `${siteUrl}/industries/${industry.slug}`,
-    lastModified: new Date(),
+    lastModified,
   }));
 
   const storyEntries: MetadataRoute.Sitemap = stories.map((story) => ({
     url: `${siteUrl}/case-studies/${story.slug}`,
-    lastModified: new Date(),
+    lastModified,
   }));
 
   const articleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
@@ -77,10 +79,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const bookEntries: MetadataRoute.Sitemap = [
-    { url: `${siteUrl}/book/preface`, lastModified: new Date() },
-    ...bookFoundationSlugs.map((slug) => ({ url: `${siteUrl}/book/foundations/${slug}`, lastModified: new Date() })),
-    ...bookIndustrySlugs.map((slug) => ({ url: `${siteUrl}/book/industries/${slug}`, lastModified: new Date() })),
-    ...bookNextStepsSlugs.map((slug) => ({ url: `${siteUrl}/book/next-steps/${slug}`, lastModified: new Date() })),
+    { url: `${siteUrl}/book/preface`, lastModified },
+    ...bookFoundationSlugs.map((slug) => ({ url: `${siteUrl}/book/foundations/${slug}`, lastModified })),
+    ...bookIndustrySlugs.map((slug) => ({ url: `${siteUrl}/book/industries/${slug}`, lastModified })),
+    ...bookNextStepsSlugs.map((slug) => ({ url: `${siteUrl}/book/next-steps/${slug}`, lastModified })),
   ];
 
   return [
