@@ -30,6 +30,8 @@ const description =
 const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 const bingVerification = process.env.BING_SITE_VERIFICATION;
 
+const GA_MEASUREMENT_ID = "G-DM1BC6WC8T";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: "DeosAI Labs",
@@ -101,6 +103,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col">
         <JsonLd data={structuredData} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
