@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { track } from "@vercel/analytics";
+import { trackEvent, trackLead } from "@/lib/analytics";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,7 +44,8 @@ export function ContactForm() {
       }
 
       setStatus("success");
-      track("contact_form_submit");
+      trackEvent("contact_form_submit");
+      trackLead("contact_form");
       form.reset();
     } catch (error) {
       setStatus("error");

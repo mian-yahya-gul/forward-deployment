@@ -4,6 +4,8 @@ import { useEffect, useSyncExternalStore } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { CalendarClock } from "lucide-react";
 
+import { trackEvent, trackLead } from "@/lib/analytics";
+
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -99,6 +101,14 @@ export function CalEmbed({ calLink }: CalEmbedProps) {
     if (!valid || !mounted) return;
     (async () => {
       const cal = await getCalApi({ namespace: NAMESPACE });
+      // Fires only once Cal.com reports the booking as confirmed.
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          trackEvent("discovery_call_booked");
+          trackLead("discovery_call_booking");
+        },
+      });
       cal("ui", {
         theme,
         layout: "month_view",
