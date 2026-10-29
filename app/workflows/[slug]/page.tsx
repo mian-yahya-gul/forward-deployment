@@ -13,6 +13,7 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Timeline } from "@/components/shared/Timeline";
 import { WorkflowCard } from "@/components/shared/WorkflowCard";
+import { WorkflowWalkthrough } from "@/components/shared/WorkflowWalkthrough";
 import { methodologyPhases } from "@/lib/data/methodology";
 import {
   getPublicWorkflowById,
@@ -92,6 +93,27 @@ export default async function WorkflowDetailPage({ params }: WorkflowPageProps) 
           <SectionHeading eyebrow="How It Works" title="Workflow visualization" />
           <div className="mt-12">
             <Timeline items={workflow.flowSteps.map((step, index) => ({ number: String(index + 1).padStart(2, "0"), title: step, content: null }))} />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6">
+          <SectionHeading
+            eyebrow="See it work"
+            title="Walk through this workflow"
+            description="Step through the workflow and see, at each point, whether AI does the work or a person does."
+          />
+          <div className="mt-10">
+            <WorkflowWalkthrough
+              workflowId={workflow.id}
+              steps={workflow.flowSteps}
+              actors={workflow.flowActors}
+              aiHandles={workflow.aiHandles}
+              humanHandles={workflow.humanHandles}
+              systems={workflow.systems}
+              data={workflow.data}
+            />
           </div>
         </div>
       </section>

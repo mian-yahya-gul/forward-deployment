@@ -42,6 +42,12 @@ export type DeploymentStatus =
   | "Deployed"
   | "Measured";
 
+/**
+ * Who acts at each step of `flowSteps` (same order, same length). A label on the existing steps, used
+ * by the walkthrough on the detail page — it adds no claims beyond what the step text already says.
+ */
+export type FlowActor = "trigger" | "ai" | "handoff" | "human" | "outcome";
+
 export type IntegrationPattern =
   | "API"
   | "Database"
@@ -77,6 +83,7 @@ export interface WorkflowRecord {
   /** Concrete human responsibilities as bullets, for the card and "What stays human" section. */
   humanHandles: string[];
   flowSteps: string[];
+  flowActors: FlowActor[];
   systems: string[];
   data: string[];
   integrationPattern: IntegrationPattern[];
@@ -133,6 +140,7 @@ export const workflows: WorkflowRecord[] = [
       "Agent handles escalated cases",
       "Booking confirmed",
     ],
+    flowActors: ["trigger", "ai", "handoff", "human", "outcome"],
     systems: ["Passenger Service Systems (PSS)", "Reservation systems", "Global Distribution Systems (GDS)", "Contact-center platforms"],
     data: ["Booking records", "Fare rules", "Passenger profiles", "Contact-center case history"],
     integrationPattern: ["API", "Human-in-the-loop interface"],
@@ -182,6 +190,7 @@ export const workflows: WorkflowRecord[] = [
       "Disputed or sensitive cases flagged",
       "Agent resolves flagged cases",
     ],
+    flowActors: ["trigger", "ai", "outcome", "handoff", "human"],
     systems: ["Passenger Service Systems (PSS)", "Departure Control Systems (DCS)", "Global Distribution Systems (GDS)", "CRM"],
     data: ["Passenger itineraries", "Flight schedules", "Fare class and status tier data", "Connection risk data"],
     integrationPattern: ["API", "Messaging", "Human-in-the-loop interface"],
@@ -230,6 +239,7 @@ export const workflows: WorkflowRecord[] = [
       "Analyst reviews and approves",
       "Pricing updated",
     ],
+    flowActors: ["trigger", "ai", "handoff", "human", "outcome"],
     systems: ["Revenue management systems", "Global Distribution Systems (GDS)", "Partner / interline settlement systems"],
     data: ["Fare rules", "Market and seasonal pricing data", "Partner agreements"],
     integrationPattern: ["API", "Database", "Human-in-the-loop interface"],
@@ -275,6 +285,7 @@ export const workflows: WorkflowRecord[] = [
       "Disputed or high-value claims flagged",
       "Agent reviews flagged claims",
     ],
+    flowActors: ["trigger", "ai", "outcome", "handoff", "human"],
     systems: ["Baggage tracking systems", "Departure Control Systems (DCS)", "CRM", "Payment and fraud systems"],
     data: ["Baggage tracking records", "Flight records", "Passenger documentation", "Claim history"],
     integrationPattern: ["API", "Document / File", "Human-in-the-loop interface"],
@@ -318,6 +329,7 @@ export const workflows: WorkflowRecord[] = [
       "Genuine disputes flagged",
       "Service staff resolves dispute",
     ],
+    flowActors: ["trigger", "ai", "outcome", "handoff", "human"],
     systems: ["Loyalty platforms", "CRM", "Partner / interline settlement systems", "Contact-center platforms"],
     data: ["Frequent-flyer account records", "Booking records", "Partner-airline data", "Redemption activity"],
     integrationPattern: ["API", "Human-in-the-loop interface"],
@@ -360,6 +372,7 @@ export const workflows: WorkflowRecord[] = [
       "Account manager approves terms",
       "Booking confirmed",
     ],
+    flowActors: ["trigger", "ai", "handoff", "human", "outcome"],
     systems: ["Passenger Service Systems (PSS)", "CRM", "Payment and fraud systems"],
     data: ["Group booking requirements", "Corporate account records", "Payment and documentation status"],
     integrationPattern: ["API", "Human-in-the-loop interface"],
@@ -404,6 +417,7 @@ export const workflows: WorkflowRecord[] = [
       "Settlement staff reviews",
       "Reconciliation resolved",
     ],
+    flowActors: ["trigger", "ai", "handoff", "human", "outcome"],
     systems: ["Partner / interline settlement systems", "Passenger Service Systems (PSS)", "Global Distribution Systems (GDS)"],
     data: ["Passenger itinerary data", "Revenue and settlement records", "Partner-airline booking data"],
     integrationPattern: ["API", "Database", "Human-in-the-loop interface"],
@@ -446,6 +460,7 @@ export const workflows: WorkflowRecord[] = [
       "Contested cases flagged",
       "Service staff resolves dispute",
     ],
+    flowActors: ["trigger", "ai", "outcome", "handoff", "human"],
     systems: ["Passenger Service Systems (PSS)", "Departure Control Systems (DCS)", "CRM", "Payment and fraud systems"],
     data: ["Passenger and flight records", "Jurisdiction and route compensation rules", "Disruption records"],
     integrationPattern: ["API", "Human-in-the-loop interface"],
@@ -489,6 +504,7 @@ export const workflows: WorkflowRecord[] = [
       "Gate agent manages conversation & decision",
       "Outcome logged",
     ],
+    flowActors: ["trigger", "ai", "ai", "human", "outcome"],
     systems: ["Departure Control Systems (DCS)", "Passenger Service Systems (PSS)", "Payment and fraud systems"],
     data: ["Passenger manifest", "Compensation policy", "Volunteer responses"],
     integrationPattern: ["API", "Human-in-the-loop interface"],
@@ -531,6 +547,7 @@ export const workflows: WorkflowRecord[] = [
       "Analyst reviews and decides",
       "Response filed within window",
     ],
+    flowActors: ["trigger", "ai", "handoff", "human", "outcome"],
     systems: ["Payment and fraud systems", "Passenger Service Systems (PSS)", "CRM"],
     data: ["Transaction records", "Booking history", "Passenger verification data", "Travel-usage data"],
     integrationPattern: ["API", "Human-in-the-loop interface"],
