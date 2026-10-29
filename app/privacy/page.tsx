@@ -72,6 +72,12 @@ export default function PrivacyPage() {
               open the Forward Deployment Playbook, we receive that address by email.
             </li>
             <li>
+              <strong className="font-medium text-foreground">Emailed copies.</strong> If you ask us to email you a
+              checklist, template or your assessment result, we use your email address to send it, and we receive a
+              notification that you asked. The assessment and calculator themselves run in your browser and don&apos;t
+              store your answers unless you request that email.
+            </li>
+            <li>
               <strong className="font-medium text-foreground">Website assistant.</strong> Questions you type into the
               assistant are sent to OpenAI to generate a reply. Please don&apos;t enter confidential or sensitive
               information.
