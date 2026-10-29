@@ -141,7 +141,8 @@ gtag('consent', 'default', {
   analytics_storage: consent === 'denied' ? 'denied' : 'granted'
 });
 gtag('js', new Date());
-gtag('config', '${GA_MEASUREMENT_ID}');`,
+// Measure only the real site: preview deployments (*.vercel.app) and localhost stay out of the reports.
+if (/^(www\\.)?deosailabs\\.com$/.test(location.hostname)) { gtag('config', '${GA_MEASUREMENT_ID}'); }`,
           }}
         />
       </head>
