@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CookieConsent } from "@/components/shared/CookieConsent";
 import { footerContact, footerSocial } from "@/lib/data/footer";
 import { services } from "@/lib/data/services";
 import { siteUrl } from "@/lib/data/site";
@@ -31,6 +32,12 @@ const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 const bingVerification = process.env.BING_SITE_VERIFICATION;
 
 const GA_MEASUREMENT_ID = "G-DM1BC6WC8T";
+
+// UK, EEA and Switzerland: analytics storage stays off until the visitor accepts (see CookieConsent).
+const CONSENT_REGIONS = [
+  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU",
+  "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO", "GB", "CH",
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -109,6 +116,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+var consent = null;
+try { consent = localStorage.getItem('deosai-analytics-consent'); } catch (e) {}
+gtag('consent', 'default', {
+  ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  analytics_storage: consent === 'granted' ? 'granted' : 'denied',
+  region: ${JSON.stringify(CONSENT_REGIONS)}
+});
+gtag('consent', 'default', {
+  ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  analytics_storage: consent === 'denied' ? 'denied' : 'granted'
+});
 gtag('js', new Date());
 gtag('config', '${GA_MEASUREMENT_ID}');`,
           }}
@@ -129,6 +147,7 @@ gtag('config', '${GA_MEASUREMENT_ID}');`,
           </main>
           <Footer />
         </ThemeProvider>
+        <CookieConsent />
         <Analytics />
       </body>
     </html>

@@ -85,6 +85,12 @@ export function Footer() {
             >
               {footerContact.email}
             </a>
+            <Link
+              href="/privacy"
+              className="text-sm text-muted transition-colors duration-[var(--duration-fast)] hover:text-foreground"
+            >
+              Privacy
+            </Link>
           </div>
         </div>
       </div>
