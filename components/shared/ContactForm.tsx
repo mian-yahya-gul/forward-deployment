@@ -31,8 +31,9 @@ export function ContactForm() {
           name: data.get("name"),
           email: data.get("email"),
           company: data.get("company"),
+          website: data.get("website"),
           message: data.get("message"),
-          website: data.get("website"), // honeypot
+          nickname: data.get("nickname"), // honeypot
         }),
       });
 
@@ -52,14 +53,14 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" aria-busy={status === "submitting"}>
       {/* Honeypot: hidden from real visitors, but bots that auto-fill every field trip it. */}
       <div
         aria-hidden="true"
         style={{ position: "absolute", left: "-9999px", width: 0, height: 0, overflow: "hidden" }}
       >
-        <label htmlFor="website">Website</label>
-        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor="nickname">Leave this field empty</label>
+        <input id="nickname" name="nickname" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -68,20 +69,38 @@ export function ContactForm() {
             Full Name <span className="text-primary">*</span>
             <span className="sr-only"> (required)</span>
           </Label>
-          <Input id="name" name="name" autoComplete="name" required className="mt-2" />
+          <Input id="name" name="name" autoComplete="name" required maxLength={100} className="mt-2" />
         </div>
         <div>
           <Label htmlFor="email">
-            Email <span className="text-primary">*</span>
+            Work Email <span className="text-primary">*</span>
             <span className="sr-only"> (required)</span>
           </Label>
-          <Input id="email" name="email" type="email" autoComplete="email" required className="mt-2" />
+          <Input id="email" name="email" type="email" autoComplete="email" required maxLength={254} className="mt-2" />
         </div>
       </div>
 
-      <div>
-        <Label htmlFor="company">Company</Label>
-        <Input id="company" name="company" autoComplete="organization" className="mt-2" />
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div>
+          <Label htmlFor="company">
+            Company <span className="text-primary">*</span>
+            <span className="sr-only"> (required)</span>
+          </Label>
+          <Input id="company" name="company" autoComplete="organization" required maxLength={150} className="mt-2" />
+        </div>
+        <div>
+          <Label htmlFor="contact-website">Website (optional)</Label>
+          <Input
+            id="contact-website"
+            name="website"
+            type="text"
+            inputMode="url"
+            autoComplete="url"
+            placeholder="yourcompany.com"
+            maxLength={200}
+            className="mt-2"
+          />
+        </div>
       </div>
 
       <div>
@@ -89,7 +108,7 @@ export function ContactForm() {
           Message <span className="text-primary">*</span>
           <span className="sr-only"> (required)</span>
         </Label>
-        <Textarea id="message" name="message" required className="mt-2" rows={5} />
+        <Textarea id="message" name="message" required maxLength={5000} className="mt-2" rows={5} />
       </div>
 
       <div>

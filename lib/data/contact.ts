@@ -4,7 +4,7 @@ export const contactHero = {
   eyebrow: "Contact",
   title: "Let's talk about your AI transformation.",
   description:
-    "Whether you're exploring your first AI initiative or expanding existing capabilities, the first step is a conversation. Reach out and we'll get back to you.",
+    "Tell us what your business is trying to improve. We'll explore your current workflows, identify potential opportunities, and discuss a sensible next step.",
 };
 
 export interface ContactPathway {
@@ -22,15 +22,15 @@ export const contactPathways: ContactPathway[] = [
     title: "Discovery Call",
     description: "Talk through your operational challenges and see if we're a fit — no pressure, no obligation.",
     actionLabel: "Book a Discovery Call",
-    href: "mailto:kakakhel176@gmail.com?subject=Discovery%20Call%20Request",
+    href: "#book",
     analyticsEvent: "discovery_call_click",
   },
   {
     icon: Mail,
-    title: "General Inquiry",
+    title: "Send a Message",
     description: "Have a question that doesn't need a call yet? Send us a note directly.",
-    actionLabel: "Email Us",
-    href: "mailto:kakakhel176@gmail.com?subject=General%20Inquiry",
+    actionLabel: "Send a Message",
+    href: "#message",
     analyticsEvent: "general_inquiry_click",
   },
   {
@@ -43,4 +43,4 @@ export const contactPathways: ContactPathway[] = [
   },
 ];
 
-export const contactEmail = "kakakhel176@gmail.com";
+export const contactEmail = "info@deosailabs.com";
