@@ -2,48 +2,30 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
 import { chatKnowledgeBase } from "@/lib/chat-knowledge";
+import { forbidden, getClientIp, isRateLimited, isSameOrigin, readJson, str, tooManyRequests } from "@/lib/security";
 
 const MAX_MESSAGE_LENGTH = 400;
+const MAX_BODY_BYTES = 2_000;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 8;
-
-/**
- * Soft, per-instance rate limit — resets on cold start and isn't shared
- * across serverless instances, but stops a single client from hammering the
- * endpoint. Good enough for a marketing-site chatbot; swap for a durable
- * store (e.g. Upstash) if traffic warrants it.
- */
-const requestLog = new Map<string, { count: number; windowStart: number }>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = requestLog.get(ip);
-
-  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-    requestLog.set(ip, { count: 1, windowStart: now });
-    return false;
-  }
-
-  entry.count += 1;
-  return entry.count > RATE_LIMIT_MAX_REQUESTS;
-}
-
-interface ChatPayload {
-  message?: string;
-}
+// Daily cap per client so a patient attacker can't run up the OpenAI bill one minute at a time.
+const DAILY_WINDOW_MS = 24 * 60 * 60_000;
+const DAILY_MAX_REQUESTS = 60;
 
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (!isSameOrigin(request)) return forbidden();
 
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many questions at once — try again in a minute." },
-      { status: 429 },
-    );
+  const ip = getClientIp(request);
+
+  if (
+    isRateLimited(`chat:${ip}`, RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_MS) ||
+    isRateLimited(`chat-daily:${ip}`, DAILY_MAX_REQUESTS, DAILY_WINDOW_MS)
+  ) {
+    return tooManyRequests("Too many questions at once — try again in a minute.");
   }
 
-  const data = (await request.json().catch(() => null)) as ChatPayload | null;
-  const message = data?.message?.trim() ?? "";
+  const data = (await readJson(request, MAX_BODY_BYTES)) as Record<string, unknown> | null;
+  const message = str(data?.message);
 
   if (!message) {
     return NextResponse.json({ error: "Ask a question first." }, { status: 400 });

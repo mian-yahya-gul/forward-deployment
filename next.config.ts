@@ -1,21 +1,47 @@
 import type { NextConfig } from "next";
 
 /**
- * Baseline security headers for a marketing site with no user sessions,
- * no first-party iframes, and no third-party embeds. Deliberately not a
- * full CSP: this site's script/style surface (Next's own chunks, inline
- * styles from Tailwind/CSS-in-JS-free components) hasn't been audited
- * page-by-page for a directive list that wouldn't risk breaking something —
- * see the production launch checklist for that as a tracked follow-up.
+ * Security headers for a marketing site with no user sessions, no first-party
+ * iframes, and a small, known set of third parties (Google Analytics, Vercel
+ * Analytics). The CSP keeps 'unsafe-inline' for scripts/styles because Next's
+ * bootstrap, next-themes, GA's snippet and the static Docusaurus book under
+ * /book all rely on inline code; everything else (frames, plugins, base tag,
+ * form targets, off-list origins) is locked down. Tighten to nonces if the
+ * inline surface is ever removed. Production only: dev needs eval for HMR.
  */
+const isProd = process.env.NODE_ENV === "production";
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.google-analytics.com",
+  "font-src 'self' data:",
+  "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://vitals.vercel-insights.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  {
+    key: "Permissions-Policy",
+    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
+  },
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "X-DNS-Prefetch-Control", value: "off" },
+  ...(isProd ? [{ key: "Content-Security-Policy", value: contentSecurityPolicy }] : []),
 ];
 
 const nextConfig: NextConfig = {
+  // Don't advertise the framework in an X-Powered-By header.
+  poweredByHeader: false,
   // Dev-only: lets the dev server's JS/HMR assets load when the site is
   // opened from this machine's LAN IP (e.g. testing on a phone on the same
   // WiFi) instead of localhost — Next blocks cross-origin dev asset
@@ -23,7 +49,11 @@ const nextConfig: NextConfig = {
   // if this machine's local address changes.
   allowedDevOrigins: ["192.168.18.17"],
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // API responses can carry per-visitor content; never let a shared cache keep them.
+      { source: "/api/:path*", headers: [{ key: "Cache-Control", value: "no-store" }] },
+    ];
   },
   /**
    * The Forward Deployment Playbook is a static Docusaurus export sitting in
