@@ -29,7 +29,8 @@ const description =
 // Optional Search Console / Bing Webmaster verification tags. Set GOOGLE_SITE_VERIFICATION and
 // BING_SITE_VERIFICATION in the hosting environment; nothing is rendered when they are unset.
 const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
-const bingVerification = process.env.BING_SITE_VERIFICATION;
+// Public meta-tag code from Bing Webmaster Tools (not a secret); the env var can override it.
+const bingVerification = process.env.BING_SITE_VERIFICATION ?? "8CDA8512E9CA7077E54AC8E521CD3E83";
 
 const GA_MEASUREMENT_ID = "G-DM1BC6WC8T";
 
