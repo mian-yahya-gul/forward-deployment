@@ -88,7 +88,7 @@ export default function PrivacyPage() {
               Vercel Web Analytics, which counts page views without cookies.
             </li>
           </ul>
-          <p>We use this information to run the site, respond to enquiries and understand how the site is used.</p>
+          <p>We use this information to run the site, respond to inquiries and understand how the site is used.</p>
         </Section>
 
         <Section title="Cookies and your choice">

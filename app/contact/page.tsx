@@ -85,7 +85,7 @@ export default function ContactPage() {
           <SectionHeading
             eyebrow="Book a Discovery Call"
             title="Choose a time that works for you"
-            description="A 30-minute conversation about your workflows and where AI could help. Available times are shown in your local time zone, and you'll get a confirmation email with a link to reschedule or cancel."
+            description="A 30-minute conversation about your workflows and where AI could help. Available times are shown in your local time zone, whether you're in the US or the Middle East & North Africa, and you'll get a confirmation email with a link to reschedule or cancel."
           />
           <div className="mt-10">
             <CalEmbed calLink={process.env.NEXT_PUBLIC_CAL_LINK} />

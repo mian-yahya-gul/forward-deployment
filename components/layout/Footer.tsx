@@ -12,6 +12,7 @@ import {
   footerSocial,
   type FooterLink,
 } from "@/lib/data/footer";
+import { siteRegions } from "@/lib/data/site";
 import { cn } from "@/lib/utils";
 
 function FooterColumn({ title, links }: { title: string; links: FooterLink[] }) {
@@ -45,6 +46,9 @@ export function Footer() {
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               {footerCompany.description}
+            </p>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
+              Based in {siteRegions.base.locality}, {siteRegions.base.country}. Serving {siteRegions.summary}.
             </p>
             <Link
               href={footerCompany.contactCta.href}

@@ -46,6 +46,7 @@ export const footerKnowledgeColumn: FooterLink[] = [
   { label: "Insights", href: "/insights" },
   { label: "Research", href: "/insights" },
   { label: "Implementation Guides", href: "/insights" },
+  { label: "What is AI Forward Deployment?", href: "/what-is-ai-forward-deployment" },
   { label: "Playbooks", href: "/playbook" },
   { label: "Workflow Catalog", href: "/workflows" },
   { label: "Free Tools", href: "/tools" },

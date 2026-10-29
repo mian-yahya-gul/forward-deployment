@@ -9,8 +9,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { CookieConsent } from "@/components/shared/CookieConsent";
 import { footerContact, footerSocial } from "@/lib/data/footer";
 import { services } from "@/lib/data/services";
-import { siteUrl } from "@/lib/data/site";
-import { ORGANIZATION_ID } from "@/lib/seo";
+import { siteRegions, siteUrl } from "@/lib/data/site";
+import { ORGANIZATION_ID, areaServedSchema } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -91,6 +91,19 @@ const structuredData = [
     slogan: "Production-grade AI, deployed inside how your business already runs.",
     knowsAbout: services.map((service) => service.title),
     sameAs: footerSocial.map((link) => link.href),
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: siteRegions.base.locality,
+      addressCountry: siteRegions.base.countryCode,
+    },
+    areaServed: areaServedSchema(),
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: footerContact.email,
+      availableLanguage: ["English"],
+      areaServed: areaServedSchema(),
+    },
   },
   {
     "@context": "https://schema.org",
@@ -98,7 +111,7 @@ const structuredData = [
     "@id": `${siteUrl}/#website`,
     name: "DeosAI Labs",
     url: siteUrl,
-    inLanguage: "en",
+    inLanguage: "en-US",
     publisher: { "@id": ORGANIZATION_ID },
   },
 ];
@@ -106,7 +119,7 @@ const structuredData = [
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-US"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

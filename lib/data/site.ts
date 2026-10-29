@@ -40,3 +40,14 @@ export const site = {
     ],
   },
 } as const;
+
+/**
+ * Where DeosAI Labs is based and which markets it serves. Used in structured data, the footer, and the
+ * About and Contact pages so the same facts appear everywhere.
+ */
+export const siteRegions = {
+  base: { locality: "Islamabad", countryCode: "PK", country: "Pakistan" },
+  /** ISO 3166-1 alpha-2 codes of the countries named as served markets. */
+  marketCodes: ["US", "AE", "SA", "QA", "KW", "BH", "OM", "JO", "EG", "MA"],
+  summary: "the United States and the Middle East & North Africa (MENA)",
+} as const;

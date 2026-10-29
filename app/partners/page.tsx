@@ -12,7 +12,7 @@ import { partnerCategories, partnersEmptyState, partnersHero } from "@/lib/data/
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Partners — DeosAI Labs",
+  title: "Partner With DeosAI Labs — AI Deployment Partnerships",
   description: partnersHero.description,
   path: "/partners",
 });

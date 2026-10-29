@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { siteUrl } from "@/lib/data/site";
+import { siteRegions, siteUrl } from "@/lib/data/site";
 
 export const SITE_NAME = "DeosAI Labs";
 
@@ -109,6 +109,11 @@ export function faqSchema(items: { question: string; answer: string }[]) {
   };
 }
 
+/** schema.org Country nodes for every market named in `siteRegions`. */
+export function areaServedSchema() {
+  return siteRegions.marketCodes.map((code) => ({ "@type": "Country", name: code }));
+}
+
 export function serviceSchema(input: { name: string; description: string; path: string }) {
   return {
     "@context": "https://schema.org",
@@ -118,6 +123,7 @@ export function serviceSchema(input: { name: string; description: string; path: 
     description: input.description,
     url: absoluteUrl(input.path),
     provider: { "@id": ORGANIZATION_ID },
+    areaServed: areaServedSchema(),
   };
 }
 
@@ -138,7 +144,7 @@ export function articleSchema(input: {
     mainEntityOfPage: absoluteUrl(input.path),
     datePublished: input.datePublished,
     dateModified: input.datePublished,
-    inLanguage: "en",
+    inLanguage: "en-US",
     ...(input.section ? { articleSection: input.section } : {}),
     ...(input.wordCount ? { wordCount: input.wordCount } : {}),
     // Articles are authored by the team collectively; there are no individual bylines.

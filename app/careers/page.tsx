@@ -25,7 +25,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Careers — DeosAI Labs",
+  title: "Careers at DeosAI Labs — Join Our AI Deployment Team",
   description: careersHero.description,
   path: "/careers",
 });

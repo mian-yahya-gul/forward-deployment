@@ -115,7 +115,7 @@ export const workflows: WorkflowRecord[] = [
     id: "airline-ticketing-booking-fare-enquiry-resolution",
     industrySlug: "airline-ticketing",
     category: "Customer & Sales",
-    workflowName: "Booking & Fare Enquiry Resolution",
+    workflowName: "Booking & Fare Inquiry Resolution",
     shortDescription:
       "Resolve routine booking changes, seat requests, and fare questions directly, so agents are free for what actually needs one.",
     painPoint:
@@ -134,7 +134,7 @@ export const workflows: WorkflowRecord[] = [
       "Agents handle fare exceptions, sensitive travel situations, and genuinely ambiguous policy questions that the system escalates.",
     humanHandles: ["Fare exceptions", "Sensitive travel situations", "Ambiguous policy questions", "Final booking changes"],
     flowSteps: [
-      "Passenger booking or fare enquiry",
+      "Passenger booking or fare inquiry",
       "AI resolves against reservation system",
       "Exception or sensitive-case check",
       "Agent handles escalated cases",

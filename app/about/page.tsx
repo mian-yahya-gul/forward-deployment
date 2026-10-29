@@ -23,7 +23,7 @@ import {
   operatingPrinciples,
   values,
 } from "@/lib/data/about";
-import { site } from "@/lib/data/site";
+import { site, siteRegions } from "@/lib/data/site";
 import { cn, glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
@@ -114,6 +114,16 @@ export default function AboutPage() {
               </p>
             </ScrollReveal>
           </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <SectionHeading
+            eyebrow="Where we work"
+            title={`Based in ${siteRegions.base.locality}, working with teams in the US and MENA`}
+            description={`DeosAI Labs is based in ${siteRegions.base.locality}, ${siteRegions.base.country}, and works with organizations across ${siteRegions.summary}. Discovery calls are bookable across US and MENA time zones, and every engagement is run in English.`}
+          />
         </div>
       </section>
 

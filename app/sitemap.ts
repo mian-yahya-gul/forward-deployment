@@ -24,6 +24,7 @@ const staticRoutes = [
   "/tools",
   "/resources",
   "/privacy",
+  "/what-is-ai-forward-deployment",
 ];
 
 /**

@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
 
   return buildMetadata({
     title: `${service.title} — DeosAI Labs`,
-    description: service.purpose,
+    description: `${service.purpose} ${service.howWeHelp}`,
     path: `/services/${service.slug}`,
   });
 }

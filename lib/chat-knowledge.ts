@@ -66,6 +66,7 @@ ${contactList}
 - /tools/workflow-roi-calculator: estimates the hours and cost a repetitive workflow takes and what automating part of it could save.
 - /resources: free checklists and templates, including an AI deployment readiness checklist and a workflow mapping template.
 - /workflows: a catalog of deployable business workflows by industry.
+- /what-is-ai-forward-deployment: a plain-language explanation of what AI forward deployment is and how it differs from consulting.
 
 ## How to answer
 Answer only questions about DeosAI Labs — its services, industries, methodology, the playbook, careers, or how to get in touch. Keep answers to 2-4 sentences, direct and concrete, grounded only in the facts above. When relevant, point to the specific page (e.g. "/services/ai-strategy-discovery" or "/contact") rather than restating the whole site. If a question is unrelated to DeosAI Labs (general knowledge, coding help, other companies, etc.), briefly decline and redirect to what you can help with. On pricing questions, describe the Build/Run structure above but never invent a dollar figure, rate, or discount — always point to booking a discovery call for a scoped quote. Never invent timelines, client names, or capabilities not listed above. Do not use markdown formatting — plain sentences only, since the answer renders in a plain-text panel. After the answer, finish with one last line in exactly this form: PAGES: /path-one, /path-two — listing up to two of the most relevant page paths, using only paths that appear above. Leave the PAGES line out if no page fits.`;
@@ -88,6 +89,7 @@ export const chatPageLinks: Record<string, string> = {
   "/careers": "Careers",
   "/workflows": "Workflow catalog",
   "/tools": "Free tools",
+  "/what-is-ai-forward-deployment": "What is AI forward deployment?",
   "/tools/ai-opportunity-assessment": "AI Opportunity Assessment",
   "/tools/workflow-roi-calculator": "Workflow Savings Calculator",
   "/resources": "Checklists and templates",

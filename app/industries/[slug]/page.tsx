@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
 
   return buildMetadata({
     title: `AI for ${industry.name} — DeosAI Labs`,
-    description: industry.challenge,
+    description: `${industry.challenge} ${industry.overview}`,
     path: `/industries/${industry.slug}`,
   });
 }
