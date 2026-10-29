@@ -10,7 +10,7 @@ export const siteUrl = "https://www.deosailabs.com";
  * sitemap. Bump it when you publish content changes. Using the build time instead would mark
  * every page as "modified today" on every deploy, which makes search engines ignore lastmod.
  */
-export const contentLastUpdated = "2026-08-25";
+export const contentLastUpdated = "2026-10-29";
 
 export const site = {
   name: "DeosAI Labs",

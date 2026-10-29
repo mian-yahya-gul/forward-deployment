@@ -2,9 +2,12 @@ import type { MetadataRoute } from "next";
 
 import { industries } from "@/lib/data/industries";
 import { articles } from "@/lib/data/insights";
+import { resources } from "@/lib/data/resources";
 import { services } from "@/lib/data/services";
 import { contentLastUpdated, siteUrl } from "@/lib/data/site";
 import { stories } from "@/lib/data/stories";
+import { tools } from "@/lib/data/tools";
+import { getPublicWorkflows } from "@/lib/data/workflows";
 
 const staticRoutes = [
   "",
@@ -17,6 +20,10 @@ const staticRoutes = [
   "/contact",
   "/partners",
   "/playbook",
+  "/workflows",
+  "/tools",
+  "/resources",
+  "/privacy",
 ];
 
 /**
@@ -78,6 +85,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(article.publishedDate),
   }));
 
+  const workflowEntries: MetadataRoute.Sitemap = getPublicWorkflows().map((workflow) => ({
+    url: `${siteUrl}/workflows/${workflow.id}`,
+    lastModified,
+  }));
+
+  const toolEntries: MetadataRoute.Sitemap = tools.map((tool) => ({
+    url: `${siteUrl}${tool.href}`,
+    lastModified,
+  }));
+
+  const resourceEntries: MetadataRoute.Sitemap = resources.map((resource) => ({
+    url: `${siteUrl}/resources/${resource.slug}`,
+    lastModified,
+  }));
+
   const bookEntries: MetadataRoute.Sitemap = [
     { url: `${siteUrl}/book/preface`, lastModified },
     ...bookFoundationSlugs.map((slug) => ({ url: `${siteUrl}/book/foundations/${slug}`, lastModified })),
@@ -91,6 +113,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...industryEntries,
     ...storyEntries,
     ...articleEntries,
+    ...workflowEntries,
+    ...toolEntries,
+    ...resourceEntries,
     ...bookEntries,
   ];
 }

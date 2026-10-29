@@ -114,7 +114,7 @@ export function renderEmailHtml({ heading, intro, rows = [], paragraphs = [], bu
           <h1 style="margin:0 0 8px;font-size:20px;line-height:1.3;color:#111827;">${escapeHtml(heading)}</h1>
           ${intro ? `<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#374151;">${escapeHtml(intro)}</p>` : ""}
           ${rows.length ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rowHtml}</table>` : ""}
-          ${paragraphs.map((p) => `<p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#374151;">${escapeHtml(p)}</p>`).join("")}
+          ${paragraphs.map((p) => `<p style="margin:16px 0 0;font-size:14px;line-height:1.6;color:#374151;white-space:pre-wrap;">${escapeHtml(p)}</p>`).join("")}
           ${buttonHtml}
           <p style="margin:28px 0 0;font-size:12px;color:#9ca3af;">DeosAI Labs &middot; https://www.deosailabs.com</p>
         </td></tr>

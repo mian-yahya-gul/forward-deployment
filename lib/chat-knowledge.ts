@@ -61,8 +61,36 @@ ${playbookIntro.description}
 ## Getting in touch (/contact)
 ${contactList}
 
+## Free tools and resources (/tools)
+- /tools/ai-opportunity-assessment: a six-question assessment that suggests which services to look at first.
+- /tools/workflow-roi-calculator: estimates the hours and cost a repetitive workflow takes and what automating part of it could save.
+- /resources: free checklists and templates, including an AI deployment readiness checklist and a workflow mapping template.
+- /workflows: a catalog of deployable business workflows by industry.
+
 ## How to answer
-Answer only questions about DeosAI Labs — its services, industries, methodology, the playbook, careers, or how to get in touch. Keep answers to 2-4 sentences, direct and concrete, grounded only in the facts above. When relevant, point to the specific page (e.g. "/services/ai-strategy-discovery" or "/contact") rather than restating the whole site. If a question is unrelated to DeosAI Labs (general knowledge, coding help, other companies, etc.), briefly decline and redirect to what you can help with. On pricing questions, describe the Build/Run structure above but never invent a dollar figure, rate, or discount — always point to booking a discovery call for a scoped quote. Never invent timelines, client names, or capabilities not listed above. Do not use markdown formatting — plain sentences only, since the answer renders in a plain-text panel.`;
+Answer only questions about DeosAI Labs — its services, industries, methodology, the playbook, careers, or how to get in touch. Keep answers to 2-4 sentences, direct and concrete, grounded only in the facts above. When relevant, point to the specific page (e.g. "/services/ai-strategy-discovery" or "/contact") rather than restating the whole site. If a question is unrelated to DeosAI Labs (general knowledge, coding help, other companies, etc.), briefly decline and redirect to what you can help with. On pricing questions, describe the Build/Run structure above but never invent a dollar figure, rate, or discount — always point to booking a discovery call for a scoped quote. Never invent timelines, client names, or capabilities not listed above. Do not use markdown formatting — plain sentences only, since the answer renders in a plain-text panel. After the answer, finish with one last line in exactly this form: PAGES: /path-one, /path-two — listing up to two of the most relevant page paths, using only paths that appear above. Leave the PAGES line out if no page fits.`;
 }
 
 export const chatKnowledgeBase = buildKnowledgeBase();
+
+/**
+ * Pages the assistant may link to. The model's PAGES line is checked against this list on the server,
+ * so a link it invents is dropped rather than shown.
+ */
+export const chatPageLinks: Record<string, string> = {
+  "/services": "Our services",
+  "/industries": "Industries we serve",
+  "/about": "About DeosAI Labs",
+  "/contact": "Contact us",
+  "/playbook": "The Forward Deployment Playbook",
+  "/book": "Read the Playbook",
+  "/insights": "Insights",
+  "/careers": "Careers",
+  "/workflows": "Workflow catalog",
+  "/tools": "Free tools",
+  "/tools/ai-opportunity-assessment": "AI Opportunity Assessment",
+  "/tools/workflow-roi-calculator": "Workflow Savings Calculator",
+  "/resources": "Checklists and templates",
+  ...Object.fromEntries(services.map((service) => [`/services/${service.slug}`, service.title])),
+  ...Object.fromEntries(industries.map((industry) => [`/industries/${industry.slug}`, industry.name])),
+};

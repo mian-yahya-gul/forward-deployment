@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-import { chatKnowledgeBase } from "@/lib/chat-knowledge";
+import { chatKnowledgeBase, chatPageLinks } from "@/lib/chat-knowledge";
 import { forbidden, getClientIp, isRateLimited, isSameOrigin, readJson, str, tooManyRequests } from "@/lib/security";
 
 const MAX_MESSAGE_LENGTH = 400;
@@ -66,7 +66,17 @@ export async function POST(request: Request) {
       });
     }
 
-    const answer = choice?.message?.content?.trim();
+    const raw = choice?.message?.content?.trim();
+
+    // Split off the model's "PAGES: ..." line and keep only links that exist on the site.
+    const pagesMatch = raw?.match(/\n?\s*PAGES:\s*(.+)$/im);
+    const answer = (pagesMatch ? raw?.slice(0, pagesMatch.index) : raw)?.trim();
+    const sources = pagesMatch
+      ? [...new Set(pagesMatch[1].split(",").map((path) => path.trim().replace(/[.;]+$/, "")))]
+          .filter((path) => Object.hasOwn(chatPageLinks, path))
+          .slice(0, 2)
+          .map((href) => ({ href, label: chatPageLinks[href] }))
+      : [];
 
     if (!answer) {
       return NextResponse.json(
@@ -75,7 +85,7 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ answer });
+    return NextResponse.json({ answer, sources });
   } catch (error) {
     if (error instanceof OpenAI.RateLimitError) {
       return NextResponse.json(

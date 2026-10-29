@@ -18,6 +18,6 @@ export function trackEvent(name: string, params?: EventParams) {
 }
 
 /** GA4's recommended `generate_lead` event, marked as a key event in Google Analytics. */
-export function trackLead(source: "contact_form" | "discovery_call_booking") {
+export function trackLead(source: "contact_form" | "discovery_call_booking" | "tool_email") {
   trackEvent("generate_lead", { lead_source: source });
 }

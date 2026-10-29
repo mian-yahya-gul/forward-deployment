@@ -94,6 +94,12 @@ export function CalEmbed({ calLink }: CalEmbedProps) {
     () => false,
   );
 
+  // A visitor arriving from the assistant, assessment or calculator can carry their question into the booking notes.
+  const notes =
+    mounted && typeof window !== "undefined"
+      ? (new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 500)
+      : "";
+
   const link = calLink?.trim().replace(/^\/+|\/+$/g, "") ?? "";
   const valid = CAL_LINK_PATTERN.test(link);
 
@@ -151,7 +157,7 @@ export function CalEmbed({ calLink }: CalEmbedProps) {
         namespace={NAMESPACE}
         calLink={link}
         style={{ width: "100%", overflow: "visible" }}
-        config={{ layout: "month_view", theme }}
+        config={{ layout: "month_view", theme, ...(notes ? { notes } : {}) }}
       />
     </div>
   );

@@ -1,15 +1,23 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { Sparkles, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "answered" | "error";
 
+interface Source {
+  href: string;
+  label: string;
+}
+
 export function HeroChat() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
+  const [sources, setSources] = useState<Source[]>([]);
+  const [asked, setAsked] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(event: FormEvent) {
@@ -19,6 +27,8 @@ export function HeroChat() {
 
     setStatus("loading");
     setAnswer("");
+    setSources([]);
+    setAsked(message);
 
     try {
       const res = await fetch("/api/chat", {
@@ -26,7 +36,7 @@ export function HeroChat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
       });
-      const data = (await res.json()) as { answer?: string; error?: string };
+      const data = (await res.json()) as { answer?: string; sources?: Source[]; error?: string };
 
       if (!res.ok || !data.answer) {
         setAnswer(data.error ?? "Something went wrong. Try again.");
@@ -35,6 +45,7 @@ export function HeroChat() {
       }
 
       setAnswer(data.answer);
+      setSources(Array.isArray(data.sources) ? data.sources : []);
       setStatus("answered");
     } catch {
       setAnswer("Something went wrong. Try again.");
@@ -45,6 +56,7 @@ export function HeroChat() {
   function reset() {
     setQuery("");
     setAnswer("");
+    setSources([]);
     setStatus("idle");
   }
 
@@ -108,7 +120,28 @@ export function HeroChat() {
               <span className="text-muted">Thinking…</span>
             ) : (
               <div className="flex items-start justify-between gap-3">
-                <p>{answer}</p>
+                <div>
+                  <p>{answer}</p>
+                  {status === "answered" && (
+                    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+                      {sources.map((source) => (
+                        <Link
+                          key={source.href}
+                          href={source.href}
+                          className="font-medium text-primary underline-offset-4 hover:underline"
+                        >
+                          {source.label} →
+                        </Link>
+                      ))}
+                      <Link
+                        href={`/contact?q=${encodeURIComponent(asked.slice(0, 200))}#book`}
+                        className="font-medium text-primary underline-offset-4 hover:underline"
+                      >
+                        Book a discovery call →
+                      </Link>
+                    </div>
+                  )}
+                </div>
                 <button
                   type="button"
                   onClick={reset}

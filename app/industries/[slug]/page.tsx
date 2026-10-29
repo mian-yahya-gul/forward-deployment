@@ -15,9 +15,11 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ServiceCard } from "@/components/shared/ServiceCard";
 import { StoryCard } from "@/components/shared/StoryCard";
+import { WorkflowCard } from "@/components/shared/WorkflowCard";
 import { getIndustryBySlug, industries } from "@/lib/data/industries";
 import { services } from "@/lib/data/services";
 import { getRelatedInsights, getRelatedStories } from "@/lib/relatedContent";
+import { getPublicWorkflowsByIndustry } from "@/lib/data/workflows";
 import { cn, glowCardClass } from "@/lib/utils";
 
 interface IndustryPageProps {
@@ -50,6 +52,7 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
   );
   const relatedStories = getRelatedStories({ industrySlugs: [industry.slug] });
   const relatedInsights = getRelatedInsights({ industrySlugs: [industry.slug] });
+  const publicWorkflows = getPublicWorkflowsByIndustry(industry.slug);
 
   return (
     <>
@@ -146,6 +149,25 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
           </ul>
         </div>
       </section>
+
+      {publicWorkflows.length > 0 && (
+        <section id="workflows" className="scroll-mt-[var(--header-height)] border-t border-border py-20 sm:py-28">
+          <div className="mx-auto max-w-[1280px] px-6">
+            <SectionHeading
+              eyebrow="Deployable Workflows"
+              title="Workflows we can deploy in this industry"
+              description="What we can actually assess and deploy — not a list of AI technologies, a map of where a capability could fit inside how this industry already runs."
+            />
+            <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {publicWorkflows.map((workflow, index) => (
+                <ScrollReveal as="li" key={workflow.id} delay={(index % 3) * 80}>
+                  <WorkflowCard workflow={workflow} />
+                </ScrollReveal>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       {relevantServices.length > 0 && (
         <section className="border-t border-border py-20 sm:py-28">
