@@ -13,12 +13,14 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ServiceCard } from "@/components/shared/ServiceCard";
 import { Card } from "@/components/ui/card";
-import { pricingModel, services, servicesLandingHero } from "@/lib/data/services";
+import { PackageCard } from "@/components/offers/PackageCard";
+import { offers, packagesDisclaimer, packagesIntro } from "@/lib/data/offers";
+import { capabilitiesIntro, pricingModel, services, servicesLandingHero } from "@/lib/data/services";
 import { site } from "@/lib/data/site";
 import { glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "AI Services for Enterprise Operations — DeosAI Labs",
+  title: "AI Engineering Services & Packages — DeosAI Labs",
   description: servicesLandingHero.description,
   path: "/services",
 });
@@ -38,9 +40,37 @@ export default function ServicesPage() {
         secondaryCta={servicesLandingHero.secondaryCta}
       />
 
-      <section className="py-20 sm:py-28">
+      <section id="packages" className="scroll-mt-[var(--header-height)] py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading
+            eyebrow={packagesIntro.eyebrow}
+            title={packagesIntro.title}
+            description={packagesIntro.description}
+          />
+          <ul className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {offers.map((offer, index) => (
+              <PackageCard key={offer.id} offer={offer} index={index} />
+            ))}
+          </ul>
+          <Card className="mt-8 bg-surface">
+            <h3 className="text-sm font-semibold text-foreground">{packagesDisclaimer.title}</h3>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted">
+              {packagesDisclaimer.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <SectionHeading
+            eyebrow={capabilitiesIntro.eyebrow}
+            title={capabilitiesIntro.title}
+            description={capabilitiesIntro.description}
+          />
+          <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
               <ScrollReveal as="li" key={service.slug} delay={(index % 3) * 80}>
                 <ServiceCard service={service} />

@@ -1,7 +1,7 @@
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 
-import { getEmailConfig, renderEmailHtml, rowsToText, sendEmail } from "@/lib/email";
+import { getEmailConfig, logEmailConfigProblems, renderEmailHtml, rowsToText, sendEmail } from "@/lib/email";
 import { singleLine } from "@/lib/security";
 
 /**
@@ -156,8 +156,8 @@ export async function POST(request: Request) {
   const dateLabel = formatWhen(startTime, organizerZone, "short");
   const config = getEmailConfig();
 
-  if (!config.configured) {
-    console.error(`[cal-webhook] RESEND_API_KEY is not configured; booking ${uid} was not notified.`);
+  if (logEmailConfigProblems(config, "cal-webhook")) {
+    console.error(`[cal-webhook] Booking ${uid} was not notified because email is not configured.`);
     return NextResponse.json({ error: "Email delivery not configured." }, { status: 500 });
   }
 

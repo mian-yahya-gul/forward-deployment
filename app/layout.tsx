@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "DeosAI Labs partners with organizations to design, deploy, and continuously improve production-grade AI systems that integrate into existing business operations.";
+  "DeosAI Labs helps businesses automate operations, build custom software and integrate AI into the systems they already use. White-label AI engineering for agencies.";
 
 // Optional Search Console / Bing Webmaster verification tags. Set GOOGLE_SITE_VERIFICATION and
 // BING_SITE_VERIFICATION in the hosting environment; nothing is rendered when they are unset.
@@ -58,21 +58,21 @@ export const metadata: Metadata = {
       }
     : {}),
   title: {
-    default: "DeosAI Labs — AI Forward Deployment Partner",
+    default: "DeosAI Labs — AI Engineering, Business Automation & Forward Deployment",
     template: "%s",
   },
   description,
   openGraph: {
     type: "website",
     siteName: "DeosAI Labs",
-    title: "DeosAI Labs — AI Forward Deployment Partner",
+    title: "DeosAI Labs — AI Engineering, Business Automation & Forward Deployment",
     description,
     url: "/",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DeosAI Labs — AI Forward Deployment Partner",
+    title: "DeosAI Labs — AI Engineering, Business Automation & Forward Deployment",
     description,
   },
 };
@@ -89,7 +89,7 @@ const structuredData = [
     logo: `${siteUrl}/logo/wordmark-light.png`,
     email: footerContact.email,
     description,
-    slogan: "Production-grade AI, deployed inside how your business already runs.",
+    slogan: "We Turn Business Workflows Into Production-Ready AI Systems.",
     knowsAbout: services.map((service) => service.title),
     sameAs: footerSocial.map((link) => link.href),
     address: {

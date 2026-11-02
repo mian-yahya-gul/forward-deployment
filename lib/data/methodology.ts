@@ -13,7 +13,7 @@ export const methodologyIntro = {
   eyebrow: "Our Approach",
   headline: "A structured path from opportunity to production.",
   description:
-    "Technology alone never transforms an organization. Transformation happens when AI becomes part of everyday work. Our methodology focuses on delivering measurable operational improvement, not simply deploying software.",
+    "Technology alone never transforms an organization. Transformation happens when AI becomes part of everyday work. Our methodology focuses on delivering measurable operational improvement, not simply deploying software. The full path below suits larger, multi-step engagements; our packages compress it for a single, well-defined workflow.",
   cta: { label: "Explore Our Services", href: "/services" },
 };
 

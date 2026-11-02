@@ -53,8 +53,8 @@ export default function WorkflowsPage() {
         <div className="mx-auto max-w-[1280px] px-6">
           <SectionHeading
             eyebrow="Browse by Industry"
-            title="Where the catalog is live today"
-            description="We publish workflows industry by industry as each one is mapped and reviewed. Every industry below is part of the Forward Deployment Playbook — the ones with published workflows are open for exploration now."
+            title="Browse mapped workflows by industry"
+            description="Workflows are mapped industry by industry and describe proposed capabilities, not completed client deployments. Industries with mapped workflows open straight to them; for any other industry, the industry page and a project enquiry are the next step."
           />
           <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {industrySummaries.map((industry, index) => {
@@ -80,14 +80,20 @@ export default function WorkflowsPage() {
                       </Card>
                     </Link>
                   ) : (
-                    <Card className="h-full opacity-70">
-                      <Icon className="size-6 text-muted" aria-hidden />
-                      <h3 className="mt-4 text-base font-semibold text-foreground">{industry.name}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted">{industry.challenge}</p>
-                      <div className="mt-4">
-                        <Badge variant="outline">Coming soon</Badge>
-                      </div>
-                    </Card>
+                    <Link href={`/industries/${industry.slug}`} className="block h-full">
+                      <Card className={cn("h-full", glowCardClass)}>
+                        <Icon className="size-6 text-primary" aria-hidden />
+                        <h3 className="mt-4 text-base font-semibold text-foreground">{industry.name}</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-muted">{industry.challenge}</p>
+                        <div className="mt-4 flex items-center justify-between">
+                          <Badge variant="outline">Discuss workflows for this industry</Badge>
+                          <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+                            Industry page
+                            <ArrowRight className="size-3.5" aria-hidden />
+                          </span>
+                        </div>
+                      </Card>
+                    </Link>
                   )}
                 </ScrollReveal>
               );
@@ -110,8 +116,8 @@ export default function WorkflowsPage() {
       </section>
 
       <CTASection
-        title="Don't see your workflow yet?"
-        description="The catalog is still expanding industry by industry. Tell us how the work actually happens today and we'll map it against what a first engagement would look like."
+        title="Don't see your workflow listed?"
+        description="Workflows in the catalog are mapped and proposed, not completed client deployments. If yours isn't listed, tell us how the work happens today and we'll scope what a first engagement could look like."
         primaryCta={{ label: "Discuss Your Workflow", href: "/contact" }}
         secondaryCta={{ label: "Read the Playbook", href: "/playbook" }}
       />

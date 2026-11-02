@@ -76,7 +76,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
   }));
 
-  const storyEntries: MetadataRoute.Sitemap = stories.map((story) => ({
+  const storyEntries: MetadataRoute.Sitemap = stories
+    .filter((story) => story.status === "published")
+    .map((story) => ({
     url: `${siteUrl}/case-studies/${story.slug}`,
     lastModified,
   }));

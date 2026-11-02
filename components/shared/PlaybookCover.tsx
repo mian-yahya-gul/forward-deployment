@@ -84,8 +84,9 @@ export function PlaybookCover() {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="group block w-full text-left [perspective:1400px]"
-        aria-label={`Start reading — ${playbookIntro.title}`}
       >
+        {/* No aria-label: the accessible name is the visible cover text, prefixed with the action (WCAG 2.5.3). */}
+        <span className="sr-only">Start reading: </span>
         <div
           ref={cardRef}
           className="relative mx-auto aspect-[5/7] w-[86%] rounded-[10px] transition-transform duration-300 ease-out will-change-transform [transform-style:preserve-3d]"

@@ -1,5 +1,5 @@
 import { articles, type Article } from "@/lib/data/insights";
-import { stories, type Story } from "@/lib/data/stories";
+import { getVisibleStories, type Story } from "@/lib/data/stories";
 
 function matchesAny(itemSlugs: string[], targetSlugs: string[]) {
   return itemSlugs.some((slug) => targetSlugs.includes(slug));
@@ -10,6 +10,7 @@ export function getRelatedStories(
   { industrySlugs = [], serviceSlugs = [] }: { industrySlugs?: string[]; serviceSlugs?: string[] },
   limit = 3,
 ): Story[] {
+  const stories = getVisibleStories();
   const matched = stories.filter(
     (story) =>
       matchesAny(story.relatedIndustrySlugs, industrySlugs) ||

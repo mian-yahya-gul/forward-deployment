@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { footerContact } from "@/lib/data/footer";
 import { ORGANIZATION_ID, absoluteUrl } from "@/lib/seo";
 import { buildMetadata } from "@/lib/seo";
 
@@ -13,11 +12,11 @@ import { PageHero } from "@/components/shared/PageHero";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { TrackedLink } from "@/components/shared/TrackedLink";
-import { contactHero, contactPathways } from "@/lib/data/contact";
+import { contactEmail, contactHero, contactPathways } from "@/lib/data/contact";
 import { cn, glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Book a Discovery Call — DeosAI Labs",
+  title: "Contact & Book a Discovery Call — DeosAI Labs",
   description: contactHero.description,
   path: "/contact",
 });
@@ -35,7 +34,7 @@ export default function ContactPage() {
           mainEntity: {
             "@type": "Organization",
             "@id": ORGANIZATION_ID,
-            contactPoint: { "@type": "ContactPoint", contactType: "sales", email: footerContact.email },
+            contactPoint: { "@type": "ContactPoint", contactType: "sales", email: contactEmail },
           },
         }}
       />
@@ -48,9 +47,9 @@ export default function ContactPage() {
 
       <section className="border-t border-border py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {contactPathways
-              .filter((pathway) => pathway.href.startsWith("#"))
+              .filter((pathway) => pathway.href.startsWith("#") || pathway.href.startsWith("/partners"))
               .map((pathway, index) => (
                 <ScrollReveal as="li" key={pathway.title} delay={index * 80}>
                   <Card className={cn("flex h-full flex-col", glowCardClass)}>
@@ -85,7 +84,7 @@ export default function ContactPage() {
           <SectionHeading
             eyebrow="Book a Discovery Call"
             title="Choose a time that works for you"
-            description="A 30-minute conversation about your workflows and where AI could help. Available times are shown in your local time zone, whether you're in the US or the Middle East & North Africa, and you'll get a confirmation email with a link to reschedule or cancel."
+            description="A 30-minute conversation about your workflows and where AI could help. Available times are shown in your local time zone, whether you are in the US, the UK, the Middle East & North Africa or Pakistan, and you will get a confirmation email with a link to reschedule or cancel."
           />
           <div className="mt-10">
             <CalEmbed calLink={process.env.NEXT_PUBLIC_CAL_LINK} />
@@ -96,9 +95,9 @@ export default function ContactPage() {
       <section id="message" className="scroll-mt-[var(--header-height)] border-t border-border py-20 sm:py-28">
         <div className="mx-auto max-w-2xl px-6">
           <SectionHeading
-            eyebrow="Send a Message"
-            title="Tell us about your organization"
-            description="Not ready to schedule? Share a few details and we'll reply by email."
+            eyebrow="Project Enquiry"
+            title="Tell us about your project"
+            description={`Not ready to schedule? Share a few details and we will review them and reply by email. You can also write to ${contactEmail}.`}
           />
           <div className="mt-10">
             <ContactForm />

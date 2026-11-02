@@ -10,33 +10,34 @@ export const siteUrl = "https://www.deosailabs.com";
  * sitemap. Bump it when you publish content changes. Using the build time instead would mark
  * every page as "modified today" on every deploy, which makes search engines ignore lastmod.
  */
-export const contentLastUpdated = "2026-10-29";
+export const contentLastUpdated = "2026-11-02";
 
 export const site = {
   name: "DeosAI Labs",
+  tagline: "AI Engineering, Business Automation & Forward Deployment",
   positioning:
-    "DeosAI Labs is an AI Forward Deployment Company. We partner with organizations to design, deploy, and continuously improve production-grade AI systems that integrate into existing business operations.",
+    "DeosAI Labs — AI Engineering, Business Automation & Forward Deployment. We help businesses discover and improve operational workflows, build production-ready AI systems, automate business processes, develop custom business applications, integrate AI into existing software and infrastructure, and provide white-label AI and software engineering to agencies.",
 
   hero: {
-    trustBadge: "AI Forward Deployment Partner",
-    headline: "Production-grade AI, deployed inside how your business already runs.",
+    trustBadge: "AI Engineering, Business Automation & Forward Deployment",
+    headline: "We Turn Business Workflows Into Production-Ready AI Systems.",
     description:
-      "We partner with enterprise teams to identify high-value opportunities, design solutions that fit existing workflows, and deploy AI systems that hold up in production, not just in a demo.",
+      "DeosAI Labs helps businesses automate operations, build custom software and integrate AI into the systems they already use.",
     primaryCta: { label: "Book a Discovery Call", href: "/contact" },
-    secondaryCta: { label: "Explore Our Services", href: "/services" },
+    secondaryCta: { label: "Explore Our Work", href: "/case-studies" },
   },
 
   finalCta: {
-    headline: "Every AI transformation starts with a conversation.",
+    headline: "Have a workflow worth fixing? Start with a conversation.",
     description:
-      "Every successful AI transformation begins with understanding the business. Whether you are exploring your first AI initiative or expanding existing capabilities, the first step is a conversation.",
+      "Tell us how the work happens today. We will talk through where automation, a custom application or an AI integration could help, and whether DeosAI Labs is the right team to build it.",
     trustStatement:
-      "No sales pitch, no pressure — just a candid conversation about where AI can create real value in your operations, and whether we're the right partner to help you get there.",
+      "No pressure and no obligation. If a simpler tool or a different approach fits better, we will say so.",
     primaryCta: { label: "Book a Discovery Call", href: "/contact" },
-    secondaryCta: { label: "Explore Our Services", href: "/services" },
+    secondaryCta: { label: "View Packages & Pricing", href: "/services#packages" },
     supportingLinks: [
+      { label: "Agency Partnerships", href: "/partners" },
       { label: "Read Our Insights", href: "/insights" },
-      { label: "View Industry Solutions", href: "/industries" },
     ],
   },
 } as const;
@@ -48,6 +49,6 @@ export const site = {
 export const siteRegions = {
   base: { locality: "Islamabad", countryCode: "PK", country: "Pakistan" },
   /** ISO 3166-1 alpha-2 codes of the countries named as served markets. */
-  marketCodes: ["US", "AE", "SA", "QA", "KW", "BH", "OM", "JO", "EG", "MA"],
-  summary: "the United States and the Middle East & North Africa (MENA)",
+  marketCodes: ["US", "GB", "AE", "SA", "PK", "QA", "KW", "BH", "OM", "JO", "EG", "MA"],
+  summary: "the United States, the United Kingdom, the Middle East & North Africa (MENA) and Pakistan",
 } as const;

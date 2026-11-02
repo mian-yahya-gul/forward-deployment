@@ -18,7 +18,7 @@ const OG_IMAGE = {
   width: 1200,
   height: 630,
   type: "image/png",
-  alt: "DeosAI Labs — AI Forward Deployment Partner",
+  alt: "DeosAI Labs — AI Engineering, Business Automation & Forward Deployment",
 };
 
 /** Search results cut titles at roughly 60 characters; drop the brand suffix when it would push past that. */

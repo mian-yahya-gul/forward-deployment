@@ -38,39 +38,45 @@ export const servicesIntro = {
 
 export const servicesLandingHero = {
   eyebrow: "Services",
-  title: "Business capabilities, built to work together.",
+  title: "Practical AI engineering, from first workflow to production.",
   description:
-    "Each service solves a distinct operational problem, and each is designed to complement the others. Start with one capability and expand as it proves out — nothing here requires a full platform commitment on day one.",
+    "Start with a defined engagement package, or explore the seven capability areas below. Either way, we begin by understanding how the work happens today and build only what fits.",
   primaryCta: { label: "Book a Discovery Call", href: "/contact" },
-  secondaryCta: { label: "View Industry Solutions", href: "/industries" },
+  secondaryCta: { label: "View Packages", href: "#packages" },
+};
+
+export const capabilitiesIntro = {
+  eyebrow: "Capabilities",
+  title: "Seven capability areas, built to work together.",
+  description:
+    "Each capability solves a distinct operational problem and is designed to complement the others. Start with one and expand as it proves out. Nothing here requires a platform commitment on day one.",
 };
 
 /**
- * The engagement shape, not a rate card — we scope every fee on a
- * discovery call rather than publishing numbers that don't hold up across
- * wildly different workflows and industries. Kept here rather than in
- * methodology.ts since it's a pricing message, not a phase description.
+ * How engagements are priced and scoped. The package ranges themselves live in offers.ts;
+ * this is the explanation shown under them and fed to the chat assistant.
  */
 export const pricingModel = {
-  eyebrow: "How We Price",
-  headline: "A fixed fee to build, a fraction of a hire to run.",
+  eyebrow: "How Pricing Works",
+  headline: "Scoped before we start, so you know the cost up front.",
   description:
-    "Every engagement follows the same shape. A fixed fee covers Discover through Deploy for one workflow, so you know the cost before we start. Once your Digital FTE is live, Optimize runs on an ongoing monthly cost — priced like a fraction of what a full-time hire would cost, not an open-ended retainer.",
+    "The package ranges above are indicative starting points in USD, not quotations. After a discovery conversation we send a written scope and price for the work. Larger or more complex projects, including multi-workflow programs, are scoped individually.",
   items: [
     {
       label: "Build",
-      title: "Discover → Prioritize → Design → Deploy",
+      title: "A defined scope and price",
       description:
-        "A fixed project fee, scoped to one workflow after a discovery call. You get a number before committing to the build — not an hourly estimate that grows as we go.",
+        "Each build is agreed in writing before work begins. Changes outside the agreed scope are quoted separately rather than absorbed.",
     },
     {
       label: "Run",
-      title: "Optimize",
+      title: "Hosting, APIs and support, scoped separately",
       description:
-        "An ongoing monthly cost once your Digital FTE is live — priced as a fraction of what the equivalent full-time role would cost, not a fixed-scope retainer.",
+        "Hosting, third-party API usage (such as AI model providers) and ongoing maintenance are not part of the package price. We scope them with you so there are no surprises.",
     },
   ],
-  disclaimer: "Every figure is scoped to your workflow on a call — we don't quote off a rate card.",
+  disclaimer:
+    "All figures are indicative and non-binding until a written scope is agreed. Timelines are estimates confirmed only after project discovery.",
   cta: { label: "Book a Discovery Call for a Scoped Quote", href: "/contact" },
 };
 
