@@ -37,7 +37,7 @@ export function PortfolioPreview() {
                 <p className="text-xs font-semibold tracking-wide text-primary uppercase">Real implementation</p>
                 <h3 className="mt-4 text-base font-semibold text-foreground">First case study in preparation</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
-                  We have built a replenishment application for a retail business and are preparing it for publication.
+                  We are preparing our first published case study. It will appear here once it has been reviewed and approved for publication.
                   Ask about it on a discovery call.
                 </p>
               </Card>

@@ -78,7 +78,7 @@ ${agencyHero.title} ${agencyHero.description} There are no announced partner age
 Work is labelled by type: ${Object.values(categoryMeta).map((m) => m.label).join(", ")}. Currently listed: ${getVisibleStories()
     .filter((story) => story.status === "published")
     .map((story) => `${story.title} (${categoryMeta[story.category].shortLabel})`)
-    .join("; ")}. A real retail replenishment application has been built and its case study is being prepared; its business details are not yet public. Conceptual prototypes and technical demonstrations are not client engagements and have no published results. There are no published client testimonials or client logos.
+    .join("; ")}. A first real case study is being prepared and is not yet published. Conceptual prototypes and technical demonstrations are not client engagements and have no published results. There are no published client testimonials or client logos.
 
 ## The Forward Deployment Playbook (/book, free resource)
 ${playbookIntro.description}
