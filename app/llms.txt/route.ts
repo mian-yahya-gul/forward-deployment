@@ -3,6 +3,9 @@ import { articles } from "@/lib/data/insights";
 import { resources } from "@/lib/data/resources";
 import { services } from "@/lib/data/services";
 import { site, siteRegions, siteUrl } from "@/lib/data/site";
+import { contactEmail } from "@/lib/data/contact";
+import { markets } from "@/lib/data/markets";
+import { offers } from "@/lib/data/offers";
 import { tools } from "@/lib/data/tools";
 import { getPublicWorkflows } from "@/lib/data/workflows";
 
@@ -18,7 +21,14 @@ export function GET() {
     "",
     `> ${site.positioning}`,
     "",
-    `DeosAI Labs is based in ${siteRegions.base.locality}, ${siteRegions.base.country}, and works with organizations across ${siteRegions.summary}. Work is run in English. Contact: info@deosailabs.com. Book a discovery call at ${siteUrl}/contact#book.`,
+    `DeosAI Labs is based in ${siteRegions.base.locality}, ${siteRegions.base.country}, and works with organizations across ${siteRegions.summary}. Work is run in English. Contact: ${contactEmail}. Book a discovery call at ${siteUrl}/contact#book.`,
+    "",
+    "## Engagement packages (indicative starting ranges in USD, not quotations)",
+    ...offers.map((offer) => link(offer.title, `/services#${offer.id}`, `${offer.price}. ${offer.tagline}`)),
+    "",
+    "## Markets served",
+    link("Markets we serve", "/markets", "UAE, Saudi Arabia, UK, USA and Pakistan"),
+    ...markets.map((market) => link(market.h1, `/markets/${market.slug}`, market.timeZone.versusPakistan)),
     "",
     "## Services",
     ...services.map((service) => link(service.title, `/services/${service.slug}`, service.purpose)),
@@ -44,9 +54,13 @@ export function GET() {
     "## Company",
     link("What is AI forward deployment?", "/what-is-ai-forward-deployment", "The definition, approach and how it differs from consulting"),
     link("About", "/about"),
-    link("Case studies", "/case-studies"),
+    link("Our work (real implementations, technical demonstrations and conceptual prototypes)", "/case-studies"),
+    link("Agency white-label partnerships", "/partners"),
     link("Privacy policy", "/privacy"),
     link("Contact and booking", "/contact"),
+    "",
+    "## More detail for AI assistants",
+    link("Full plain-text summary (llms-full.txt)", "/llms-full.txt"),
     "",
   ];
 

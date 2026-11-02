@@ -40,6 +40,15 @@ export const leadership = {
     title: "CEO & Forward Deployed Engineer",
     bio: [
       "Mian Yahya is a Forward Deployed Engineer focused on turning real-world business problems into practical, production-ready AI systems. His background spans software engineering, AI, machine learning, MLOps, and cloud computing — covering the full journey of an AI solution, from understanding the problem and designing the solution to building, integrating, deploying, and improving it in real-world environments.",
+      "As CEO, he leads DeosAI Labs' engineering and forward deployment work: understanding how a process runs today, then building, integrating and deploying the system that improves it.",
+    ],
+    focusAreas: [
+      { title: "Software engineering", description: "Building the applications, backends and integrations a workflow needs." },
+      { title: "AI engineering and implementation", description: "Putting AI to work inside real systems, where it earns its place." },
+      { title: "Business process discovery", description: "Mapping how work actually happens before deciding what to build." },
+      { title: "Workflow automation", description: "Removing repetitive manual steps from day-to-day operations." },
+      { title: "Systems integration", description: "Connecting new capability to the software a business already uses." },
+      { title: "Forward deployment", description: "Working inside the client's operations through to production deployment." },
     ],
   },
 };

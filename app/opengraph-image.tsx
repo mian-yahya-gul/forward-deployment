@@ -30,7 +30,7 @@ export default function OpengraphImage() {
             fontSize: 22,
           }}
         >
-          AI Forward Deployment Partner
+          AI Engineering &amp; Forward Deployment
         </div>
         <div
           style={{
@@ -54,7 +54,7 @@ export default function OpengraphImage() {
             lineHeight: 1.4,
           }}
         >
-          Production-grade AI, deployed inside how your business already runs.
+          We turn business workflows into production-ready AI systems.
         </div>
       </div>
     ),

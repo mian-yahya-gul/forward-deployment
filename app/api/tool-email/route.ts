@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { isComplete, recommend, sanitizeAnswers } from "@/lib/assessment";
 import { getResourceBySlug, resourceToText } from "@/lib/data/resources";
-import { getEmailConfig, renderEmailHtml, rowsToText, sendEmail } from "@/lib/email";
+import { getEmailConfig, logEmailConfigProblems, renderEmailHtml, rowsToText, sendEmail } from "@/lib/email";
 import { forbidden, getClientIp, isRateLimited, isSameOrigin, readJson, str, tooManyRequests } from "@/lib/security";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -96,8 +96,7 @@ export async function POST(request: Request) {
   }
 
   const config = getEmailConfig();
-  if (!config.configured || !config.canEmailVisitors) {
-    console.error("[tool-email] Email delivery to visitors isn't configured.");
+  if (logEmailConfigProblems(config, "tool-email")) {
     return NextResponse.json({ error: "We can't email this right now. The full content is on this page." }, { status: 503 });
   }
 

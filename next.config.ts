@@ -72,6 +72,12 @@ const nextConfig: NextConfig = {
    */
   async redirects() {
     return [
+      // Retired slug: the story is a technical demonstration, so its URL no longer implies a verified client outcome.
+      {
+        source: "/case-studies/reducing-manual-review-healthcare-revenue-cycle",
+        destination: "/case-studies/technical-demonstration-manual-review",
+        permanent: true,
+      },
       { source: "/book", destination: "/book/preface", permanent: false },
       { source: "/book/", destination: "/book/preface", permanent: false },
     ];

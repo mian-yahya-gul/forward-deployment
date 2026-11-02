@@ -34,6 +34,7 @@ export default function IndustriesPage() {
 
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
+          <h2 className="sr-only">All industries</h2>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {industries.map((industry, index) => (
               <ScrollReveal as="li" key={industry.slug} delay={(index % 3) * 80}>

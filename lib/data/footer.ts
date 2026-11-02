@@ -1,3 +1,5 @@
+import { contactEmail } from "@/lib/data/contact";
+import { markets } from "@/lib/data/markets";
 import { industries } from "@/lib/data/industries";
 import { services } from "@/lib/data/services";
 
@@ -8,14 +10,17 @@ export interface FooterLink {
 
 export const footerCompany = {
   description:
-    "DeosAI Labs is a long-term AI transformation partner committed to practical, responsible, and measurable business outcomes.",
+    "DeosAI Labs is an AI engineering and forward deployment company. We help businesses automate operations, build custom software and integrate AI into the systems they already use.",
   contactCta: { label: "Book a Discovery Call", href: "/contact" },
 };
 
-export const footerServicesColumn: FooterLink[] = services.map((service) => ({
-  label: service.title,
-  href: `/services/${service.slug}`,
-}));
+export const footerServicesColumn: FooterLink[] = [
+  { label: "Packages & Pricing", href: "/services#packages" },
+  ...services.map((service) => ({
+    label: service.title,
+    href: `/services/${service.slug}`,
+  })),
+];
 
 /**
  * Pinned to the original industry lineup rather than mapping every entry in
@@ -57,10 +62,12 @@ export const footerKnowledgeColumn: FooterLink[] = [
 
 export const footerCompanyColumn: FooterLink[] = [
   { label: "About", href: "/about" },
-  { label: "Methodology", href: "/about#methodology" },
-  { label: "Transformation Stories", href: "/case-studies" },
+  { label: "Methodology", href: "/#methodology" },
+  { label: "Our Work", href: "/case-studies" },
   { label: "Careers", href: "/careers" },
-  { label: "Partners", href: "/partners" },
+  { label: "Agency Partnerships", href: "/partners" },
+  { label: "Markets We Serve", href: "/markets" },
+  ...markets.map((market) => ({ label: `AI Engineering in ${market.label}`, href: `/markets/${market.slug}` })),
   { label: "Contact", href: "/contact" },
 ];
 
@@ -70,5 +77,5 @@ export const footerSocial: { label: string; href: string }[] = [
 ];
 
 export const footerContact = {
-  email: "info@deosailabs.com",
+  email: contactEmail,
 };

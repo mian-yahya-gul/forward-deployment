@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { itemListSchema } from "@/lib/seo";
+import { itemListSchema, offerServiceSchema } from "@/lib/seo";
+import { FAQAccordion } from "@/components/shared/FAQAccordion";
+import { servicesFaqs } from "@/lib/data/faq";
 import { buildMetadata } from "@/lib/seo";
 
 import Link from "next/link";
@@ -13,12 +15,14 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ServiceCard } from "@/components/shared/ServiceCard";
 import { Card } from "@/components/ui/card";
-import { pricingModel, services, servicesLandingHero } from "@/lib/data/services";
+import { PackageCard } from "@/components/offers/PackageCard";
+import { offers, packagesDisclaimer, packagesIntro } from "@/lib/data/offers";
+import { capabilitiesIntro, pricingModel, services, servicesLandingHero } from "@/lib/data/services";
 import { site } from "@/lib/data/site";
 import { glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
-  title: "AI Services for Enterprise Operations — DeosAI Labs",
+  title: "AI Engineering Services & Packages — DeosAI Labs",
   description: servicesLandingHero.description,
   path: "/services",
 });
@@ -26,6 +30,16 @@ export const metadata: Metadata = buildMetadata({
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={offers.map((offer) =>
+          offerServiceSchema({
+            name: offer.title,
+            description: offer.tagline,
+            path: `/services#${offer.id}`,
+            minPrice: Number(offer.price.replace(/[^0-9–-]/g, "").split(/[–-]/)[0]),
+          }),
+        )}
+      />
       <JsonLd
         data={itemListSchema(services.map((service) => ({ name: service.title, path: `/services/${service.slug}` })))}
       />
@@ -38,9 +52,37 @@ export default function ServicesPage() {
         secondaryCta={servicesLandingHero.secondaryCta}
       />
 
-      <section className="py-20 sm:py-28">
+      <section id="packages" className="scroll-mt-[var(--header-height)] py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading
+            eyebrow={packagesIntro.eyebrow}
+            title={packagesIntro.title}
+            description={packagesIntro.description}
+          />
+          <ul className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {offers.map((offer, index) => (
+              <PackageCard key={offer.id} offer={offer} index={index} />
+            ))}
+          </ul>
+          <Card className="mt-8 bg-surface">
+            <h3 className="text-sm font-semibold text-foreground">{packagesDisclaimer.title}</h3>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted">
+              {packagesDisclaimer.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-[1280px] px-6">
+          <SectionHeading
+            eyebrow={capabilitiesIntro.eyebrow}
+            title={capabilitiesIntro.title}
+            description={capabilitiesIntro.description}
+          />
+          <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
               <ScrollReveal as="li" key={service.slug} delay={(index % 3) * 80}>
                 <ServiceCard service={service} />
@@ -79,6 +121,15 @@ export default function ServicesPage() {
             {pricingModel.cta.label}
             <ArrowRight className="size-3.5" aria-hidden />
           </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6">
+          <SectionHeading eyebrow="FAQ" title="Pricing and scope questions" />
+          <div className="mt-10">
+            <FAQAccordion items={servicesFaqs} />
+          </div>
         </div>
       </section>
 

@@ -29,6 +29,7 @@ export default function InsightsPage() {
 
       <section className="py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
+          <h2 className="sr-only">All insights</h2>
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article, index) => (
               <ScrollReveal as="li" key={article.slug} delay={(index % 3) * 80}>

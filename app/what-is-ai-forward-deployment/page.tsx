@@ -47,11 +47,11 @@ const faqs = [
   },
   {
     question: "How is AI forward deployment priced?",
-    answer: `${pricingModel.items[0].description} ${pricingModel.items[1].description} ${pricingModel.disclaimer}`,
+    answer: `${pricingModel.description} Hosting, third-party API usage and ongoing maintenance are scoped separately. ${pricingModel.disclaimer}`,
   },
   {
     question: "Which regions does DeosAI Labs serve?",
-    answer: `DeosAI Labs is based in ${siteRegions.base.locality}, ${siteRegions.base.country}, and works with organizations across ${siteRegions.summary}. Work is run in English, and discovery calls can be booked across US and MENA time zones.`,
+    answer: `DeosAI Labs is based in ${siteRegions.base.locality}, ${siteRegions.base.country}, and works with organizations across ${siteRegions.summary}. Work is run in English, and discovery calls can be booked across US, UK, MENA and Pakistan time zones.`,
   },
 ];
 

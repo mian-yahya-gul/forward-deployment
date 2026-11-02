@@ -38,7 +38,7 @@ export function Header() {
 
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-8 md:flex"
+            className="hidden items-center gap-6 lg:flex xl:gap-8"
           >
             {primaryNav.map((item) => (
               <Link
@@ -57,7 +57,7 @@ export function Header() {
             <Link
               href={navCta.href}
               onClick={() => trackEvent("discovery_call_click", { source: "header" })}
-              className={cn(buttonVariants({ size: "sm" }), "hidden md:inline-flex")}
+              className={cn(buttonVariants({ size: "sm" }), "hidden lg:inline-flex")}
             >
               {navCta.label}
             </Link>
@@ -68,7 +68,7 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
-              className="flex size-11 items-center justify-center text-foreground md:hidden"
+              className="flex size-11 items-center justify-center text-foreground lg:hidden"
             >
               <Menu className="size-6" aria-hidden />
             </button>

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { markets } from "@/lib/data/markets";
 import { industries } from "@/lib/data/industries";
 import { articles } from "@/lib/data/insights";
 import { resources } from "@/lib/data/resources";
@@ -19,6 +20,7 @@ const staticRoutes = [
   "/careers",
   "/contact",
   "/partners",
+  "/markets",
   "/playbook",
   "/workflows",
   "/tools",
@@ -76,7 +78,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
   }));
 
-  const storyEntries: MetadataRoute.Sitemap = stories.map((story) => ({
+  const marketEntries: MetadataRoute.Sitemap = markets.map((market) => ({
+    url: `${siteUrl}/markets/${market.slug}`,
+    lastModified,
+  }));
+
+  const storyEntries: MetadataRoute.Sitemap = stories
+    .filter((story) => story.status === "published")
+    .map((story) => ({
     url: `${siteUrl}/case-studies/${story.slug}`,
     lastModified,
   }));
@@ -112,6 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticEntries,
     ...serviceEntries,
     ...industryEntries,
+    ...marketEntries,
     ...storyEntries,
     ...articleEntries,
     ...workflowEntries,

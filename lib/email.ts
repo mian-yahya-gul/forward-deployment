@@ -1,32 +1,77 @@
 import { Resend } from "resend";
 
 /**
- * Transactional email via Resend. Credentials stay server-side (RESEND_API_KEY).
+ * Transactional email via Resend. Credentials stay server-side.
  *
- * Sender identity: EMAIL_FROM must be an address on a domain verified in Resend (e.g.
- * "DeosAI Labs <notifications@deosailabs.com>"). Until it is set we fall back to Resend's shared
- * sandbox sender, which can only deliver to the Resend account owner — so in that mode the business
- * notification goes to the account owner's address and acknowledgments to visitors are skipped.
+ * Three environment variables are REQUIRED and there are deliberately no fallbacks:
+ *   RESEND_API_KEY        Resend API key (secret).
+ *   EMAIL_FROM            Sender on a domain verified in Resend, e.g. "DeosAI Labs <notifications@deosailabs.com>".
+ *   CONTACT_NOTIFY_EMAIL  Inbox that receives enquiry, booking and lead notifications.
+ * If any is missing or invalid, getEmailConfig() reports ok:false and every route fails safely (it
+ * never sends from a shared sandbox sender and never routes to a hard-coded personal address).
+ * Only the NAMES of missing variables are logged, never their values.
+ *
  * A visitor-supplied address is only ever used as reply-to or as an acknowledgment recipient,
  * never as the sender.
  */
 
-const SANDBOX_FROM = "DeosAI Labs Website <onboarding@resend.dev>";
-// Resend account owner: the only inbox the sandbox sender can reach. Remove once EMAIL_FROM is set.
-const SANDBOX_RECIPIENT = "kakakhel176@gmail.com";
-const DEFAULT_NOTIFY_EMAIL = "info@deosailabs.com";
+const ADDRESS_PATTERN = /^[^\s@<>]+@([^\s@<>]+\.[^\s@<>]+)$/;
 
-export function getEmailConfig() {
-  const verifiedFrom = process.env.EMAIL_FROM?.trim() || "";
-  const notifyOverride = process.env.CONTACT_NOTIFY_EMAIL?.trim() || "";
+/** Sender domains that can never be a verified business sender. */
+const DISALLOWED_SENDER_DOMAINS = new Set([
+  "resend.dev",
+  "gmail.com",
+  "googlemail.com",
+  "yahoo.com",
+  "outlook.com",
+  "hotmail.com",
+  "live.com",
+  "icloud.com",
+  "proton.me",
+  "protonmail.com",
+]);
 
-  return {
-    configured: Boolean(process.env.RESEND_API_KEY),
-    /** True once a verified sender domain is configured, so third-party recipients are reachable. */
-    canEmailVisitors: Boolean(verifiedFrom),
-    from: verifiedFrom || SANDBOX_FROM,
-    notifyTo: notifyOverride || (verifiedFrom ? DEFAULT_NOTIFY_EMAIL : SANDBOX_RECIPIENT),
-  };
+/** Extracts the address from "Name <user@domain>" or a bare "user@domain". */
+function parseAddress(value: string): { address: string; domain: string } | null {
+  const bracketed = value.match(/<([^<>]+)>\s*$/);
+  const address = (bracketed ? bracketed[1] : value).trim();
+  const match = address.match(ADDRESS_PATTERN);
+  return match ? { address, domain: match[1].toLowerCase() } : null;
+}
+
+export type EmailConfig =
+  | { ok: true; from: string; notifyTo: string }
+  | { ok: false; problems: string[] };
+
+export function getEmailConfig(): EmailConfig {
+  const problems: string[] = [];
+
+  if (!process.env.RESEND_API_KEY?.trim()) problems.push("RESEND_API_KEY is missing");
+
+  const from = process.env.EMAIL_FROM?.trim() || "";
+  if (!from) {
+    problems.push("EMAIL_FROM is missing");
+  } else {
+    const parsed = parseAddress(from);
+    if (!parsed) problems.push("EMAIL_FROM is not a valid address");
+    else if (DISALLOWED_SENDER_DOMAINS.has(parsed.domain)) {
+      problems.push("EMAIL_FROM must use a verified business domain, not a shared or free-mail domain");
+    }
+  }
+
+  const notifyTo = process.env.CONTACT_NOTIFY_EMAIL?.trim() || "";
+  if (!notifyTo) problems.push("CONTACT_NOTIFY_EMAIL is missing");
+  else if (!parseAddress(notifyTo)) problems.push("CONTACT_NOTIFY_EMAIL is not a valid address");
+
+  if (problems.length > 0) return { ok: false, problems };
+  return { ok: true, from, notifyTo };
+}
+
+/** Returns true (after logging variable NAMES only, never values) when email is NOT usable. */
+export function logEmailConfigProblems(config: EmailConfig, logTag: string): config is Extract<EmailConfig, { ok: false }> {
+  if (config.ok) return false;
+  console.error(`[email:${logTag}] Email is not configured: ${config.problems.join("; ")}.`);
+  return true;
 }
 
 interface SendArgs {
@@ -42,17 +87,12 @@ interface SendArgs {
 }
 
 export async function sendEmail({ to, subject, text, html, replyTo, idempotencyKey, logTag }: SendArgs): Promise<boolean> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error(`[email:${logTag}] RESEND_API_KEY is not configured.`);
-    return false;
-  }
-
-  const { from } = getEmailConfig();
+  const config = getEmailConfig();
+  if (logEmailConfigProblems(config, logTag)) return false;
 
   try {
-    const { error } = await new Resend(apiKey).emails.send(
-      { from, to, subject, text, ...(html ? { html } : {}), ...(replyTo ? { replyTo } : {}) },
+    const { error } = await new Resend(process.env.RESEND_API_KEY!.trim()).emails.send(
+      { from: config.from, to, subject, text, ...(html ? { html } : {}), ...(replyTo ? { replyTo } : {}) },
       idempotencyKey ? { idempotencyKey } : undefined,
     );
 

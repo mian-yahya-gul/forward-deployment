@@ -11,15 +11,16 @@ import { PrevNextNav } from "@/components/shared/PrevNextNav";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ServiceCard } from "@/components/shared/ServiceCard";
-import { getStoryBySlug, stories } from "@/lib/data/stories";
+import { categoryMeta, getStoryBySlug, getVisibleStories } from "@/lib/data/stories";
 import { services } from "@/lib/data/services";
+import { Card } from "@/components/ui/card";
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return stories.map((story) => ({ slug: story.slug }));
+  return getVisibleStories().map((story) => ({ slug: story.slug }));
 }
 
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
@@ -27,11 +28,14 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
   const story = getStoryBySlug(slug);
   if (!story) return {};
 
-  return buildMetadata({
-    title: `${story.title} — DeosAI Labs`,
-    description: story.outcome,
-    path: `/case-studies/${story.slug}`,
-  });
+  return {
+    ...buildMetadata({
+      title: `${story.metaTitle ?? story.title} — DeosAI Labs`,
+      description: story.summary,
+      path: `/case-studies/${story.slug}`,
+    }),
+    ...(story.status === "draft" ? { robots: { index: false, follow: false } } : {}),
+  };
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
@@ -39,6 +43,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const story = getStoryBySlug(slug);
   if (!story) notFound();
 
+  const meta = categoryMeta[story.category];
   const relatedServices = services.filter((service) =>
     story.relatedServiceSlugs.includes(service.slug),
   );
@@ -50,17 +55,34 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
-              { label: "Client Success", href: "/case-studies" },
+              { label: "Our Work", href: "/case-studies" },
               { label: story.title },
             ]}
           />
         }
-        eyebrow="Client Success"
+        eyebrow={meta.shortLabel}
         title={story.title}
         description={story.context}
         primaryCta={{ label: "Book a Discovery Call", href: "/contact" }}
-        secondaryCta={{ label: "Explore All Stories", href: "/case-studies" }}
+        secondaryCta={{ label: "View All Work", href: "/case-studies" }}
       />
+
+      {story.status === "draft" && (
+        <section className="border-b border-border bg-surface py-8">
+          <div className="mx-auto max-w-[1280px] px-6">
+            <Card className="border-dashed">
+              <p className="text-sm font-semibold text-foreground">Draft for owner review. Not visible in production.</p>
+              {story.reviewNotes && (
+                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted">
+                  {story.reviewNotes.map((note) => (
+                    <li key={note}>{note}</li>
+                  ))}
+                </ul>
+              )}
+            </Card>
+          </div>
+        </section>
+      )}
 
       <section className="border-b border-border bg-surface py-6">
         <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-3 px-6">
@@ -68,6 +90,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             <Badge variant="primary">{story.industry}</Badge>
           </Link>
           {story.clientName && <Badge>{story.clientName}</Badge>}
+          <p className="w-full text-sm leading-relaxed text-muted sm:ml-2 sm:w-auto">{story.disclosure}</p>
         </div>
       </section>
 
@@ -83,21 +106,54 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
       <section className="border-b border-border py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <SectionHeading eyebrow="Challenge" title="The operational challenge" description={story.challenge} />
+          <SectionHeading eyebrow="Context" title={meta.headings.challenge} description={story.challenge} />
         </div>
       </section>
 
       <section className="border-b border-border bg-surface py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <SectionHeading eyebrow="Approach" title="How we approached it" description={story.approach} />
+          <SectionHeading eyebrow="Approach" title={meta.headings.approach} description={story.approach} />
         </div>
       </section>
 
       <section className="border-b border-border py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <SectionHeading eyebrow="Outcome" title="What changed" description={story.outcome} />
+          <SectionHeading eyebrow="Outcome" title={meta.headings.outcome} description={story.outcome} />
         </div>
       </section>
+
+      {(story.beforeAfter || story.capabilities) && (
+        <section className="border-b border-border py-20 sm:py-28">
+          <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-6 lg:grid-cols-2">
+            {story.beforeAfter && (
+              <div>
+                <p className="text-sm font-medium tracking-wide text-primary uppercase">Before and after</p>
+                <dl className="mt-4 space-y-4">
+                  <Card>
+                    <dt className="text-xs font-semibold tracking-wide text-muted uppercase">Before</dt>
+                    <dd className="mt-1 text-lg font-semibold text-foreground">{story.beforeAfter.before}</dd>
+                  </Card>
+                  <Card>
+                    <dt className="text-xs font-semibold tracking-wide text-muted uppercase">After</dt>
+                    <dd className="mt-1 text-lg font-semibold text-foreground">{story.beforeAfter.after}</dd>
+                  </Card>
+                </dl>
+                <p className="mt-3 text-xs text-muted">{story.beforeAfter.source}</p>
+              </div>
+            )}
+            {story.capabilities && (
+              <div>
+                <p className="text-sm font-medium tracking-wide text-primary uppercase">What the application covers</p>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-foreground/90">
+                  {story.capabilities.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {story.quote && (
         <section className="border-b border-border bg-surface py-20 sm:py-28">
@@ -120,11 +176,13 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         </section>
       )}
 
+      {story.lessons && (
       <section className="border-b border-border bg-surface py-20 sm:py-28">
         <div className="mx-auto max-w-[1280px] px-6">
-          <SectionHeading eyebrow="Lessons" title="What we learned" description={story.lessons} />
+          <SectionHeading eyebrow="Takeaway" title={meta.headings.lessons} description={story.lessons} />
         </div>
       </section>
+      )}
 
       {relatedServices.length > 0 && (
         <section className="py-20 sm:py-28">
@@ -142,13 +200,13 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       )}
 
       <CTASection
-        title="Have a similar challenge?"
+        title="Have a similar workflow to fix?"
         description="Book a discovery call to talk through your specific operational context — no pressure, no obligation."
         primaryCta={{ label: "Book a Discovery Call", href: "/contact" }}
-        secondaryCta={{ label: "Explore All Stories", href: "/case-studies" }}
+        secondaryCta={{ label: "View All Work", href: "/case-studies" }}
       />
 
-      <PrevNextNav items={stories} currentSlug={story.slug} basePath="/case-studies" />
+      <PrevNextNav items={getVisibleStories()} currentSlug={story.slug} basePath="/case-studies" />
     </>
   );
 }

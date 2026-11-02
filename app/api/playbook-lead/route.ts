@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
+import { getEmailConfig, logEmailConfigProblems, sendEmail } from "@/lib/email";
 import { forbidden, getClientIp, isRateLimited, isSameOrigin, readJson, str, tooManyRequests } from "@/lib/security";
 
-const CONTACT_EMAIL = "kakakhel176@gmail.com";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const MAX_BODY_BYTES = 2_000;
@@ -12,12 +11,10 @@ const RATE_LIMIT_WINDOW_MS = 60 * 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
 
 /**
- * Captures an email before a visitor reads the Playbook. Only ever notifies
- * CONTACT_EMAIL (never the lead) — the "from" address below is Resend's
- * shared sandbox domain, which can't reliably send to arbitrary third-party
- * recipients, so this route is lead capture only, not a confirmation email.
- * Access to the book is never blocked on this succeeding (see the modal),
- * so a Resend outage never costs a reader.
+ * Captures an email before a visitor reads the Playbook. Only ever notifies the configured
+ * CONTACT_NOTIFY_EMAIL inbox (never the lead): this route is lead capture only, not a confirmation
+ * email. Access to the book is never blocked on this succeeding (see the modal), so an email
+ * outage never costs a reader.
  */
 export async function POST(request: Request) {
   if (!isSameOrigin(request)) return forbidden();
@@ -33,9 +30,9 @@ export async function POST(request: Request) {
 
   const email = str(data.email);
 
-  // Honeypot field — hidden from real visitors via CSS; bots tend to fill every field.
+  // Honeypot field: hidden from real visitors via CSS; bots tend to fill every field.
   if (data.website) {
-    // Honeypot tripped — pretend success so bots don't learn to skip this field.
+    // Honeypot tripped: pretend success so bots don't learn to skip this field.
     return NextResponse.json({ ok: true });
   }
 
@@ -43,29 +40,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });
   }
 
-  if (!process.env.RESEND_API_KEY) {
-    console.error("RESEND_API_KEY is not configured.");
-    return NextResponse.json({ error: "Not configured." }, { status: 500 });
+  const config = getEmailConfig();
+  if (logEmailConfigProblems(config, "playbook-lead")) {
+    return NextResponse.json({ error: "Not configured." }, { status: 503 });
   }
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  const delivered = await sendEmail({
+    to: config.notifyTo,
+    subject: `New Playbook lead: ${email}`,
+    text: `${email} unlocked The Forward Deployment Playbook.`,
+    logTag: "playbook-lead",
+  });
 
-  try {
-    const { error } = await resend.emails.send({
-      from: "DeosAI Labs Website <onboarding@resend.dev>",
-      to: CONTACT_EMAIL,
-      subject: `New Playbook lead: ${email}`,
-      text: `${email} unlocked The Forward Deployment Playbook.`,
-    });
-
-    if (error) {
-      console.error("Resend returned an error:", error);
-      return NextResponse.json({ error: "Delivery failed." }, { status: 502 });
-    }
-
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("Failed to send playbook lead notification:", error);
-    return NextResponse.json({ error: "Delivery failed." }, { status: 500 });
-  }
+  if (!delivered) return NextResponse.json({ error: "Delivery failed." }, { status: 502 });
+  return NextResponse.json({ ok: true });
 }
