@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   if (!article) return {};
 
   return buildMetadata({
-    title: `${article.title} — DeosAI Labs`,
+    title: `${article.seoTitle ?? article.title} — DeosAI Labs`,
     description: article.summary,
     path: `/insights/${article.slug}`,
     type: "article",

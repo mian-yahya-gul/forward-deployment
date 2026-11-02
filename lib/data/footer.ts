@@ -1,4 +1,5 @@
 import { contactEmail } from "@/lib/data/contact";
+import { markets } from "@/lib/data/markets";
 import { industries } from "@/lib/data/industries";
 import { services } from "@/lib/data/services";
 
@@ -65,6 +66,8 @@ export const footerCompanyColumn: FooterLink[] = [
   { label: "Our Work", href: "/case-studies" },
   { label: "Careers", href: "/careers" },
   { label: "Agency Partnerships", href: "/partners" },
+  { label: "Markets We Serve", href: "/markets" },
+  ...markets.map((market) => ({ label: `AI Engineering in ${market.label}`, href: `/markets/${market.slug}` })),
   { label: "Contact", href: "/contact" },
 ];
 

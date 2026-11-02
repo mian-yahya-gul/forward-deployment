@@ -4,6 +4,7 @@ import { resources } from "@/lib/data/resources";
 import { services } from "@/lib/data/services";
 import { site, siteRegions, siteUrl } from "@/lib/data/site";
 import { contactEmail } from "@/lib/data/contact";
+import { markets } from "@/lib/data/markets";
 import { offers } from "@/lib/data/offers";
 import { tools } from "@/lib/data/tools";
 import { getPublicWorkflows } from "@/lib/data/workflows";
@@ -24,6 +25,10 @@ export function GET() {
     "",
     "## Engagement packages (indicative starting ranges in USD, not quotations)",
     ...offers.map((offer) => link(offer.title, `/services#${offer.id}`, `${offer.price}. ${offer.tagline}`)),
+    "",
+    "## Markets served",
+    link("Markets we serve", "/markets", "UAE, Saudi Arabia, UK, USA and Pakistan"),
+    ...markets.map((market) => link(market.h1, `/markets/${market.slug}`, market.timeZone.versusPakistan)),
     "",
     "## Services",
     ...services.map((service) => link(service.title, `/services/${service.slug}`, service.purpose)),
@@ -53,6 +58,9 @@ export function GET() {
     link("Agency white-label partnerships", "/partners"),
     link("Privacy policy", "/privacy"),
     link("Contact and booking", "/contact"),
+    "",
+    "## More detail for AI assistants",
+    link("Full plain-text summary (llms-full.txt)", "/llms-full.txt"),
     "",
   ];
 

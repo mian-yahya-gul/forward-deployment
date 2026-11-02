@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -8,6 +9,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CookieConsent } from "@/components/shared/CookieConsent";
 import { footerContact, footerSocial } from "@/lib/data/footer";
+import { leadership } from "@/lib/data/about";
+import { offers } from "@/lib/data/offers";
 import { services } from "@/lib/data/services";
 import { siteRegions, siteUrl } from "@/lib/data/site";
 import { ORGANIZATION_ID, areaServedSchema } from "@/lib/seo";
@@ -58,7 +61,7 @@ export const metadata: Metadata = {
       }
     : {}),
   title: {
-    default: "DeosAI Labs — AI Engineering, Business Automation & Forward Deployment",
+    default: "AI Workflow Automation & Custom Software — DeosAI Labs",
     template: "%s",
   },
   description,
@@ -81,7 +84,7 @@ export const metadata: Metadata = {
 const structuredData = [
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "@id": ORGANIZATION_ID,
     name: "DeosAI Labs",
     alternateName: "DeosAi Labs",
@@ -90,7 +93,26 @@ const structuredData = [
     email: footerContact.email,
     description,
     slogan: "We Turn Business Workflows Into Production-Ready AI Systems.",
-    knowsAbout: services.map((service) => service.title),
+    knowsAbout: [
+      ...services.map((service) => service.title),
+      "AI workflow automation",
+      "Custom business applications",
+      "White-label AI engineering",
+      "MCP and API integrations",
+    ],
+    founder: {
+      "@type": "Person",
+      name: leadership.person.name,
+      jobTitle: leadership.person.title,
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "DeosAI Labs engagement packages",
+      itemListElement: offers.map((offer) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name: offer.title, description: offer.tagline },
+      })),
+    },
     sameAs: footerSocial.map((link) => link.href),
     address: {
       "@type": "PostalAddress",
@@ -112,7 +134,7 @@ const structuredData = [
     "@id": `${siteUrl}/#website`,
     name: "DeosAI Labs",
     url: siteUrl,
-    inLanguage: "en-US",
+    inLanguage: "en",
     publisher: { "@id": ORGANIZATION_ID },
   },
 ];
@@ -120,12 +142,11 @@ const structuredData = [
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en-US"
+      lang="en"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
@@ -164,6 +185,8 @@ if (/^(www\\.)?deosailabs\\.com$/.test(location.hostname)) { gtag('config', '${G
         </ThemeProvider>
         <CookieConsent />
         <Analytics />
+        {/* Loaded after the page is interactive so analytics never competes with first paint. The consent defaults are set inline in <head> first. */}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="lazyOnload" />
       </body>
     </html>
   );

@@ -27,6 +27,8 @@ export interface Story {
   industry: string;
   industrySlug: string;
   title: string;
+  /** Optional shorter <title> (about 50 characters) so search results do not truncate it. */
+  metaTitle?: string;
   /** One-sentence summary used on cards. */
   summary: string;
   context: string;
@@ -174,6 +176,7 @@ export const stories: Story[] = [
     industry: "Healthcare",
     industrySlug: "healthcare",
     title: "A multi-agent workflow design for healthcare revenue-cycle review",
+    metaTitle: "Healthcare Revenue-Cycle AI Workflow Demo",
     summary:
       "A technical demonstration of how specialised AI agents, quality gates and human escalation can be combined in a billing-review workflow.",
     context:
@@ -207,6 +210,7 @@ export const stories: Story[] = [
     industry: "Healthcare",
     industrySlug: "healthcare",
     title: "Scenario: a knowledge assistant for clinical and administrative teams",
+    metaTitle: "Healthcare Knowledge Assistant Scenario",
     summary: "An illustrative scenario for reducing time spent searching scattered documentation.",
     context: "An illustrative scenario for a healthcare provider with several clinical and administrative teams.",
     challenge:
@@ -228,6 +232,7 @@ export const stories: Story[] = [
     industry: "Retail & Distribution",
     industrySlug: "retail-ecommerce",
     title: "Scenario: bringing inventory and customer data into one place",
+    metaTitle: "Retail Inventory & Customer Data Scenario",
     summary: "An illustrative scenario for a multi-channel retailer whose systems disagree.",
     context: "An illustrative scenario for a multi-channel retailer selling online, through marketplaces and in stores.",
     challenge:

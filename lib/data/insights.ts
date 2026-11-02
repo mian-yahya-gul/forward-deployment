@@ -7,6 +7,8 @@ export interface Article {
   slug: string;
   category: string;
   title: string;
+  /** Optional shorter <title> so search results do not truncate it. */
+  seoTitle?: string;
   summary: string;
   readingTime: string;
   author: string;
@@ -200,6 +202,7 @@ export const articles: Article[] = [
     slug: "why-internal-search-doesnt-work",
     category: "Enterprise Knowledge",
     title: "Why your internal search doesn't work (and what to do instead)",
+    seoTitle: "Why Internal Search Fails (and What to Do Instead)",
     summary:
       "Search that returns documents instead of answers pushes employees back to asking a colleague. Here's the difference that actually fixes it.",
     readingTime: "4 min read",
@@ -342,6 +345,7 @@ export const articles: Article[] = [
     slug: "ai-deployment-considerations-for-mena-organizations",
     category: "Regional Considerations",
     title: "AI deployment considerations for organizations in the Middle East and North Africa",
+    seoTitle: "AI Deployment Considerations for MENA Organizations",
     summary:
       "Data protection, data residency, Arabic-language quality and bilingual workflows: the regional questions worth settling before an AI system goes live in MENA.",
     readingTime: "3 min read",
@@ -375,6 +379,7 @@ export const articles: Article[] = [
     slug: "ai-automation-for-insurance-claims",
     category: "Industry Insights",
     title: "Where AI helps in insurance claims, and where people should decide",
+    seoTitle: "AI in Insurance Claims: Where People Should Decide",
     summary:
       "A practical look at which parts of the claims workflow suit AI (intake, document handling, triage, status updates) and which decisions should stay with people.",
     readingTime: "2 min read",

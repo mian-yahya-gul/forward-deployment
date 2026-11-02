@@ -68,7 +68,8 @@ export function buildMetadata({
   return {
     title,
     description,
-    alternates: { canonical: path },
+    // One English version serves every market, so hreflang names it for English and as the default.
+    alternates: { canonical: path, languages: { en: path, "x-default": path } },
     openGraph:
       type === "article"
         ? { type: "article", siteName: SITE_NAME, title, description, url: path, images, publishedTime, authors }
@@ -109,9 +110,54 @@ export function faqSchema(items: { question: string; answer: string }[]) {
   };
 }
 
-/** schema.org Country nodes for every market named in `siteRegions`. */
+/** Full names for the ISO codes in `siteRegions.marketCodes`; schema.org Country.name expects a name, not a code. */
+const COUNTRY_NAMES: Record<string, string> = {
+  US: "United States",
+  GB: "United Kingdom",
+  AE: "United Arab Emirates",
+  SA: "Saudi Arabia",
+  PK: "Pakistan",
+  QA: "Qatar",
+  KW: "Kuwait",
+  BH: "Bahrain",
+  OM: "Oman",
+  JO: "Jordan",
+  EG: "Egypt",
+  MA: "Morocco",
+};
+
+/** schema.org Country nodes for every market named in `siteRegions`, with real country names. */
 export function areaServedSchema() {
-  return siteRegions.marketCodes.map((code) => ({ "@type": "Country", name: code }));
+  return siteRegions.marketCodes.map((code) => ({ "@type": "Country", name: COUNTRY_NAMES[code] ?? code }));
+}
+
+/** One Service per commercial package, with an indicative starting price (USD). */
+export function offerServiceSchema(input: {
+  name: string;
+  description: string;
+  path: string;
+  minPrice: number;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: input.name,
+    serviceType: input.name,
+    description: `${input.description} Indicative starting price; not a quotation.`,
+    url: absoluteUrl(input.path),
+    provider: { "@id": ORGANIZATION_ID },
+    areaServed: areaServedSchema(),
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "USD",
+        minPrice: input.minPrice,
+      },
+      availability: "https://schema.org/InStock",
+    },
+  };
 }
 
 export function serviceSchema(input: { name: string; description: string; path: string }) {

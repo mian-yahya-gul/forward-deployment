@@ -2,6 +2,7 @@ import { site } from "@/lib/data/site";
 import { pricingModel, services } from "@/lib/data/services";
 import { offers, packagesDisclaimer } from "@/lib/data/offers";
 import { agencyHero } from "@/lib/data/partners";
+import { markets } from "@/lib/data/markets";
 import { categoryMeta, getVisibleStories } from "@/lib/data/stories";
 import { industries } from "@/lib/data/industries";
 import { methodologyPhases } from "@/lib/data/methodology";
@@ -65,6 +66,10 @@ ${offers
   .join("\n")}
 ${packagesDisclaimer.points.join(" ")}
 ${pricingModel.description} ${pricingModel.disclaimer}
+
+## Markets (/markets)
+DeosAI Labs is based in Islamabad, Pakistan, and works remotely with businesses and agencies in the UAE, Saudi Arabia, the UK, the USA and Pakistan. Work is run in English and prices are in USD. No office or team in any other country is claimed.
+${markets.map((m) => `- ${m.countryName} (/markets/${m.slug}): ${m.timeZone.zone}, ${m.timeZone.utc}. ${m.timeZone.versusPakistan}`).join("\n")}
 
 ## Agency partnerships (/partners)
 ${agencyHero.title} ${agencyHero.description} There are no announced partner agencies and no partner logos.

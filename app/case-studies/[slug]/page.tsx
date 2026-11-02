@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
 
   return {
     ...buildMetadata({
-      title: `${story.title} — DeosAI Labs`,
+      title: `${story.metaTitle ?? story.title} — DeosAI Labs`,
       description: story.summary,
       path: `/case-studies/${story.slug}`,
     }),

@@ -17,6 +17,8 @@ import {
   partnerEnquiryIntro,
 } from "@/lib/data/partners";
 import { buildMetadata } from "@/lib/seo";
+import { FAQAccordion } from "@/components/shared/FAQAccordion";
+import { partnerFaqs } from "@/lib/data/faq";
 import { cn, glowCardClass } from "@/lib/utils";
 
 export const metadata: Metadata = buildMetadata({
@@ -105,6 +107,15 @@ export default function PartnersPage() {
               View the full white-label scope
             </Link>
           </Card>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6">
+          <SectionHeading eyebrow="FAQ" title="Partnership questions" />
+          <div className="mt-10">
+            <FAQAccordion items={partnerFaqs} />
+          </div>
         </div>
       </section>
 

@@ -23,6 +23,7 @@ import {
   operatingPrinciples,
   values,
 } from "@/lib/data/about";
+import { markets } from "@/lib/data/markets";
 import { site, siteRegions } from "@/lib/data/site";
 import { cn, glowCardClass } from "@/lib/utils";
 
@@ -134,6 +135,18 @@ export default function AboutPage() {
             title={`Based in ${siteRegions.base.locality}, working with teams internationally`}
             description={`DeosAI Labs is based in ${siteRegions.base.locality}, ${siteRegions.base.country}, and works with organizations across ${siteRegions.summary}. Discovery calls are bookable across US, UK, MENA and Pakistan time zones, and every engagement is run in English.`}
           />
+          <ul className="mt-6 flex flex-wrap gap-3">
+            {markets.map((market) => (
+              <li key={market.slug}>
+                <Link
+                  href={`/markets/${market.slug}`}
+                  className="inline-flex rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                >
+                  {market.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

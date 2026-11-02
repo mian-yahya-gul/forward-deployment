@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { itemListSchema } from "@/lib/seo";
+import { itemListSchema, offerServiceSchema } from "@/lib/seo";
+import { FAQAccordion } from "@/components/shared/FAQAccordion";
+import { servicesFaqs } from "@/lib/data/faq";
 import { buildMetadata } from "@/lib/seo";
 
 import Link from "next/link";
@@ -28,6 +30,16 @@ export const metadata: Metadata = buildMetadata({
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={offers.map((offer) =>
+          offerServiceSchema({
+            name: offer.title,
+            description: offer.tagline,
+            path: `/services#${offer.id}`,
+            minPrice: Number(offer.price.replace(/[^0-9–-]/g, "").split(/[–-]/)[0]),
+          }),
+        )}
+      />
       <JsonLd
         data={itemListSchema(services.map((service) => ({ name: service.title, path: `/services/${service.slug}` })))}
       />
@@ -109,6 +121,15 @@ export default function ServicesPage() {
             {pricingModel.cta.label}
             <ArrowRight className="size-3.5" aria-hidden />
           </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6">
+          <SectionHeading eyebrow="FAQ" title="Pricing and scope questions" />
+          <div className="mt-10">
+            <FAQAccordion items={servicesFaqs} />
+          </div>
         </div>
       </section>
 
