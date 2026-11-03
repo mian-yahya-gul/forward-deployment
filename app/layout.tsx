@@ -5,6 +5,7 @@ import Script from "next/script";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { HideOnAdmin } from "@/components/layout/HideOnAdmin";
 import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CookieConsent } from "@/components/shared/CookieConsent";
@@ -177,13 +178,13 @@ if (/^(www\\.)?deosailabs\\.com$/.test(location.hostname)) { gtag('config', '${G
           >
             Skip to content
           </a>
-          <Header />
+          <HideOnAdmin><Header /></HideOnAdmin>
           <main id="main-content" className="flex-1">
             {children}
           </main>
-          <Footer />
+          <HideOnAdmin><Footer /></HideOnAdmin>
         </ThemeProvider>
-        <CookieConsent />
+        <HideOnAdmin><CookieConsent /></HideOnAdmin>
         <Analytics />
         {/* Loaded after the page is interactive so analytics never competes with first paint. The consent defaults are set inline in <head> first. */}
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="lazyOnload" />

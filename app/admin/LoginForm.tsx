@@ -7,7 +7,7 @@ import { loginAction } from "@/app/admin/actions";
 export function LoginForm() {
   const [state, action, pending] = useActionState(loginAction, undefined);
   return (
-    <form action={action} className="mx-auto mt-40 flex max-w-sm flex-col gap-3 rounded-lg border border-black/10 p-6 dark:border-white/15">
+    <form action={action} className="mx-auto mt-24 flex max-w-sm flex-col gap-3 rounded-lg border border-black/10 p-6 dark:border-white/15">
       <h1 className="text-lg font-semibold">Owner sign-in</h1>
       <label className="flex flex-col gap-1 text-sm">
         Password

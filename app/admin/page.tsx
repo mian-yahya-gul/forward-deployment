@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import { logoutAction, stopSendingAction } from "@/app/admin/actions";
 import { LoginForm } from "@/app/admin/LoginForm";
 import { adminConfigured, isAdmin } from "@/lib/admin-auth";
@@ -21,9 +23,8 @@ function Table({ head, rows }: { head: string[]; rows: (string | number | null |
 }
 
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ stopped?: string }> }) {
-  if (!adminConfigured()) {
-    return <main className="mx-auto max-w-xl p-8 text-sm">The owner dashboard is not configured. Set ADMIN_PASSWORD_HASH and ADMIN_SESSION_SECRET in the hosting environment (see reports/dashboard_activation_steps.md).</main>;
-  }
+  // Not configured: look like any other missing page, so nothing about the setup is revealed to visitors.
+  if (!adminConfigured()) notFound();
   if (!(await isAdmin())) return <main><LoginForm /></main>;
 
   const sp = await searchParams;
@@ -39,7 +40,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   const due = (snapshot?.leads ?? []).filter((l) => l.followUpDue);
 
   return (
-    <main className="mx-auto max-w-6xl space-y-8 px-6 pb-16 pt-32 text-sm">
+    <main className="mx-auto max-w-6xl space-y-8 px-6 py-10 text-sm">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-semibold">DeosAI Labs: outreach dashboard</h1>
         <div className="flex gap-2">
