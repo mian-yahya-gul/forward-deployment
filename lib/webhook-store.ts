@@ -25,4 +25,13 @@ export async function pushEvent(event: StoredEvent): Promise<void> {
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`event store responded ${response.status}`);
+  // A capped copy for the owner dashboard; failing to write it must never lose the event or make Resend retry.
+  try {
+    await fetch(`${url.replace(/\/$/, "")}/pipeline`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify([["LPUSH", "resend:events:log", JSON.stringify(event)], ["LTRIM", "resend:events:log", 0, 499]]),
+      cache: "no-store",
+    });
+  } catch { /* ignore */ }
 }
