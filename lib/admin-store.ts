@@ -18,6 +18,12 @@ export type AdminSnapshot = {
   usage: { ukToday: string; ukMonth: string; usToday: string; usMonth: string; ukDirectToday?: string; ukDirectMonth?: string };
   leads: SnapshotLead[];
   replies: SnapshotReply[];
+  scopes?: SnapshotScope[];
+  halting?: number;
+};
+export type SnapshotScope = {
+  key: string; label: string; lia: { ok: boolean; text: string };
+  auth: { active: boolean; text: string; dailyLimit: number | null; monthlyLimit: number | null; usedToday: number; usedMonth: number; expires: string | null; autoFirst: boolean; followUps: number | null };
 };
 export type DeliveryEvent = { id: string; type: string; email_id: string; created_at?: string; bounce_type?: string | null };
 
