@@ -13,9 +13,9 @@ export type SnapshotLead = {
 export type SnapshotReply = { ts: string; company: string; kind: string; note: string };
 export type AdminSnapshot = {
   generatedAt: string;
-  state: { originalLia: string; ukLia: string; ukAuth: string; usLia: string; usAuth: string; killLocal: boolean };
+  state: { originalLia: string; ukLia: string; ukAuth: string; usLia: string; usAuth: string; ukDirectLia?: string; ukDirectAuth?: string; killLocal: boolean };
   counts: Record<string, number>;
-  usage: { ukToday: string; ukMonth: string; usToday: string; usMonth: string };
+  usage: { ukToday: string; ukMonth: string; usToday: string; usMonth: string; ukDirectToday?: string; ukDirectMonth?: string };
   leads: SnapshotLead[];
   replies: SnapshotReply[];
 };

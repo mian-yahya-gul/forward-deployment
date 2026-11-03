@@ -63,8 +63,9 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
               <li>Original signed LIA: {snapshot.state.originalLia}</li>
               <li>Local kill switch: {snapshot.state.killLocal ? <strong className="text-red-700">ON</strong> : "off"}</li>
               <li>UK standing LIA: {snapshot.state.ukLia}</li><li>UK authorization: {snapshot.state.ukAuth}</li>
+              <li>UK direct-sector LIA: {snapshot.state.ukDirectLia ?? "n/a"}</li><li>UK direct-sector authorization: {snapshot.state.ukDirectAuth ?? "n/a"}</li>
               <li>US standing LIA: {snapshot.state.usLia}</li><li>US authorization: {snapshot.state.usAuth}</li>
-              <li>UK usage: today {snapshot.usage.ukToday}, month {snapshot.usage.ukMonth}</li><li>US usage: today {snapshot.usage.usToday}, month {snapshot.usage.usMonth}</li>
+              <li>UK usage: today {snapshot.usage.ukToday}, month {snapshot.usage.ukMonth}</li><li>US usage: today {snapshot.usage.usToday}, month {snapshot.usage.usMonth}</li><li>UK direct usage: today {snapshot.usage.ukDirectToday ?? "-"}, month {snapshot.usage.ukDirectMonth ?? "-"}</li>
             </ul>
           </section>
 
