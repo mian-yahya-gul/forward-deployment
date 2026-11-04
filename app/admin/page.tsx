@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { logoutAction, stopSendingAction } from "@/app/admin/actions";
+import { AdminChrome } from "@/app/admin/AdminChrome";
 import { LoginForm } from "@/app/admin/LoginForm";
 import { Badge, Bar, Card, Empty, Stat, TableWrap, Td, Th, ago, assessTone, deliveryTone, hoursSince, sectorLabel, statusTone } from "@/app/admin/ui";
 import { adminConfigured, isAdmin } from "@/lib/admin-auth";
@@ -41,31 +41,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
 
   return (
     <Shell>
-      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-3">
-          <div className="flex items-center gap-3">
-            <div className="text-base font-semibold tracking-tight">DeosAI Labs <span className="text-muted">/ Outreach</span></div>
-            {snapshot ? <Badge tone={stopped ? "bad" : "good"}>{stopped ? "Sending stopped" : "Sending enabled"}</Badge> : null}
-            {snapshot ? <span className="hidden text-xs text-muted sm:inline">Updated {ago(snapshot.generatedAt)}{staleH !== null && staleH > 36 ? " (stale)" : ""}</span> : null}
-          </div>
-          <div className="flex items-center gap-2">
-            <details className="relative">
-              <summary className="cursor-pointer list-none rounded-lg border border-danger/40 px-3 py-1.5 text-sm font-medium text-danger hover:bg-danger/10">Emergency stop</summary>
-              <form action={stopSendingAction} className="absolute right-0 mt-2 w-64 rounded-xl border border-border bg-background p-4 shadow-xl">
-                <p className="text-sm">Stops every email at the next send. Only you can switch it back on, from your Mac.</p>
-                <button className="mt-3 w-full rounded-lg bg-danger px-3 py-2 text-sm font-semibold text-white">Stop all sending now</button>
-              </form>
-            </details>
-            <form action={logoutAction}><button className="rounded-lg border border-border px-3 py-1.5 text-sm hover:bg-foreground/5">Sign out</button></form>
-          </div>
-        </div>
-        <nav className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-5" aria-label="Dashboard sections">
-          {TABS.map(([k, label]) => (
-            <Link key={k} href={href(k)} aria-current={tab === k ? "page" : undefined}
-              className={`whitespace-nowrap border-b-2 px-3 py-2 text-sm ${tab === k ? "border-primary font-medium text-foreground" : "border-transparent text-muted hover:text-foreground"}`}>{label}</Link>
-          ))}
-        </nav>
-      </header>
+      <AdminChrome active={tab} stopped={snapshot ? stopped : undefined} updated={snapshot?.generatedAt} stale={staleH !== null && staleH > 36} />
 
       <main className="mx-auto max-w-7xl space-y-6 px-5 py-6">
         {sp.stopped ? <Banner tone="bad">Stop requested. The Mac honours it before the next send, and only you can switch sending back on.</Banner> : null}
@@ -90,6 +66,7 @@ function Overview({ s, events, stopped, staleH }: { s: AdminSnapshot; events: De
   const c = s.counts;
   const due = s.leads.filter((l) => l.followUpDue);
   const attention: { tone: "bad" | "warn" | "info"; text: string; to: string }[] = [];
+  if (s.leaddb?.failed) attention.push({ tone: "bad", text: `Lead Database import failed (${s.leaddb.error ?? "see Imports"})`, to: "/admin/imports" });
   if (c["complaints"] > 0) attention.push({ tone: "bad", text: `${c["complaints"]} spam complaint(s): sending is halted until you review`, to: href("sent") });
   if (c["bounced"] > 0) attention.push({ tone: "warn", text: `${c["bounced"]} bounced email(s)`, to: href("sent") });
   if (c["replies and objections"] > 0) attention.push({ tone: "info", text: `${c["replies and objections"]} reply or objection recorded: read them`, to: href("replies") });

@@ -19,6 +19,7 @@ export type AdminSnapshot = {
   leads: SnapshotLead[];
   replies: SnapshotReply[];
   scopes?: SnapshotScope[];
+  leaddb?: { release: string | null; lastOk: string | null; failed: boolean; error: string | null } | null;
   halting?: number;
 };
 export type SnapshotScope = {
