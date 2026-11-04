@@ -6,9 +6,9 @@ import { Badge, Card, Empty, TableWrap, Td, Th } from "@/app/admin/ui";
 import { CategoryTree } from "@/app/admin/leads/CategoryTree";
 import { Combo } from "@/app/admin/leads/Combo";
 import { PlaceDrawer } from "@/app/admin/leads/PlaceDrawer";
-import { CatNode, COLUMNS, Coverage, Filters, Place, Segment, api, nice, num } from "@/app/admin/leads/leadTypes";
+import { CatNode, COLUMNS, Coverage, Filters, Place, PromoResponse, Rule, Segment, api, nice, num } from "@/app/admin/leads/leadTypes";
 
-type Sub = "browse" | "segments" | "coverage";
+type Sub = "browse" | "segments" | "coverage" | "rules";
 const PAGE = 50;
 
 export function LeadExplorer() {
@@ -36,12 +36,17 @@ export function LeadExplorer() {
   const [msg, setMsg] = useState("");
   const [exportOpen, setExportOpen] = useState(false);
   const [withContacts, setWithContacts] = useState(false);
+  const [promo, setPromo] = useState<PromoResponse | null>(null);
+  const [promoBusy, setPromoBusy] = useState(false);
+  const [rules, setRules] = useState<Rule[]>([]);
   const seq = useRef(0);
 
   useEffect(() => { const t = setTimeout(() => { try { const c = localStorage.getItem("leadCols"); if (c) setCols(JSON.parse(c)); } catch { /* ignore */ } }, 0); return () => clearTimeout(t); }, []);
   useEffect(() => { try { localStorage.setItem("leadCols", JSON.stringify(cols)); } catch { /* ignore */ } }, [cols]);
 
   useEffect(() => { api<Coverage[]>("coverage").then((r) => { if (r.ok) { setCoverage(r.data as unknown as Coverage[]); } else setError(r.data.error ?? "The Lead Database is not reachable."); }); }, []);
+  const loadRules = useCallback(() => { api<Rule[]>("rules").then((r) => { if (r.ok) setRules(r.data as unknown as Rule[]); }); }, []);
+  useEffect(loadRules, [loadRules]);
   const loadSegments = useCallback(() => { api<Segment[]>("segments").then((r) => { if (r.ok) setSegments(r.data as unknown as Segment[]); }); }, []);
   useEffect(loadSegments, [loadSegments]);
 
@@ -69,14 +74,15 @@ export function LeadExplorer() {
   useEffect(() => {
     if (!f.country) return;
     const mine = ++seq.current;
+    const ctl = new AbortController();
     const t = setTimeout(async () => {
       setLoading(true); setError("");
-      const r = await api<{ total: number; rows: Place[] }>("search", { filters: f, sort, desc, page, size: PAGE });
-      if (mine !== seq.current) return;
+      const r = await api<{ total: number; rows: Place[] }>("search", { filters: f, sort, desc, page, size: PAGE }, "", ctl.signal);
+      if (mine !== seq.current || ctl.signal.aborted) return;
       setLoading(false);
       if (r.ok) { setTotal(r.data.total); setRows(r.data.rows); } else { setError(r.data.error ?? "Search failed"); }
-    }, 250);
-    return () => clearTimeout(t);
+    }, 400);
+    return () => { clearTimeout(t); ctl.abort(); };
   }, [filterKey, sort, desc, page]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const patch = (p: Partial<Filters>) => { setF((cur) => ({ ...cur, ...p })); setPage(1); setSel(new Set()); setAllResults(false); };
@@ -104,6 +110,19 @@ export function LeadExplorer() {
     a.href = URL.createObjectURL(new Blob([r.data.csv], { type: "text/csv" })); a.download = `leads-${f.country}-${new Date().toISOString().slice(0, 10)}.csv`; a.click();
     setMsg(`Exported ${num(r.data.rows)} rows${withContacts ? " with contact details (logged)" : " (logged)"}.`); setExportOpen(false);
   };
+  const previewPromote = async () => {
+    setMsg(""); setPromoBusy(true);
+    const r = await api<PromoResponse>("promote", { ...target(), preview: true });
+    setPromoBusy(false);
+    if (r.ok) setPromo(r.data as PromoResponse); else setMsg(r.data.error ?? "Could not check these businesses");
+  };
+  const confirmPromote = async () => {
+    setPromoBusy(true);
+    const r = await api<PromoResponse>("promote", target());
+    setPromoBusy(false);
+    if (r.ok) { setPromo(null); setMsg(`Added ${r.data.allowed} prospect(s) to the CRM at “new” (no email, nothing sent). ${r.data.blocked} blocked.`); refresh(); } else setMsg(r.data.error ?? "Failed");
+  };
+  const toggleRule = async (rule: Rule) => { await api("rules", { country: rule.country, allow_promote: !rule.allow_promote }); loadRules(); };
   const saveSegment = async () => {
     if (!segName.trim()) return;
     const r = await api<{ total: number }>("segments", { name: segName, filters: f });
@@ -125,12 +144,20 @@ export function LeadExplorer() {
 
   return (
     <div className="space-y-5">
-      <div className="flex gap-2">{(["browse", "segments", "coverage"] as Sub[]).map((s) => <button key={s} onClick={() => setSub(s)} className={chip(sub === s)}>{s === "browse" ? "Browse" : s === "segments" ? `Saved segments (${segments.length})` : "Coverage"}</button>)}</div>
+      <div className="flex gap-2">{(["browse", "segments", "coverage", "rules"] as Sub[]).map((s) => <button key={s} onClick={() => setSub(s)} className={chip(sub === s)}>{s === "browse" ? "Browse" : s === "segments" ? `Saved segments (${segments.length})` : s === "coverage" ? "Coverage" : "Country rules"}</button>)}</div>
       {msg ? <p role="status" className="rounded-lg border border-border bg-surface/60 px-4 py-2 text-sm">{msg}</p> : null}
 
       {sub === "coverage" ? (
         <TableWrap><thead><tr><Th>Country</Th><Th className="text-right">Businesses</Th><Th className="text-right">With phone</Th><Th className="text-right">With email</Th><Th className="text-right">With own website</Th><Th>Release</Th></tr></thead>
           <tbody>{coverage.map((c) => <tr key={c.country}><Td className="font-medium">{c.name}</Td><Td className="text-right tabular-nums">{num(c.places)}</Td><Td className="text-right tabular-nums">{c.pct_phone}%</Td><Td className="text-right tabular-nums">{c.pct_email}%</Td><Td className="text-right tabular-nums">{c.pct_site}%</Td><Td className="text-muted">{c.release}</Td></tr>)}</tbody></TableWrap>
+      ) : null}
+
+      {sub === "rules" ? (
+        <Card title="Country rules for adding prospects" hint="can only switch a country off; the CRM approvals always apply">
+          <TableWrap compact><thead><tr><Th>Country</Th><Th>Adding prospects</Th><Th>Note</Th><Th /></tr></thead>
+            <tbody>{rules.map((r) => <tr key={r.country}><Td className="font-medium">{r.name}</Td><Td><Badge tone={r.allow_promote ? "good" : "neutral"}>{r.allow_promote ? "allowed by rule" : "switched off"}</Badge></Td><Td className="text-muted">{r.note}</Td><Td><button onClick={() => toggleRule(r)} className="rounded-lg border border-border px-3 py-1 text-sm">{r.allow_promote ? "Switch off" : "Switch on"}</button></Td></tr>)}</tbody></TableWrap>
+          <p className="mt-3 text-sm text-muted">Even when a country is on, a business is added only if its country has an approved legal framework and authorised sending in the CRM, its type maps to an approved category, it has its own website, it is not already a prospect or suppressed and (UK) it matches an active limited company on Companies House. Everything added starts as “new” with no email and no message, and goes through the normal research, assessment and approval steps.</p>
+        </Card>
       ) : null}
 
       {sub === "segments" ? (
@@ -175,7 +202,7 @@ export function LeadExplorer() {
           {f.country ? (
             <>
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="text-sm"><strong className="text-lg tabular-nums">{shownTotal === null ? "…" : num(shownTotal)}</strong> businesses match{loading ? <span className="ml-2 text-muted">updating…</span> : null}</div>
+                <div className="text-sm"><strong className="text-lg tabular-nums">{shownTotal === null ? "…" : num(shownTotal)}</strong> businesses match{loading ? <span className="ml-2 text-muted">updating…</span> : null}{!f.region && (coverage.find((c) => c.country === f.country)?.places ?? 0) > 5_000_000 ? <span className="ml-3 text-xs text-muted">Tip: choose a state or region and results appear almost instantly.</span> : null}</div>
                 <div className="flex flex-wrap items-center gap-2">
                   <input value={segName} onChange={(e) => setSegName(e.target.value)} placeholder="Segment name" className="w-40 rounded-lg border border-border bg-background px-3 py-1.5 text-sm" />
                   <button onClick={saveSegment} disabled={!segName.trim()} className="rounded-lg border border-border px-3 py-1.5 text-sm disabled:opacity-50">Save segment</button>
@@ -196,7 +223,7 @@ export function LeadExplorer() {
                   <input value={tag} onChange={(e) => setTag(e.target.value)} placeholder="tag" className="w-28 rounded-lg border border-border bg-background px-2 py-1" />
                   <button disabled={!tag.trim()} onClick={() => (allResults ? setConfirmAll("tag") : runBulk("tag"))} className="rounded-lg border border-border px-3 py-1 disabled:opacity-50">Tag</button>
                   <button onClick={() => (allResults ? setConfirmAll("exclude") : runBulk("exclude"))} className="rounded-lg border border-danger/40 px-3 py-1 text-danger">Exclude</button>
-                  <button disabled title="Switched off until the compliance gate is built (Phase 5)" className="rounded-lg border border-border px-3 py-1 opacity-50">Add to prospects</button>
+                  <button onClick={previewPromote} disabled={promoBusy} className="rounded-lg bg-primary px-3 py-1 text-primary-foreground disabled:opacity-60">{promoBusy ? "Checking…" : "Add to prospects…"}</button>
                   {confirmAll ? <span className="flex items-center gap-2 rounded-lg bg-warning/10 px-2 py-1 text-warning">Apply to ALL {num(total ?? 0)} results?<button onClick={() => runBulk(confirmAll)} className="rounded bg-warning px-2 py-0.5 text-black">Yes, apply</button><button onClick={() => setConfirmAll("")} className="underline">Cancel</button></span> : null}
                   <button onClick={() => { setSel(new Set()); setAllResults(false); setConfirmAll(""); }} className="ml-auto text-muted underline">Clear</button>
                 </div>
@@ -231,6 +258,21 @@ export function LeadExplorer() {
             </>
           ) : null}
         </>
+      ) : null}
+      {promo ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setPromo(null)} role="presentation">
+          <div className="max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-border bg-background p-5 shadow-2xl" onClick={(ev) => ev.stopPropagation()} role="dialog" aria-label="Add to prospects">
+            <h2 className="text-lg font-semibold">Compliance check</h2>
+            <p className="mt-1 text-sm text-muted"><strong className="text-success">{promo.allowed} can be added</strong> · <strong className="text-danger">{promo.blocked} blocked</strong>. Nothing has been added yet. Added businesses start as “new” with no email address and no message.</p>
+            <TableWrap compact><thead><tr><Th>Business</Th><Th>Result</Th><Th>Why</Th></tr></thead>
+              <tbody>{promo.results.map((r) => <tr key={r.gers_id}><Td className="font-medium">{r.name}<div className="text-xs font-normal text-muted">{r.city}</div></Td><Td><Badge tone={r.allowed ? "good" : "bad"}>{r.allowed ? "can add" : "blocked"}</Badge></Td>
+                <Td className="text-sm text-muted">{r.allowed ? `${nice(r.category)} · ${r.scope}` : <ul className="list-disc pl-4">{r.reasons.map((x, i) => <li key={i}>{x}</li>)}</ul>}</Td></tr>)}</tbody></TableWrap>
+            <div className="mt-4 flex justify-end gap-2">
+              <button onClick={() => setPromo(null)} className="rounded-lg border border-border px-3 py-1.5 text-sm">Cancel</button>
+              <button onClick={confirmPromote} disabled={!promo.allowed || promoBusy} className="rounded-lg bg-primary px-3 py-1.5 text-sm text-primary-foreground disabled:opacity-50">Add {promo.allowed} allowed to the CRM</button>
+            </div>
+          </div>
+        </div>
       ) : null}
       {drawer ? <PlaceDrawer key={drawer} country={f.country} id={drawer} onClose={() => setDrawer(null)} onChanged={refresh} /> : null}
       <p className="pt-4 text-center text-xs text-muted">Data © Overture Maps Foundation (CDLA-Permissive-2.0)</p>

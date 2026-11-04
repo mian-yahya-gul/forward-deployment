@@ -20,11 +20,19 @@ export const COLUMNS: { key: string; label: string; default: boolean; sort?: str
   { key: "first_seen", label: "First seen", default: false, sort: "first_seen" }, { key: "tags", label: "Tags", default: true },
 ];
 
-export async function api<T>(path: string, body?: unknown, search = ""): Promise<{ ok: boolean; status: number; data: T & { error?: string } }> {
-  const r = await fetch(`/admin/leads/api/${path}${search}`, { method: body === undefined ? "GET" : "POST", headers: { "Content-Type": "application/json" }, body: body === undefined ? undefined : JSON.stringify(body), cache: "no-store" });
-  let data = {} as T & { error?: string };
-  try { data = await r.json(); } catch { /* empty */ }
-  return { ok: r.ok, status: r.status, data };
+export async function api<T>(path: string, body?: unknown, search = "", signal?: AbortSignal): Promise<{ ok: boolean; status: number; data: T & { error?: string } }> {
+  try {
+    const r = await fetch(`/admin/leads/api/${path}${search}`, { method: body === undefined ? "GET" : "POST", headers: { "Content-Type": "application/json" }, body: body === undefined ? undefined : JSON.stringify(body), cache: "no-store", signal });
+    let data = {} as T & { error?: string };
+    try { data = await r.json(); } catch { /* empty */ }
+    return { ok: r.ok, status: r.status, data };
+  } catch {
+    return { ok: false, status: 0, data: { error: "cancelled" } as never };
+  }
 }
 export const nice = (s: string | null | undefined) => (s ? s.replace(/_/g, " ") : "Uncategorised");
 export const num = (n: number) => n.toLocaleString("en-GB");
+
+export type PromoResult = { gers_id: string; name: string; city: string; allowed: boolean; reasons: string[]; category: string | null; scope: string | null; lead_id: number | null };
+export type PromoResponse = { preview: boolean; results: PromoResult[]; allowed: number; blocked: number };
+export type Rule = { country: string; name: string; allow_promote: number; note: string; updated: string };

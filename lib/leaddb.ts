@@ -9,8 +9,8 @@ export function leaddbConfigured(): boolean {
   return Boolean(process.env.LEADDB_API_URL && process.env.LEADDB_API_TOKEN);
 }
 
-export const LEADDB_GET_PATHS = new Set(["health", "coverage", "imports", "regions", "cities", "categories", "segments", "place", "imports/status"]);
-export const LEADDB_POST_PATHS = new Set(["count", "search", "segments", "exclude", "tag", "export", "promote", "imports/run"]);
+export const LEADDB_GET_PATHS = new Set(["health", "coverage", "imports", "regions", "cities", "categories", "segments", "place", "imports/status", "rules"]);
+export const LEADDB_POST_PATHS = new Set(["count", "search", "segments", "exclude", "tag", "export", "promote", "imports/run", "rules"]);
 
 export function pathAllowed(method: string, path: string): boolean {
   const clean = path.replace(/^\/+|\/+$/g, "");
